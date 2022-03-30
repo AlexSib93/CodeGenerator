@@ -10,8 +10,12 @@
   <ItemGroup>
     <Folder Include="NamespaceBehaviour\" />
     <Folder Include="File\" />
-    <Folder Include="Template\" />
-    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestClass.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
