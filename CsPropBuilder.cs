@@ -17,7 +17,6 @@ namespace CodeGenerator
             }
 
             return res;
-
         }
 
         public static string GetPropText(ClassPropMetaInfo propInfo)

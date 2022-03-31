@@ -11,17 +11,30 @@ namespace CodeGenerator
     {
         public static void GenCode(string className, string fileType)
         {
-            string outputFile = className + ".cs";
             ClassModelMetaInfo modelInfo = ReadMetaInfo(className);
 
-            CsClassTemplate template = new CsClassTemplate(modelInfo);
-
-            string fileText = template.FileText;
-
-            FileService.SaveFile(fileText, outputFile);
+            CreateCsClass(className, modelInfo);
+            CreateTsClass(className, modelInfo);
 
             //Test(className);
         }
+
+        private static void CreateCsClass(string className, ClassModelMetaInfo modelInfo)
+        {
+            string outputFile = className + ".cs";
+            CsClassTemplate template = new CsClassTemplate(modelInfo);
+            string fileText = template.FileText;
+            FileService.SaveFile(fileText, outputFile);
+        }
+
+        private static void CreateTsClass(string className, ClassModelMetaInfo modelInfo)
+        {
+            string outputFile = className + ".ts";
+            TsClassTemplate template = new TsClassTemplate(modelInfo);
+            string fileText = template.FileText;
+            FileService.SaveFile(fileText, outputFile);
+        }
+
 
         private static void Test(string className)
         {
