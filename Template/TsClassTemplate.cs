@@ -8,12 +8,13 @@ namespace CodeGenerator
 {
     public class TsClassTemplate
     {
+        public ClassModelMetaInfo ClassInfo { get; set; }
+
         public TsClassTemplate(ClassModelMetaInfo classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassModelMetaInfo ClassInfo { get; set; }
 
         public string Body => $@"export interface {ClassInfo.ClassModelName} {{
 {GetPropsText}}}

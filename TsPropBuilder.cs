@@ -21,11 +21,13 @@ namespace CodeGenerator
 
         public static string GetPropText(ClassPropMetaInfo propInfo)
         {
-            string res = 
-                $"  {propInfo.Name.Substring(0,1).ToLower() + propInfo.Name.Substring(1)}:{GetTsType(propInfo.Type)};";
+            string res =
+                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo.Type)};";
 
             return res;
         }
+
+
 
         private static object GetTsType(string type)
         {

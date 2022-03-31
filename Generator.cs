@@ -15,6 +15,7 @@ namespace CodeGenerator
 
             CreateCsClass(className, modelInfo);
             CreateTsClass(className, modelInfo);
+            CreateCsServiceClass(className, modelInfo);
 
             //Test(className);
         }
@@ -23,6 +24,14 @@ namespace CodeGenerator
         {
             string outputFile = className + ".cs";
             CsClassTemplate template = new CsClassTemplate(modelInfo);
+            string fileText = template.FileText;
+            FileService.SaveFile(fileText, outputFile);
+        }
+
+        private static void CreateCsServiceClass(string className, ClassModelMetaInfo modelInfo)
+        {
+            string outputFile = className + "Service.cs";
+            CsServiceTemplate template = new CsServiceTemplate(modelInfo);
             string fileText = template.FileText;
             FileService.SaveFile(fileText, outputFile);
         }
