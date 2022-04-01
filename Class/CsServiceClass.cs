@@ -10,6 +10,7 @@ namespace CodeGenerator.CSharp.Class
     public class CsServiceClass : IClass
     {
         public string Name { get; set; }
+        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
         public CsServiceClass(ClassModelMetaInfo classInfo)
         {
             ClassInfo = classInfo;
@@ -20,7 +21,7 @@ namespace CodeGenerator.CSharp.Class
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace BuisinessLogicLayer.Services
 {{
-    public class {ClassInfo.ClassModelName}Service : BaseService, I{ClassInfo.ClassModelName}Service
+    public class {ClassInfo.ModelName}Service : BaseService, I{ClassInfo.ModelName}Service
     {{
 {GetConstructorText()}
 
@@ -35,7 +36,7 @@ namespace CodeGenerator.CSharp.Class
 
         private string GetConstructorText()
         {
-            string res = $@"        public {ClassInfo.ClassModelName}Service(IGenUoW unit) : base(unit)
+            string res = $@"        public {ClassInfo.ModelName}Service(IGenUoW unit) : base(unit)
         {{
         }}";
 
@@ -44,12 +45,11 @@ namespace CodeGenerator.CSharp.Class
 
         private string CreateOperationText()
         {
-            string param = StringHelper.ToLowerFirstChar(ClassInfo.ClassModelName);
-            string res = $@"        public {ClassInfo.ClassModelName} Create({ClassInfo.ClassModelName} {param})
+            string res = $@"        public {ClassInfo.ModelName} Create({ClassInfo.ModelName} {ParamName})
         {{
-            Unit.Rep{ClassInfo.ClassModelName}.Create({param});
+            Unit.Rep{ClassInfo.ModelName}.Create({ParamName});
 
-            return {param};
+            return {ParamName};
         }}";
 
             return res;
@@ -57,10 +57,10 @@ namespace CodeGenerator.CSharp.Class
 
         private string GetOperationText()
         {
-            string param = ClassInfo.ClassModelName.Substring(0,1).ToLower();
-            string res = $@"        public {ClassInfo.ClassModelName} Get(int id)
+            string param = ClassInfo.ModelName.Substring(0,1).ToLower();
+            string res = $@"        public {ClassInfo.ModelName} Get(int id)
         {{
-            Unit.Rep{ClassInfo.ClassModelName}.Get({param} => {param}.Id{ClassInfo.ClassModelName}==id);
+            Unit.Rep{ClassInfo.ModelName}.Get({param} => {param}.Id{ClassInfo.ModelName}==id);
 
             return {param};
         }}";
@@ -70,10 +70,10 @@ namespace CodeGenerator.CSharp.Class
 
         private string GetAllOperationText()
         {
-            string param = StringHelper.ToLowerFirstChar(ClassInfo.ClassModelName) + "s";
-            string res = $@"        public List<{ClassInfo.ClassModelName}> Get()
+            string param = ParamName + "s";
+            string res = $@"        public List<{ClassInfo.ModelName}> Get()
         {{
-            List<{ClassInfo.ClassModelName}> {param} = Unit.Rep{ClassInfo.ClassModelName}.Get();
+            List<{ClassInfo.ModelName}> {param} = Unit.Rep{ClassInfo.ModelName}.Get();
 
             return {param};
         }}";

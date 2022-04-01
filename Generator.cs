@@ -18,6 +18,7 @@ namespace CodeGenerator
             CreateCsClass(className, modelInfo);
             CreateTsClass(className, modelInfo);
             CreateCsServiceClass(className, modelInfo);
+            CreateTsApiClass(className, modelInfo);
 
             //Test(className);
         }
@@ -38,10 +39,18 @@ namespace CodeGenerator
             FileService.SaveFile(fileText, outputFile);
         }
 
+        private static void CreateTsApiClass(string className, ClassModelMetaInfo modelInfo)
+        {
+            string outputFile = className + "Service.tsx";
+            TsApiClass cls = new TsApiClass(modelInfo);
+            string fileText = cls.Render();
+            FileService.SaveFile(fileText, outputFile);
+        }
+
         private static void CreateTsClass(string className, ClassModelMetaInfo modelInfo)
         {
             string outputFile = className + ".ts";
-            TsClassTemplate template = new TsClassTemplate(modelInfo);
+            TsClass template = new TsClass(modelInfo);
             string fileText = template.FileText;
             FileService.SaveFile(fileText, outputFile);
         }
@@ -51,7 +60,7 @@ namespace CodeGenerator
         {
             var testModelInfo = new ClassModelMetaInfo()
             {
-                ClassModelName = "TestClass",
+                ModelName = "TestClass",
                 PropsMetaInfo = new List<ClassPropMetaInfo> { new ClassPropMetaInfo() { Name = "Id", Type = "int" }, new ClassPropMetaInfo() { Name = "Name", Type = "string" } }
             };
 

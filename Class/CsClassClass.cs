@@ -20,7 +20,7 @@ namespace CodeGenerator.Class
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace {ClassInfo.NameSpace}
 {{
-    public class {ClassInfo.ClassModelName}
+    public class {ClassInfo.ModelName}
     {{
 {GetPropsText}
     }}
