@@ -1,5 +1,6 @@
 {
   "ModelName": "TestClass",
+  "Caption": "Тестовый класс",
   "NameSpace": "TestNameSpace",
   "PropMetaInfo": [
     {

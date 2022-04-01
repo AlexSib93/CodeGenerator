@@ -19,6 +19,7 @@ namespace CodeGenerator
             CreateTsClass(className, modelInfo);
             CreateCsServiceClass(className, modelInfo);
             CreateTsApiClass(className, modelInfo);
+            CreateCsControllerClass(className, modelInfo);
 
             //Test(className);
         }
@@ -47,6 +48,13 @@ namespace CodeGenerator
             FileService.SaveFile(fileText, outputFile);
         }
 
+        private static void CreateCsControllerClass(string className, ClassModelMetaInfo modelInfo)
+        {
+            string outputFile = className + "Controller.cs";
+            CsControllerClass cls = new CsControllerClass(modelInfo);
+            string fileText = cls.Render();
+            FileService.SaveFile(fileText, outputFile);
+        }
         private static void CreateTsClass(string className, ClassModelMetaInfo modelInfo)
         {
             string outputFile = className + ".ts";

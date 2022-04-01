@@ -1,5 +1,6 @@
 {
   "ModelName": "RotoxHouse",
+  "Caption": "Адрес изделия",
   "NameSpace": "TerminalApi",
   "PropsMetaInfo": [
     {
