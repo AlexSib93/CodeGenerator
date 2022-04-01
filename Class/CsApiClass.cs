@@ -1,14 +1,16 @@
-﻿using System;
+﻿using CodeGenerator.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator
+namespace CodeGenerator.CSharp.Class
 {
-    public class CsClassTemplate
+    public class CsApiClass : IClass
     {
-        public CsClassTemplate(ClassModelMetaInfo classInfo)
+        public string Name { get; set; }
+        public CsApiClass(ClassModelMetaInfo classInfo)
         {
             ClassInfo = classInfo;
         }
@@ -32,5 +34,6 @@ namespace CodeGenerator
         public string FileText => $@"{Header}
 
 {Body}";
-    }
+    
+}
 }

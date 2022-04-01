@@ -11,7 +11,7 @@ namespace CodeGenerator
         public static string GetPropsText(ClassModelMetaInfo classInfo)
         {
             string res = "";
-            foreach (ClassPropMetaInfo propInfo in classInfo.PropMetaInfo)
+            foreach (ClassPropMetaInfo propInfo in classInfo.PropsMetaInfo)
             {
                 res += $"{GetPropText(propInfo)}\n";
             }

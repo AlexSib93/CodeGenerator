@@ -1,1 +1,14 @@
-{"ClassModelName":"TestClass","NameSpace":"TestNameSpace","PropMetaInfo":[{"Name":"Id","Type":"int"},{"Name":"Name","Type":"string"}]}
+{
+  "ClassModelName": "TestClass",
+  "NameSpace": "TestNameSpace",
+  "PropMetaInfo": [
+    {
+      "Name": "Id",
+      "Type": "int"
+    },
+    {
+      "Name": "Name",
+      "Type": "string"
+    }
+  ]
+}

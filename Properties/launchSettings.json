@@ -2,7 +2,7 @@
   "profiles": {
     "CodeGenerator": {
       "commandName": "Project",
-      "commandLineArgs": "\"TestClass\" \"scm\""
+      "commandLineArgs": "\"RotoxHouse\" \"scm\""
     }
   }
 }

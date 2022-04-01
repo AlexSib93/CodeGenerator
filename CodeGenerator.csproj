@@ -13,6 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="RotoxHouse.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestClass.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

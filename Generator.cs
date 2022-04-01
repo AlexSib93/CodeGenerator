@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodeGenerator.Class;
+using CodeGenerator.CSharp.Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +25,7 @@ namespace CodeGenerator
         private static void CreateCsClass(string className, ClassModelMetaInfo modelInfo)
         {
             string outputFile = className + ".cs";
-            CsClassTemplate template = new CsClassTemplate(modelInfo);
+            CsClassClass template = new CsClassClass(modelInfo);
             string fileText = template.FileText;
             FileService.SaveFile(fileText, outputFile);
         }
@@ -31,7 +33,7 @@ namespace CodeGenerator
         private static void CreateCsServiceClass(string className, ClassModelMetaInfo modelInfo)
         {
             string outputFile = className + "Service.cs";
-            CsServiceTemplate template = new CsServiceTemplate(modelInfo);
+            CsServiceClass template = new CsServiceClass(modelInfo);
             string fileText = template.FileText;
             FileService.SaveFile(fileText, outputFile);
         }
@@ -50,7 +52,7 @@ namespace CodeGenerator
             var testModelInfo = new ClassModelMetaInfo()
             {
                 ClassModelName = "TestClass",
-                PropMetaInfo = new List<ClassPropMetaInfo> { new ClassPropMetaInfo() { Name = "Id", Type = "int" }, new ClassPropMetaInfo() { Name = "Name", Type = "string" } }
+                PropsMetaInfo = new List<ClassPropMetaInfo> { new ClassPropMetaInfo() { Name = "Id", Type = "int" }, new ClassPropMetaInfo() { Name = "Name", Type = "string" } }
             };
 
             string jsonString = JsonSerializer.Serialize(testModelInfo);

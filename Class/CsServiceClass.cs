@@ -1,14 +1,16 @@
-﻿using System;
+﻿using CodeGenerator.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator
+namespace CodeGenerator.CSharp.Class
 {
-    public class CsServiceTemplate
+    public class CsServiceClass : IClass
     {
-        public CsServiceTemplate(ClassModelMetaInfo classInfo)
+        public string Name { get; set; }
+        public CsServiceClass(ClassModelMetaInfo classInfo)
         {
             ClassInfo = classInfo;
         }
@@ -23,6 +25,10 @@ namespace CodeGenerator
 {GetConstructorText()}
 
 {CreateOperationText()}
+
+{GetOperationText()}
+
+{GetAllOperationText()}
     }}
 }}
 ";
@@ -49,6 +55,32 @@ namespace CodeGenerator
             return res;
         }
 
+        private string GetOperationText()
+        {
+            string param = ClassInfo.ClassModelName.Substring(0,1).ToLower();
+            string res = $@"        public {ClassInfo.ClassModelName} Get(int id)
+        {{
+            Unit.Rep{ClassInfo.ClassModelName}.Get({param} => {param}.Id{ClassInfo.ClassModelName}==id);
+
+            return {param};
+        }}";
+
+            return res;
+        }
+
+        private string GetAllOperationText()
+        {
+            string param = StringHelper.ToLowerFirstChar(ClassInfo.ClassModelName) + "s";
+            string res = $@"        public List<{ClassInfo.ClassModelName}> Get()
+        {{
+            List<{ClassInfo.ClassModelName}> {param} = Unit.Rep{ClassInfo.ClassModelName}.Get();
+
+            return {param};
+        }}";
+
+            return res;
+        }
+
         public string GetPropsText => CsPropBuilder.GetPropsText(ClassInfo);
 
         public string UsingText => $@"using System;
@@ -59,5 +91,6 @@ using DataAccessLayer.Dto;";
         public string FileText => $@"{Header}
 
 {Body}";
+
     }
 }

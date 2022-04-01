@@ -10,6 +10,6 @@ namespace CodeGenerator
     {
         public string ClassModelName { get; set; }
         public string NameSpace { get; set; }
-        public List<ClassPropMetaInfo> PropMetaInfo { get; set; }
+        public List<ClassPropMetaInfo> PropsMetaInfo { get; set; }
     }
 }
