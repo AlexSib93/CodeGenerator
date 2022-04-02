@@ -79,6 +79,9 @@ namespace CodeGenerator
                 case "DateTime":
                     res = "new Date()";
                     break;
+                case "string":
+                    res = "''";
+                    break;
                 default:
                     break;
             }

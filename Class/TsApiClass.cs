@@ -30,7 +30,7 @@ namespace CodeGenerator.CSharp.Class
         {
             string param = "id" + ClassInfo.ModelName;
 
-            return $@"  get({param}: int): Promise<{ClassInfo.ModelName}> {{
+            return $@"  get({param}: number): Promise<{ClassInfo.ModelName}> {{
     return ApiDataService.get('{ClassInfo.ModelName.ToLower()}', `get?{param}=${{{param}}}`)
       .then(
         (response) => Promise.resolve(response.data),

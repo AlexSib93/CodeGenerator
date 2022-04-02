@@ -20,7 +20,7 @@ namespace CodeGenerator
         public string Body => $@"export interface {ClassInfo.ModelName} {{
 {GetPropsText}}}
 
-export const initial{ClassInfo.ModelName} {{
+export const initial{ClassInfo.ModelName} = {{
 {GetInitValueText}
 }}
 ";

@@ -96,7 +96,7 @@ namespace CodeGenerator.CSharp.Class
         }
 
 
-        public string GetPropsText => $@"       private I{ClassInfo.ModelName}Service _{ParamName}Service {{ get; set; }}
+        public string GetPropsText => $@"        private I{ClassInfo.ModelName}Service _{ParamName}Service {{ get; set; }}
         private readonly ILogger<{ClassInfo.ModelName}Controller> _logger;";
 
         private string GetConstructorText()
