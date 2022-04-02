@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.Class
+namespace CodeGenerator
 {
-    public class CsClassClass : IClass
+    public class CsClass : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsClassClass(ClassModelMetaInfo classInfo)
+        public CsClass(ClassMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassModelMetaInfo ClassInfo { get; set; }
+        public ClassMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace {ClassInfo.NameSpace}
@@ -31,8 +31,9 @@ namespace CodeGenerator.Class
 
         public string UsingText => $@"using System;";
 
-        public string FileText => $@"{Header}
-
-{Body}";
+        public string Gen()
+        {
+            return $"{ Header }\n\n{ Body}";
+        }
     }
 }

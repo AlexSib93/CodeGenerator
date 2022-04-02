@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator
 {
-    public class TsClass : IClass
+    public class TsClass : IClass, IGenerator
     {
-        public ClassModelMetaInfo ClassInfo { get; set; }
+        public ClassMetadata ClassInfo { get; set; }
 
-        public TsClass(ClassModelMetaInfo classInfo)
+        public TsClass(ClassMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
@@ -29,8 +29,11 @@ export const initial{ClassInfo.ModelName} = {{
 
         public string GetInitValueText => TsPropBuilder.GetInitPropsText(ClassInfo);
 
-        public string FileText => $@"{Body}";
-
         public string Name { get; set; }
+
+        public string Gen()
+        {
+            return $@"{Body}";
+        }
     }
 }

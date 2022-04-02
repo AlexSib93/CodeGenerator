@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.CSharp.Class
 {
-    public class TsApiClass : IClass
+    public class TsApiClass : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public TsApiClass(ClassModelMetaInfo classInfo)
+        public TsApiClass(ClassMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassModelMetaInfo ClassInfo { get; set; }
+        public ClassMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"class {ClassInfo.ModelName}Service {{
@@ -56,11 +56,9 @@ import ApiDataService from ""./ApiDataService"";";
 
         public string Footer => $@"export default new {ClassInfo.ModelName}Service();";
 
-        public string Render() => $@"{Header}
-
-{Body}
-
-{Footer}";
-    
-}
+        public string Gen()
+        {
+            return $"{Header}\n\n{Body}\n\n{Footer}";
+        }
+    }
 }

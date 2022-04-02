@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator
+namespace CodeGenerator.Interfaces
 {
-    public interface IFile
+    public interface IGenerator
     {
-        string Name { get; }
-        string Extension { get; }
+        string Gen();
     }
 }

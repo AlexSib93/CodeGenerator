@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.CSharp.Class
 {
-    public class CsServiceClass : IClass
+    public class CsServiceClass : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public CsServiceClass(ClassModelMetaInfo classInfo)
+        public CsServiceClass(ClassMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassModelMetaInfo ClassInfo { get; set; }
+        public ClassMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace BuisinessLogicLayer.Services
@@ -81,16 +81,15 @@ namespace CodeGenerator.CSharp.Class
             return res;
         }
 
-        public string GetPropsText => CsPropBuilder.GetPropsText(ClassInfo);
+        public string Gen()
+        {
+            return $"{ Header}\n\n{ Body}";
+        }
 
         public string UsingText => $@"using System;
 using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.Dto;";
-
-        public string FileText => $@"{Header}
-
-{Body}";
 
     }
 }

@@ -8,10 +8,10 @@ namespace CodeGenerator
 {
     public class CsPropBuilder
     {
-        public static string GetPropsText(ClassModelMetaInfo classInfo)
+        public static string GetPropsText(ClassMetadata classInfo)
         {
             string res = "";
-            foreach (ClassPropMetaInfo propInfo in classInfo.PropsMetaInfo)
+            foreach (PropMetadata propInfo in classInfo.Props)
             {
                 res += $"{GetPropText(propInfo)}\n";
             }
@@ -19,7 +19,7 @@ namespace CodeGenerator
             return res;
         }
 
-        public static string GetPropText(ClassPropMetaInfo propInfo)
+        public static string GetPropText(PropMetadata propInfo)
         {
             string res = 
                 $"      public {propInfo.Type} {propInfo.Name} {{ get; set; }}";

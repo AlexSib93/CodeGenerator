@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.CSharp.Class
 {
-    public class CsControllerClass : IClass
+    public class CsControllerClass : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public CsControllerClass(ClassModelMetaInfo classInfo)
+        public CsControllerClass(ClassMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassModelMetaInfo ClassInfo { get; set; }
+        public ClassMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace {ClassInfo.NameSpace}
@@ -122,14 +122,10 @@ using System.Threading.Tasks;
 using PortalApi.ViewModels;
 using DataAccessLayer.Dto;";
 
-        public string Render()
+        public string Gen()
         {
-            return $@"{Header}
-
-{Body}";
+            return $"{Header}\n\n{Body}";
         }
-
-
     }
 
 }

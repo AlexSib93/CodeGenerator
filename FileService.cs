@@ -9,11 +9,10 @@ namespace CodeGenerator
 {
     public static class FileService
     {
-        public static string OutputFolder => "out";
-        public static void SaveFile(string content, string fileName)
+        public static void SaveFile(string content, string fileName, string path)
         {
             string folder = Directory.GetCurrentDirectory();
-            string outDir = $"{ folder }/{ OutputFolder}";
+            string outDir = $"{ folder }\\{ path}";
             if (!Directory.Exists(outDir))
             {
                 Directory.CreateDirectory(outDir);

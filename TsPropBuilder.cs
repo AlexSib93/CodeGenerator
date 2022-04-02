@@ -8,10 +8,10 @@ namespace CodeGenerator
 {
     public class TsPropBuilder
     {
-        public static string GetPropsText(ClassModelMetaInfo classInfo)
+        public static string GetPropsText(ClassMetadata classInfo)
         {
             string res = "";
-            foreach (ClassPropMetaInfo propInfo in classInfo.PropsMetaInfo)
+            foreach (PropMetadata propInfo in classInfo.Props)
             {
                 res += $"{GetPropText(propInfo)}\n";
             }
@@ -19,10 +19,10 @@ namespace CodeGenerator
             return res;
         }
 
-        public static string GetInitPropsText(ClassModelMetaInfo classInfo)
+        public static string GetInitPropsText(ClassMetadata classInfo)
         {
             string res = "";
-            foreach (ClassPropMetaInfo propInfo in classInfo.PropsMetaInfo)
+            foreach (PropMetadata propInfo in classInfo.Props)
             {
                 res += $"{GetInitPropText(propInfo)}\n";
             }
@@ -30,14 +30,14 @@ namespace CodeGenerator
             return res;
         }
 
-        public static string GetPropText(ClassPropMetaInfo propInfo)
+        public static string GetPropText(PropMetadata propInfo)
         {
             string res =
                 $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo.Type)};";
 
             return res;
         }
-        public static string GetInitPropText(ClassPropMetaInfo propInfo)
+        public static string GetInitPropText(PropMetadata propInfo)
         {
             string res =
                 $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsInitValue(propInfo.Type)},";

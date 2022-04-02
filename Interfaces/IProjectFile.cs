@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.Interfaces
+namespace CodeGenerator
 {
-    public interface IFileTemplate
+    public interface IProjectFile
     {
-
     }
 }
