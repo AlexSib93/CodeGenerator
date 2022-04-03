@@ -27,6 +27,7 @@ namespace CodeGenerator.Projects
             {
                 Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.ModelName, $"{Name}\\src\\models", "ts"));
                 Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.ModelName}Service", $"{Name}\\src\\services", "ts"));
+                Items.Add(new ProjectItem(this, new TsListFormClass(classMeta), $"{classMeta.ModelName}ListForm", $"{Name}\\src\\forms", "tsx"));
             }
 
             foreach (ProjectItem item in Items)

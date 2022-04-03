@@ -52,6 +52,29 @@
           "Type": "string"
         }
       ]
+    },
+    {
+      "ModelName": "StorageSpace",
+      "Caption": "Адрес хранения",
+      "NameSpace": "TerminalApi",
+      "Props": [
+        {
+          "Name": "IdStorageSpace",
+          "Type": "int"
+        },
+        {
+          "Name": "Row",
+          "Type": "string"
+        },
+        {
+          "Name": "Cell",
+          "Type": "string"
+        },
+        {
+          "Name": "Barcode",
+          "Type": "string"
+        }
+      ]
     }
   ]
 }

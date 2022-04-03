@@ -25,7 +25,7 @@ namespace CodeGenerator
         {
             string folder = Directory.GetCurrentDirectory();
             string fullPath = folder + "\\" + fileName;
-            T res = JsonSerializer.Deserialize<T>( File.ReadAllText(fullPath));
+            T res = JsonSerializer.Deserialize<T>( File.ReadAllText(fullPath, Encoding.UTF8));
 
             return res;
         }

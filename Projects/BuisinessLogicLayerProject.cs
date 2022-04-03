@@ -26,6 +26,7 @@ namespace CodeGenerator.Projects
             {
                 Items.Add(new ProjectItem(this, new CsClass(classMeta), classMeta.ModelName, $"{Name}\\Views", "cs"));
                 Items.Add(new ProjectItem(this, new CsServiceClass(classMeta), $"{classMeta.ModelName}Service", $"{Name}\\Services", "cs"));
+                Items.Add(new ProjectItem(this, new CsServiceInterfaceClass(classMeta), $"I{classMeta.ModelName}Service", $"{Name}\\Services", "cs"));
             }
 
             foreach (ProjectItem item in Items)
