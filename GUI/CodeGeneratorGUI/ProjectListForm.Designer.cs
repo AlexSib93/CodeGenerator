@@ -43,9 +43,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvProjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProjects.Location = new System.Drawing.Point(12, 12);
+            this.dgvProjects.MultiSelect = false;
             this.dgvProjects.Name = "dgvProjects";
             this.dgvProjects.RowHeadersWidth = 51;
             this.dgvProjects.RowTemplate.Height = 29;
+            this.dgvProjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvProjects.Size = new System.Drawing.Size(776, 401);
             this.dgvProjects.TabIndex = 0;
             // 
@@ -80,6 +82,7 @@
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -90,7 +93,7 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnRefresh_Click);
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // ProjectListForm
             // 
