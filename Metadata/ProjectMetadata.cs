@@ -10,6 +10,6 @@ namespace CodeGenerator.Metadata
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<ClassMetadata> Classes { get; set; }
+        public List<ModelMetadata> Classes { get; set; }
     }
 }

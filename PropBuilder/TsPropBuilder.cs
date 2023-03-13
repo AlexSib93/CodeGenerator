@@ -8,7 +8,7 @@ namespace CodeGenerator
 {
     public class TsPropBuilder
     {
-        public static string GetPropsText(ClassMetadata classInfo)
+        public static string GetPropsText(ModelMetadata classInfo)
         {
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
@@ -19,7 +19,7 @@ namespace CodeGenerator
             return res;
         }
 
-        public static string GetInitPropsText(ClassMetadata classInfo)
+        public static string GetInitPropsText(ModelMetadata classInfo)
         {
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)

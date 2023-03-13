@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GUI\**" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="GUI\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="GUI\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="NamespaceBehaviour\" />
     <Folder Include="File\" />
     <Folder Include="Template\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>

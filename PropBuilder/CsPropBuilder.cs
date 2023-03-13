@@ -8,7 +8,7 @@ namespace CodeGenerator
 {
     public class CsPropBuilder
     {
-        public static string GetPropsText(ClassMetadata classInfo)
+        public static string GetPropsText(ModelMetadata classInfo)
         {
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)

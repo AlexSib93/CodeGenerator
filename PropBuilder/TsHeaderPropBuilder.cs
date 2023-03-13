@@ -8,12 +8,12 @@ namespace CodeGenerator
 {
     public class TsHeaderPropBuilder
     {
-        public static string GetPropsText(ClassMetadata classInfo)
+        public static string GetPropsText(ModelMetadata classInfo)
         {
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                res += $"{GetPropText(classInfo.ModelName, propInfo)}\n";
+                res += $"{GetPropText(classInfo.Name, propInfo)}\n";
             }
 
             return res;
