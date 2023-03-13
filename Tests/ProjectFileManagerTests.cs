@@ -14,7 +14,7 @@ namespace Tests
             ProjectMetadata projMetadata = new ProjectMetadata();
             ModelMetadata testModel= new ModelMetadata();
             testModel.Props = new List<PropMetadata>() { new PropMetadata() };
-            projMetadata.Classes = new List<ModelMetadata>() { testModel };
+            projMetadata.Models = new List<ModelMetadata>() { testModel };
             mngr.SaveProject("test-proj", projMetadata);
         }
 

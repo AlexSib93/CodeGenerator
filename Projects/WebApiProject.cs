@@ -23,7 +23,7 @@ namespace CodeGenerator.Projects
 
         public void GenProjectFiles()
         {
-            foreach (ModelMetadata classMeta in Metadata.Classes)
+            foreach (ModelMetadata classMeta in Metadata.Models)
             {
                 Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Name}\\Controllers", "cs"));
             }

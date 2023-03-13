@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CodeGenerator.Services
-{
+{ 
     public class ProjectFileManager
     {
         private string _projectDirectory;
@@ -26,6 +26,7 @@ namespace CodeGenerator.Services
         public string[] GetProjectFiles()
         {
             string[] projectFiles = Directory.GetFiles(_projectDirectory, "*" + _projectFileExtension);
+
             return projectFiles;
         }
 
@@ -37,6 +38,7 @@ namespace CodeGenerator.Services
             {
                 projects.Add(LoadProjectByPath(filePath));
             }
+
             return projects;
         }
 
@@ -54,7 +56,7 @@ namespace CodeGenerator.Services
             string projectFilePath = Path.Combine(_projectDirectory, projectName + _projectFileExtension);
             if (!File.Exists(projectFilePath))
             {
-                 var file = File.Create(projectFilePath);
+                var file = File.Create(projectFilePath);
                 file.Close();
             }
             string json = JsonConvert.SerializeObject(projMetadata);

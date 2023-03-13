@@ -23,7 +23,7 @@ namespace CodeGenerator.Projects
 
         public void GenProjectFiles()
         {
-            foreach (ModelMetadata classMeta in Metadata.Classes)
+            foreach (ModelMetadata classMeta in Metadata.Models)
             {
                 Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.Name, $"{Name}\\src\\models", "ts"));
                 Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.Name}Service", $"{Name}\\src\\services", "ts"));
