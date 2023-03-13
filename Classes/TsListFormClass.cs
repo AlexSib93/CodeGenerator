@@ -10,13 +10,13 @@ namespace CodeGenerator.CSharp.Class
     public class TsListFormClass : IClass, IGenerator
     {
         public string Name { get; set; }
-        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public TsListFormClass(ClassMetadata classInfo)
+        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
+        public TsListFormClass(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassMetadata ClassInfo { get; set; }
+        public ModelMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"{CreateListFormPropsInterface()}
@@ -28,16 +28,16 @@ namespace CodeGenerator.CSharp.Class
 
         private object CreateListFormPropsInterface()
         {
-            return $@"export interface I{ClassInfo.ModelName}ListFormProps
+            return $@"export interface I{ClassInfo.Name}ListFormProps
 {{
-    items: {ClassInfo.ModelName}[],
+    items: {ClassInfo.Name}[],
     autoFetch: boolean
 }}";
         }
 
         private object CreateRowComponentText()
         {
-            return $@"const {ClassInfo.ModelName}Row = ({ParamName}: {ClassInfo.ModelName}) => {{
+            return $@"const {ClassInfo.Name}Row = ({ParamName}: {ClassInfo.Name}) => {{
     return (<tr>
 {TsRowPropBuilder.GetPropsText(ClassInfo)}
         <td>
@@ -72,7 +72,7 @@ namespace CodeGenerator.CSharp.Class
                        </ tr >
                    </ thead >
                    < tbody >
-                    {{ (items) && items.map(o => {ClassInfo.ModelName}Row(o))}}
+                    {{ (items) && items.map(o => {ClassInfo.Name}Row(o))}}
                 </ tbody >
             </ table >
         </ div >
@@ -83,8 +83,8 @@ namespace CodeGenerator.CSharp.Class
 
         public string UsingText => $@"
 import {{ useEffect,useState }} from ""react"";
-import {{ {ClassInfo.ModelName} }} from ""../models/{ClassInfo.ModelName}"";
-import {ClassInfo.ModelName}Service from ""../services/{ClassInfo.ModelName}Service"";";
+import {{ {ClassInfo.Name} }} from ""../models/{ClassInfo.Name}"";
+import {ClassInfo.Name}Service from ""../services/{ClassInfo.Name}Service"";";
 
         public string Footer => $@"";
 

@@ -10,20 +10,20 @@ namespace CodeGenerator.CSharp.Class
     public class CsControllerClass : IClass, IGenerator
     {
         public string Name { get; set; }
-        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public CsControllerClass(ClassMetadata classInfo)
+        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
+        public CsControllerClass(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassMetadata ClassInfo { get; set; }
+        public ModelMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace {ClassInfo.NameSpace}
 {{    
     [Route(""api/[controller]"")]
     [ApiController]
-    public class {ClassInfo.ModelName}Controller : ControllerBase
+    public class {ClassInfo.Name}Controller : ControllerBase
     {{
 {GetPropsText}
 {GetConstructorText()}
@@ -41,11 +41,11 @@ namespace CodeGenerator.CSharp.Class
         private string CreateOperationText()
         {
             return $@"        [HttpPost(""create"")]
-        public IActionResult Create([FromBody] {ClassInfo.ModelName} {ParamName})
+        public IActionResult Create([FromBody] {ClassInfo.Name} {ParamName})
         {{
             try
             {{
-                {ClassInfo.ModelName} res = _{ParamName}Service.Create({ParamName});
+                {ClassInfo.Name} res = _{ParamName}Service.Create({ParamName});
 
                 return Ok(res);
             }}
@@ -64,7 +64,7 @@ namespace CodeGenerator.CSharp.Class
         {{
             try
             {{
-                {ClassInfo.ModelName} res = _{ParamName}Service.Get(id);
+                {ClassInfo.Name} res = _{ParamName}Service.Get(id);
 
                 return Ok(res);
             }}
@@ -83,7 +83,7 @@ namespace CodeGenerator.CSharp.Class
         {{
             try
             {{
-                {ClassInfo.ModelName} res = _{ParamName}Service.Delete(id);
+                {ClassInfo.Name} res = _{ParamName}Service.Delete(id);
 
                 return Ok(res);
             }}
@@ -96,12 +96,12 @@ namespace CodeGenerator.CSharp.Class
         }
 
 
-        public string GetPropsText => $@"        private I{ClassInfo.ModelName}Service _{ParamName}Service {{ get; set; }}
-        private readonly ILogger<{ClassInfo.ModelName}Controller> _logger;";
+        public string GetPropsText => $@"        private I{ClassInfo.Name}Service _{ParamName}Service {{ get; set; }}
+        private readonly ILogger<{ClassInfo.Name}Controller> _logger;";
 
         private string GetConstructorText()
         {
-            string res = $@"        public {ClassInfo.ModelName}Controller(ILogger<{ClassInfo.ModelName}Controller> logger, I{ClassInfo.ModelName}Service {ParamName}Service)
+            string res = $@"        public {ClassInfo.Name}Controller(ILogger<{ClassInfo.Name}Controller> logger, I{ClassInfo.Name}Service {ParamName}Service)
         {{
             _logger = logger;
             _{ParamName}Service = {ParamName}Service;

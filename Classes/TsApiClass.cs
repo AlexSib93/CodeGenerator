@@ -10,16 +10,16 @@ namespace CodeGenerator.CSharp.Class
     public class TsApiClass : IClass, IGenerator
     {
         public string Name { get; set; }
-        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.ModelName);
-        public TsApiClass(ClassMetadata classInfo)
+        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
+        public TsApiClass(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
-        public ClassMetadata ClassInfo { get; set; }
+        public ModelMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
-        public string Body => $@"class {ClassInfo.ModelName}Service {{
+        public string Body => $@"class {ClassInfo.Name}Service {{
 {CreateOperationText()}
 
 {GetOperationText()}
@@ -28,10 +28,10 @@ namespace CodeGenerator.CSharp.Class
 
         private object GetOperationText()
         {
-            string param = "id" + ClassInfo.ModelName;
+            string param = "id" + ClassInfo.Name;
 
-            return $@"  get({param}: number): Promise<{ClassInfo.ModelName}> {{
-    return ApiDataService.get('{ClassInfo.ModelName.ToLower()}', `get?{param}=${{{param}}}`)
+            return $@"  get({param}: number): Promise<{ClassInfo.Name}> {{
+    return ApiDataService.get('{ClassInfo.Name.ToLower()}', `get?{param}=${{{param}}}`)
       .then(
         (response) => Promise.resolve(response.data),
         (message) => Promise.reject(message)
@@ -41,8 +41,8 @@ namespace CodeGenerator.CSharp.Class
 
         private object CreateOperationText()
         {
-            return $@"  post({ParamName}:{ClassInfo.ModelName}) {{
-    return ApiDataService.post('{ClassInfo.ModelName.ToLower()}', 'create', {ParamName})
+            return $@"  post({ParamName}:{ClassInfo.Name}) {{
+    return ApiDataService.post('{ClassInfo.Name.ToLower()}', 'create', {ParamName})
       .then((response: any) => {{
         return Promise.resolve(response.data);
       }},
@@ -51,10 +51,10 @@ namespace CodeGenerator.CSharp.Class
         }
 
 
-        public string UsingText => $@"import {{ {ClassInfo.ModelName}, init{ClassInfo.ModelName} }} from ""../models/{ClassInfo.ModelName.ToLower()}"";
+        public string UsingText => $@"import {{ {ClassInfo.Name}, init{ClassInfo.Name} }} from ""../models/{ClassInfo.Name.ToLower()}"";
 import ApiDataService from ""./ApiDataService"";";
 
-        public string Footer => $@"export default new {ClassInfo.ModelName}Service();";
+        public string Footer => $@"export default new {ClassInfo.Name}Service();";
 
         public string Gen()
         {

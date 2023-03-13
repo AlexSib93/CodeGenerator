@@ -9,18 +9,18 @@ namespace CodeGenerator
 {
     public class TsClass : IClass, IGenerator
     {
-        public ClassMetadata ClassInfo { get; set; }
+        public ModelMetadata ClassInfo { get; set; }
 
-        public TsClass(ClassMetadata classInfo)
+        public TsClass(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
 
 
-        public string Body => $@"export interface {ClassInfo.ModelName} {{
+        public string Body => $@"export interface {ClassInfo.Name} {{
 {GetPropsText}}}
 
-export const initial{ClassInfo.ModelName} = {{
+export const initial{ClassInfo.Name} = {{
 {GetInitValueText}
 }}
 ";
