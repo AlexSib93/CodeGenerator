@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGenerator.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,7 @@ namespace CodeGenerator.Interfaces
 {
     public interface IProject
     {
-        string Name { get; }
-        string Description { get; }
+        ProjectMetadata Metadata { get; set; }
         List<ProjectItem> Items { get; set; }
         void GenProjectFiles();
     }

@@ -9,17 +9,19 @@
 
   <ItemGroup>
     <Compile Remove="GUI\**" />
+    <Compile Remove="Template\**" />
     <Compile Remove="Tests\**" />
     <EmbeddedResource Remove="GUI\**" />
+    <EmbeddedResource Remove="Template\**" />
     <EmbeddedResource Remove="Tests\**" />
     <None Remove="GUI\**" />
+    <None Remove="Template\**" />
     <None Remove="Tests\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="NamespaceBehaviour\" />
     <Folder Include="File\" />
-    <Folder Include="Template\" />
   </ItemGroup>
 
   <ItemGroup>

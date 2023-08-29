@@ -1,4 +1,5 @@
 using CodeGenerator.Metadata;
+using CodeGenerator.Projects;
 using CodeGenerator.Services;
 
 namespace CodeGeneratorGUI
@@ -66,6 +67,23 @@ namespace CodeGeneratorGUI
                 ProjectManager.DeleteProjectFile(selectedProject.Name);
                 Refresh();
             }
+        }
+
+        public void GenCode()
+        {
+            ProjectMetadata proj = GetSelectedProject();
+
+            new ReactBootstrapProject(proj).GenProjectFiles();
+
+            new BuisinessLogicLayerProject(proj).GenProjectFiles();
+
+            new WebApiProject(proj).GenProjectFiles();
+
+        }
+
+        private void btnRunGen_Click(object sender, EventArgs e)
+        {
+            GenCode();
         }
     }
 }

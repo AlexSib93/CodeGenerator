@@ -51,7 +51,7 @@ namespace CodeGenerator.CSharp.Class
         }
 
 
-        public string UsingText => $@"import {{ {ClassInfo.Name}, init{ClassInfo.Name} }} from ""../models/{ClassInfo.Name.ToLower()}"";
+        public string UsingText => $@"import {{ {ClassInfo.Name}, init{ClassInfo.Name} }} from ""../models/{ClassInfo.Name}"";
 import ApiDataService from ""./ApiDataService"";";
 
         public string Footer => $@"export default new {ClassInfo.Name}Service();";

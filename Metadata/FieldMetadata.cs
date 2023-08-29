@@ -9,7 +9,7 @@ namespace CodeGenerator.Metadata
     internal class FieldMetadata
     {
     }
-    public enum FieldType
+    public enum DataType
     {
         Integer,
         String,

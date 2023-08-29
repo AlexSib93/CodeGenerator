@@ -25,7 +25,7 @@ namespace CodeGenerator.Projects
         {
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Name}\\Controllers", "cs"));
+                Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
             }
 
             foreach (ProjectItem item in Items)

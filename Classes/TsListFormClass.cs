@@ -24,7 +24,7 @@ namespace CodeGenerator.CSharp.Class
 {CreateComponentText()}
   
 {CreateRowComponentText()}
-}}";
+";
 
         private object CreateListFormPropsInterface()
         {
@@ -41,7 +41,7 @@ namespace CodeGenerator.CSharp.Class
     return (<tr>
 {TsRowPropBuilder.GetPropsText(ClassInfo)}
         <td>
-            <button className = ""btn btn-secondary"" >{{ {ParamName}.manufactDocName}}</button>
+            <button className = ""btn btn-secondary"" >Tap the Button</button>
         </td>
     </tr>);
  }}
@@ -49,7 +49,7 @@ namespace CodeGenerator.CSharp.Class
         }
         private object CreateComponentText()
         {
-            return $@"export const RotoxHouseListForm = (props: IRotoxHouseListFormProps) => {{
+            return $@"export const {ClassInfo.Name}ListForm = (props: I{ClassInfo.Name}ListFormProps) => {{
     // const {{ state, dispatch }} = React.useContext(ContextApp);
     //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
     // useEffect(() => {{

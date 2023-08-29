@@ -33,6 +33,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnRunGen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProjects)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,11 +96,22 @@
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // btnRunGen
+            // 
+            this.btnRunGen.Location = new System.Drawing.Point(12, 419);
+            this.btnRunGen.Name = "btnRunGen";
+            this.btnRunGen.Size = new System.Drawing.Size(94, 29);
+            this.btnRunGen.TabIndex = 2;
+            this.btnRunGen.Text = "Generate!";
+            this.btnRunGen.UseVisualStyleBackColor = true;
+            this.btnRunGen.Click += new System.EventHandler(this.btnRunGen_Click);
+            // 
             // ProjectListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRunGen);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnEdit);
@@ -119,5 +131,6 @@
         private Button btnAdd;
         private Button btnDelete;
         private Button btnEdit;
+        private Button btnRunGen;
     }
 }

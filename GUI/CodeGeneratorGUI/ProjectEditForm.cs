@@ -33,6 +33,7 @@ namespace CodeGeneratorGUI
         {
             tbDescription.Text = Project.Description;
             tbProjectName.Text = Project.Name;
+            tbOutputPath.Text = Project.Path;
             RefreshModelsGridView();
         }
 
@@ -46,6 +47,7 @@ namespace CodeGeneratorGUI
         {
             Project.Name = tbProjectName.Text;
             Project.Description = tbDescription.Text;
+            Project.Path = tbOutputPath.Text;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -81,6 +83,39 @@ namespace CodeGeneratorGUI
             }
 
             return res;
+        }
+
+        private void btnAddForm_Click(object sender, EventArgs e)
+        {
+            ModelEditForm modelEditForm = new ModelEditForm();
+            if (modelEditForm.ShowDialog() == DialogResult.OK)
+            {
+                Project.Models.Add(modelEditForm.Model);
+                RefreshModelsGridView();
+            }
+        }
+
+        private void btnEditForm_Click(object sender, EventArgs e)
+        {
+            ModelMetadata selectedModel = GetSelectedModel();
+            if (selectedModel != null)
+            {
+                ModelEditForm editForm = new ModelEditForm(selectedModel);
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    Refresh();
+                }
+            }
+        }
+
+        private void btnDeleteForm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
