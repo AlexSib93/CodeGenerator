@@ -12,11 +12,11 @@ namespace CodeGenerator.Projects
 {
     public class WinDrawScriptProject : IProject
     {
-        public string Name { get; set; } = "WinDrawScript";
+        public string Name { get; set; } = "wd-script";
         public string Description { get; set; }
         public ProjectMetadata Metadata { get; set; }
         public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
-        public string TemplateFolderPath { get; private set; } = "Templates";
+        public string TemplateFolderPath { get; private set; } = @"Templates\wd-script";
 
         public WinDrawScriptProject(ProjectMetadata projectMetadata)
         {
@@ -29,15 +29,15 @@ namespace CodeGenerator.Projects
 
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
-                Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\src\\models", "ts"));
-                Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\src\\services", "ts"));
-                Items.Add(new ProjectItem(this, new TsListFormClass(classMeta), $"{classMeta.Name}ListForm", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
+                //Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\src\\models", "ts"));
+               // Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\src\\services", "ts"));
+                //Items.Add(new ProjectItem(this, new TsListFormClass(classMeta), $"{classMeta.Name}ListForm", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
             }
 
 
             foreach (ProjectItem item in Items)
             {
-                item.CreateProjectFile();
+                //item.CreateProjectFile();
             }
         }
 

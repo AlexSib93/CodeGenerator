@@ -17,6 +17,8 @@ namespace CodeGenerator
 
             new ReactBootstrapProject(projectMetadata).GenProjectFiles();
 
+            new WinDrawScriptProject(projectMetadata).GenProjectFiles();
+
             new BuisinessLogicLayerProject(projectMetadata).GenProjectFiles();
 
             new WebApiProject(projectMetadata).GenProjectFiles();
