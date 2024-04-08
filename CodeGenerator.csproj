@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DefaultProject.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Terminal.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
