@@ -41,7 +41,7 @@ namespace CodeGenerator.Classes
 
             DirectoryInfo[] dirs = dir.GetDirectories();
 
-            Directory.CreateDirectory(destinationDir);
+            DirectoryInfo destDir = Directory.CreateDirectory(destinationDir);
 
             foreach (FileInfo file in dir.GetFiles())
             {

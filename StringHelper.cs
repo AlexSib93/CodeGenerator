@@ -10,7 +10,9 @@ namespace CodeGenerator
     {
         public static string ToLowerFirstChar(string str)
         {
-            return str.Substring(0, 1).ToLower() + str.Substring(1);
+            return !string.IsNullOrEmpty(str) 
+                ? (str.Substring(0, 1).ToLower() + str.Substring(1))
+                : "";
         }
     }
 }

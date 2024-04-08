@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class ReactBootstrapProject : IProject
+    public class WinDrawScriptProject : IProject
     {
-        public string Name { get; set; } = "react-redux";
+        public string Name { get; set; } = "WinDrawScript";
         public string Description { get; set; }
         public ProjectMetadata Metadata { get; set; }
         public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
-        public string TemplateFolderPath { get; private set; } = @"Templates\react-redux";
+        public string TemplateFolderPath { get; private set; } = "Templates";
 
-        public ReactBootstrapProject(ProjectMetadata projectMetadata)
+        public WinDrawScriptProject(ProjectMetadata projectMetadata)
         {
             Metadata = projectMetadata;
         }
@@ -43,8 +43,8 @@ namespace CodeGenerator.Projects
 
         private void GenTemplateFiles()
         {
-            string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path)) 
-                ? Metadata.Path 
+            string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
+                ? Metadata.Path
                 : Directory.GetCurrentDirectory();
             var templateGenerator = new TemplateFiles(TemplateFolderPath, $"{pathForCopyFiles}\\{Name}");
             templateGenerator.Gen();

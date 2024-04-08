@@ -1,9 +1,9 @@
 {
   "Name" : "WD Терминал",
   "Description" : "",
-  "Classes": [
+  "Models": [
     {
-      "ModelName": "RotoxHouse",
+      "Name": "RotoxHouse",
       "Caption": "Адрес изделия",
       "NameSpace": "TerminalApi",
       "Props": [
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "ModelName": "StorageSpace",
+      "Name": "StorageSpace",
       "Caption": "Адрес хранения",
       "NameSpace": "TerminalApi",
       "Props": [
