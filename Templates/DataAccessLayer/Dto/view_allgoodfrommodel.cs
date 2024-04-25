@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+
+namespace DataAccessLayer.Dto
+{
+    [Keyless]
+    public partial class view_allgoodfrommodel
+    {
+        public int? idorder { get; set; }
+        public int? idorderitem { get; set; }
+        public int? good_idgood { get; set; }
+        public int? good_idgoodtype { get; set; }
+        [StringLength(128)]
+        [Unicode(false)]
+        public string? good_marking { get; set; }
+        [StringLength(256)]
+        [Unicode(false)]
+        public string? good_name { get; set; }
+        [Column(TypeName = "numeric(15, 2)")]
+        public decimal? good_waste { get; set; }
+        [StringLength(128)]
+        [Unicode(false)]
+        public string? goodtype_name { get; set; }
+        public int? goodtype_numpos { get; set; }
+        public int? orderitem_numpos { get; set; }
+        public int thick { get; set; }
+        public int width { get; set; }
+        public int height { get; set; }
+        [Column(TypeName = "numeric(15, 4)")]
+        public decimal weight { get; set; }
+        [Column(TypeName = "numeric(38, 8)")]
+        public decimal? sqr { get; set; }
+        [Column(TypeName = "numeric(15, 2)")]
+        public decimal? measure_factor { get; set; }
+        [StringLength(12)]
+        [Unicode(false)]
+        public string? measure_shortname { get; set; }
+        public int? measure_typ { get; set; }
+        [StringLength(128)]
+        [Unicode(false)]
+        public string? modelpart { get; set; }
+        [Column(TypeName = "numeric(38, 4)")]
+        public decimal? qu { get; set; }
+        [Column(TypeName = "numeric(38, 4)")]
+        public decimal? qustore { get; set; }
+    }
+}
