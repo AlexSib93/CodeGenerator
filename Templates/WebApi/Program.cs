@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using TerminalApi;
 using DataAccessLayer.Ef;
 using BuisinessLogicLayer.Services;
-using BuisinessLogicLayer.Services.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +20,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         builder =>
         {
-            builder.WithOrigins("https://localhost:3000", "http://plastplus", "https://plastplus", "http://plast-plus.org:55111/" , "*")
+            builder.WithOrigins("https://localhost:3000", "*")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -62,12 +61,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services
     .AddScoped<IUserService, UserService>()
     .AddScoped<IGenUoW, EfUnit>()
-    .AddScoped<IPeoplesService, PeoplesService>()
-    .AddScoped<ITerminalService, TerminalService>()
-    .AddScoped<IRotoxHouseService, RotoxHouseService>()
-    .AddScoped<IDelivDocService, DelivDocService>()
-    .AddScoped<IStorageSpaceService, StorageSpaceService>()
-    .AddScoped<IOrderService, OrderService>();
+    .AddScoped<IPeoplesService, PeoplesService>();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
