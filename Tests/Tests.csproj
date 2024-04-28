@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeGenerator.csproj" />
+    <ProjectReference Include="..\CodeGenerator\CodeGenerator.csproj" />
   </ItemGroup>
 
 </Project>

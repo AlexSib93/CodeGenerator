@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class ReactBootstrapProject : IProject
+    public class ReactBootstrapProject : ProjectBase, IProject
     {
         public string Name { get; set; } = "react-redux";
         public string Description { get; set; }
@@ -33,7 +33,6 @@ namespace CodeGenerator.Projects
                 Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\src\\services", "ts"));
                 Items.Add(new ProjectItem(this, new TsListFormClass(classMeta), $"{classMeta.Name}ListForm", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
             }
-
 
             foreach (ProjectItem item in Items)
             {
