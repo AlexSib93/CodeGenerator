@@ -65,7 +65,8 @@ namespace CodeGenerator.CSharp.Class
         public string UsingText => $@"using System;
 using System.Collections.Generic;
 using DataAccessLayer;
-using DataAccessLayer.Dto;";
+using DataAccessLayer.Dto;
+using BuisinessLogicLayer.Views;";
 
     }
 }

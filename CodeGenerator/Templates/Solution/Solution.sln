@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
@@ -9,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BuisinessLogicLayer", "BuisinessLogicLayer\BuisinessLogicLayer.csproj", "{B408540A-3C03-42C2-8FF1-919B56842354}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Terminal.Tests", "Tests\Terminal.Tests.csproj", "{19B930C8-6ABB-41A5-9D6C-2777127F9625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{4C8CD9EB-F818-44B1-A926-8C713C045239}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +28,10 @@ Global
 		{B408540A-3C03-42C2-8FF1-919B56842354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B408540A-3C03-42C2-8FF1-919B56842354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B408540A-3C03-42C2-8FF1-919B56842354}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19B930C8-6ABB-41A5-9D6C-2777127F9625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19B930C8-6ABB-41A5-9D6C-2777127F9625}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19B930C8-6ABB-41A5-9D6C-2777127F9625}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19B930C8-6ABB-41A5-9D6C-2777127F9625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C8CD9EB-F818-44B1-A926-8C713C045239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8CD9EB-F818-44B1-A926-8C713C045239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8CD9EB-F818-44B1-A926-8C713C045239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8CD9EB-F818-44B1-A926-8C713C045239}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

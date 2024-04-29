@@ -15,18 +15,18 @@ namespace CodeGenerator.Projects
         public BuisinessLogicLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
             Name = "BuisinessLogicLayer";
+            string projectPath = $@"{projectMetadata.Path}\{Name}";
+            foreach (ModelMetadata model in projectMetadata.Models)
+            {
+                Items.Add(new ProjectItem(this, new CsClass(model), model.Name, $"{projectPath}\\Views", "cs"));
+                Items.Add(new ProjectItem(this, new CsServiceClass(model), $"{model.Name}Service", $"{projectPath}\\Services", "cs"));
+                Items.Add(new ProjectItem(this, new CsServiceInterfaceClass(model), $"I{model.Name}Service", $"{projectPath}\\Services", "cs"));
+            }
         }
 
         public void GenProjectFiles()
         {
             GenTemplateFiles();
-            foreach (ModelMetadata classMeta in Metadata.Models)
-            {
-                Items.Add(new ProjectItem(this, new CsClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Views", "cs"));
-                Items.Add(new ProjectItem(this, new CsServiceClass(classMeta), $"{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\Services", "cs"));
-                Items.Add(new ProjectItem(this, new CsServiceInterfaceClass(classMeta), $"I{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\Services", "cs"));
-            }
-
             foreach (ProjectItem item in Items)
             {
                 item.CreateProjectFile();

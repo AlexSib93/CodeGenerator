@@ -114,13 +114,7 @@ namespace CodeGenerator.CSharp.Class
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PortalApi.ViewModels;
-using DataAccessLayer.Dto;";
+using BuisinessLogicLayer.Views;";
 
         public string Gen()
         {

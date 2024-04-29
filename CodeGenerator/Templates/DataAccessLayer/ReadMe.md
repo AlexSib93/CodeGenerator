@@ -1,4 +1,4 @@
-﻿ Package manager console:
+ Package manager console:
 Scaffold-DbContext "Password=ggdhHGsdfHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=asd;Data Source=san;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables
 
 command line:
