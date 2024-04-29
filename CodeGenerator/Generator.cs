@@ -63,6 +63,7 @@ namespace CodeGenerator
             return projectGenerators;
         }
 
+        //ТоDo: вынести в тесты
         private static ProjectMetadata TestProjectMetadata()
         {
             ProjectMetadata metadata = new ProjectMetadata();
