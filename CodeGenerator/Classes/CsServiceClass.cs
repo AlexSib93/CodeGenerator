@@ -36,7 +36,7 @@ namespace CodeGenerator.CSharp.Class
 
         private string GetConstructorText()
         {
-            string res = $@"        public {ClassInfo.Name}Service(IGenUoW unit) : base(unit)
+            string res = $@"        public {ClassInfo.Name}Service(IUnitOfWork unit) : base(unit)
         {{
         }}";
 
@@ -45,9 +45,9 @@ namespace CodeGenerator.CSharp.Class
 
         private string CreateOperationText()
         {
-            string res = $@"        public {ClassInfo.Name} Create({ClassInfo.Name} {ParamName})
+            string res = $@"        public {ClassInfo.Name} Add({ClassInfo.Name} {ParamName})
         {{
-            Unit.Rep{ClassInfo.Name}.Create({ParamName});
+            Unit.Rep{ClassInfo.Name}.Add({ParamName});
 
             return {ParamName};
         }}";
@@ -60,7 +60,7 @@ namespace CodeGenerator.CSharp.Class
             string param = ClassInfo.Name.Substring(0,1).ToLower();
             string res = $@"        public {ClassInfo.Name} Get(int id)
         {{
-            Unit.Rep{ClassInfo.Name}.Get({param} => {param}.Id{ClassInfo.Name}==id);
+            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.GetById(id);
 
             return {param};
         }}";
@@ -71,9 +71,9 @@ namespace CodeGenerator.CSharp.Class
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
-            string res = $@"        public List<{ClassInfo.Name}> Get()
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> Get()
         {{
-            List<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.Get();
+            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll();
 
             return {param};
         }}";
@@ -89,8 +89,7 @@ namespace CodeGenerator.CSharp.Class
         public string UsingText => $@"using System;
 using System.Collections.Generic;
 using DataAccessLayer;
-using DataAccessLayer.Dto;
-using BuisinessLogicLayer.Views;";
+using DataAccessLayer.Dto;";
 
     }
 }

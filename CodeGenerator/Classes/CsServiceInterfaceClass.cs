@@ -36,7 +36,7 @@ namespace CodeGenerator.CSharp.Class
 
         private string CreateOperationText()
         {
-            string res = $@"        {ClassInfo.Name} Create({ClassInfo.Name} {ParamName});";
+            string res = $@"        {ClassInfo.Name} Add({ClassInfo.Name} {ParamName});";
 
             return res;
         }
@@ -52,7 +52,7 @@ namespace CodeGenerator.CSharp.Class
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
-            string res = $@"        List<{ClassInfo.Name}> Get();";
+            string res = $@"        IEnumerable<{ClassInfo.Name}> Get();";
 
             return res;
         }
@@ -65,8 +65,7 @@ namespace CodeGenerator.CSharp.Class
         public string UsingText => $@"using System;
 using System.Collections.Generic;
 using DataAccessLayer;
-using DataAccessLayer.Dto;
-using BuisinessLogicLayer.Views;";
+using DataAccessLayer.Dto;";
 
     }
 }

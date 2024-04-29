@@ -8,11 +8,11 @@ namespace BuisinessLogicLayer
 {
     public abstract class BaseService
     {
-        private IGenUoW unit;
+        private IUnitOfWork unit;
 
-        protected IGenUoW Unit { get; }
+        protected IUnitOfWork Unit { get; }
 
-        protected BaseService(IGenUoW unit)
+        protected BaseService(IUnitOfWork unit)
         {
             Unit = unit;
         }
