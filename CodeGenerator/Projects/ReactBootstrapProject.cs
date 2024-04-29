@@ -12,15 +12,12 @@ namespace CodeGenerator.Projects
 {
     public class ReactBootstrapProject : ProjectBase, IProject
     {
-        public string Name { get; set; } = "react-redux";
-        public string Description { get; set; }
-        public ProjectMetadata Metadata { get; set; }
         public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
-        public string TemplateFolderPath { get; private set; } = @"Templates\react-redux";
 
         public ReactBootstrapProject(ProjectMetadata projectMetadata)
         {
             Metadata = projectMetadata;
+            Name = "react-redux";
         }
 
         public void GenProjectFiles()
@@ -40,14 +37,6 @@ namespace CodeGenerator.Projects
             }
         }
 
-        private void GenTemplateFiles()
-        {
-            string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path)) 
-                ? Metadata.Path 
-                : Directory.GetCurrentDirectory();
-            var templateGenerator = new TemplateFiles(TemplateFolderPath, $"{pathForCopyFiles}\\{Name}");
-            templateGenerator.Gen();
-        }
 
     }
 }

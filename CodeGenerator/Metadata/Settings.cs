@@ -29,6 +29,8 @@ namespace CodeGenerator.Metadata
         public bool GenWdScriptProject { get; set; }
         public static Settings DefaultDevSettings => GetDefaultDevSettings();
 
+        public static string TemplatesPath => "Templates";
+
         private static Settings GetDefaultDevSettings()
         {
             return new Settings

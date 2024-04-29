@@ -55,6 +55,7 @@ namespace CodeGenerator
             ProjectMetadata metadata = new ProjectMetadata();
             metadata.Name = "TestSoloution";
             metadata.Description = "Solution for testing generator when development";
+            metadata.Path = "./TestSolution";
             metadata.Models = new List<ModelMetadata> { 
                 new ModelMetadata(){
                     Name = "TestModel1",  
