@@ -1,5 +1,5 @@
 ﻿
-namespace CodeGenerator.Metadata
+namespace CodeGenerator
 {
     public class Settings
     {
@@ -36,7 +36,7 @@ namespace CodeGenerator.Metadata
         /// </summary>
         public bool GenWdScriptProject { get; set; }
 
-        public static string TemplatesPath => "Templates";
+        public static string TemplatesPath => @"..\..\..\Templates";
 
         public static Settings DefaultDevSettings => GetDefaultDevSettings();
         private static Settings GetDefaultDevSettings()

@@ -14,7 +14,7 @@ namespace CodeGenerator.Projects
     {
         public ReactBootstrapProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
-            Name = "react-redux";
+            Name = "ReactRedux";
         }
 
         public void GenProjectFiles()

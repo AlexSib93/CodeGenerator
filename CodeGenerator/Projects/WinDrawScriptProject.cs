@@ -14,7 +14,7 @@ namespace CodeGenerator.Projects
     {
         public WinDrawScriptProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
-            Name = "wd-script";
+            Name = "WdScript";
         }
 
         public void GenProjectFiles()
