@@ -15,11 +15,11 @@ namespace CodeGenerator.Projects
         public DataAccessLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
             Name = "DataAccessLayer";
-        }
-
-        public void GenProjectFiles()
-        {
-            GenTemplateFiles();
+            string projectPath = $@"{projectMetadata.Path}\{Name}";
+            foreach (ModelMetadata model in projectMetadata.Models)
+            {
+                Items.Add(new ProjectItem(this, new CsClass(model), model.Name, $"{projectPath}\\Models", "cs"));
+            }
         }
 
     }

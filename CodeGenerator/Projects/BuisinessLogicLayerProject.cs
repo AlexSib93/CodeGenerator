@@ -18,18 +18,8 @@ namespace CodeGenerator.Projects
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsClass(model), model.Name, $"{projectPath}\\Views", "cs"));
                 Items.Add(new ProjectItem(this, new CsServiceClass(model), $"{model.Name}Service", $"{projectPath}\\Services", "cs"));
                 Items.Add(new ProjectItem(this, new CsServiceInterfaceClass(model), $"I{model.Name}Service", $"{projectPath}\\Services", "cs"));
-            }
-        }
-
-        public void GenProjectFiles()
-        {
-            GenTemplateFiles();
-            foreach (ProjectItem item in Items)
-            {
-                item.CreateProjectFile();
             }
         }
 

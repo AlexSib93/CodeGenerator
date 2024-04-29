@@ -18,7 +18,7 @@ namespace CodeGenerator
         public ModelMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
-        public string Body => $@"namespace BuisinessLogicLayer.Views
+        public string Body => $@"namespace DataAccessLayer.Dto
 {{
     public class {ClassInfo.Name}
     {{

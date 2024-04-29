@@ -18,7 +18,11 @@ namespace CodeGenerator.Projects
 
         public void GenProjectFiles()
         {
-            throw new NotImplementedException();
+            GenTemplateFiles();
+            foreach (ProjectItem item in Items)
+            {
+                item.CreateProjectFile();
+            }
         }
 
         /// <summary>

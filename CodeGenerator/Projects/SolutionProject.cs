@@ -17,20 +17,6 @@ namespace CodeGenerator.Projects
             Name = "Solution";
         }
 
-        public void GenProjectFiles()
-        {
-            GenTemplateFiles();
-            foreach (ModelMetadata classMeta in Metadata.Models)
-            {
-                Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
-            }
-
-            foreach (ProjectItem item in Items)
-            {
-                item.CreateProjectFile();
-            }
-        }
-
         /// <summary>
         /// Копирование шалонных файлов проекта
         /// </summary>

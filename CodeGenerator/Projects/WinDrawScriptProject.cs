@@ -17,11 +17,5 @@ namespace CodeGenerator.Projects
             Name = "WdScript";
         }
 
-        public void GenProjectFiles()
-        {
-            GenTemplateFiles();
-
-        }
-
     }
 }

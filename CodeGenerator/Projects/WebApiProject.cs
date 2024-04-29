@@ -15,19 +15,9 @@ namespace CodeGenerator.Projects
         public WebApiProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
             Name = "WebApi";
-        }
-
-        public void GenProjectFiles()
-        {
-            GenTemplateFiles();
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
                 Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
-            }
-
-            foreach (ProjectItem item in Items)
-            {
-                item.CreateProjectFile();
             }
         }
 
