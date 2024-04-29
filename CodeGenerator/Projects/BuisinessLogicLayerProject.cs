@@ -10,16 +10,13 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class BuisinessLogicLayerProject : IProject
+    public class BuisinessLogicLayerProject : Project, IProject
     {
-        public string Name { get; set; } = "BuisinessLogicLayer";
-        public string Description { get; set; }
-        public ProjectMetadata Metadata { get; set; }
-        public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
-        public string TemplateFolderPath { get; private set; } = @"Templates\BuisinessLogicLayer";
-        public BuisinessLogicLayerProject(ProjectMetadata projectMetadata)
+        public string Name => "BuisinessLogicLayer";
+
+        public BuisinessLogicLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Metadata = projectMetadata;
+
         }
 
         public void GenProjectFiles()
@@ -38,14 +35,5 @@ namespace CodeGenerator.Projects
             }
         }
 
-
-        private void GenTemplateFiles()
-        {
-            string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
-                ? Metadata.Path
-                : Directory.GetCurrentDirectory();
-            var templateGenerator = new TemplateFiles(TemplateFolderPath, $"{pathForCopyFiles}\\{Name}");
-            templateGenerator.Gen();
-        }
     }
 }

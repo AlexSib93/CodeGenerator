@@ -10,14 +10,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class ReactBootstrapProject : ProjectBase, IProject
+    public class ReactBootstrapProject : Project, IProject
     {
-        public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
-
-        public ReactBootstrapProject(ProjectMetadata projectMetadata)
+        public string Name = "react-redux";
+        public ReactBootstrapProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
-            Metadata = projectMetadata;
-            Name = "react-redux";
         }
 
         public void GenProjectFiles()
