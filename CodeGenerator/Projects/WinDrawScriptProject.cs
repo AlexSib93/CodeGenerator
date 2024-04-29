@@ -12,11 +12,9 @@ namespace CodeGenerator.Projects
 {
     public class WinDrawScriptProject : Project, IProject
     {
-        public string Name => "wd-script";
-
         public WinDrawScriptProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
-
+            Name = "wd-script";
         }
 
         public void GenProjectFiles()

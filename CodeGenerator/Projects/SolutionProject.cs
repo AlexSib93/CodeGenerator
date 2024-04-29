@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class WebApiProject : Project, IProject
+    public class SolutionProject : Project, IProject
     {
-        public WebApiProject(ProjectMetadata projectMetadata) : base(projectMetadata)
+        public SolutionProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "WebApi";
+            Name = "Solution";
         }
 
         public void GenProjectFiles()
@@ -29,6 +29,18 @@ namespace CodeGenerator.Projects
             {
                 item.CreateProjectFile();
             }
+        }
+
+        /// <summary>
+        /// Копирование шалонных файлов проекта
+        /// </summary>
+        internal override void GenTemplateFiles()
+        {
+            string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
+                ? Metadata.Path
+                : Directory.GetCurrentDirectory();
+            var templateGenerator = new TemplateFiles($@"{Settings.TemplatesPath}\{Name}", $@"{pathForCopyFiles}");
+            templateGenerator.Gen();
         }
 
     }

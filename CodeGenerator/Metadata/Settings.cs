@@ -8,6 +8,14 @@ namespace CodeGenerator.Metadata
         /// </summary>
         public string ConnectionString { get; set; }
         /// <summary>
+        /// Gen Tests project files
+        /// </summary>
+        public bool GenTestsProject { get; set; }
+        /// <summary>
+        /// Gen Solution files
+        /// </summary>
+        public bool GenSolution { get; set; }
+        /// <summary>
         /// Gen WebApi project files
         /// </summary>
         public bool GenWebApiProject { get; set; }
@@ -27,20 +35,22 @@ namespace CodeGenerator.Metadata
         /// Gen WinDraw DocumentScript project files
         /// </summary>
         public bool GenWdScriptProject { get; set; }
-        public static Settings DefaultDevSettings => GetDefaultDevSettings();
 
         public static string TemplatesPath => "Templates";
 
+        public static Settings DefaultDevSettings => GetDefaultDevSettings();
         private static Settings GetDefaultDevSettings()
         {
             return new Settings
             {
                 ConnectionString = "",
+                GenSolution = true,
                 GenBllProject = true,
                 GenDalProject = true,
                 GenReactProject = true,
                 GenWdScriptProject = true,
-                GenWebApiProject = true
+                GenWebApiProject = true,
+                GenTestsProject = true
             };
         }
     }

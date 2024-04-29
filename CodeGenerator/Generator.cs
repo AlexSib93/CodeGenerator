@@ -29,9 +29,17 @@ namespace CodeGenerator
             if (Settings != null)
             {
                 //TODO: для каждого проекта свои MetaData
+                if (Settings.GenSolution)
+                {
+                    projectGenerators.Add(new SolutionProject(projectMetadata));
+                }
                 if (Settings.GenBllProject)
                 {
                     projectGenerators.Add(new BuisinessLogicLayerProject(projectMetadata));
+                }                
+                if (Settings.GenDalProject)
+                {
+                    projectGenerators.Add(new DataAccessLayerProject(projectMetadata));
                 }
                 if (Settings.GenReactProject)
                 {
@@ -45,6 +53,11 @@ namespace CodeGenerator
                 {
                     projectGenerators.Add(new WebApiProject(projectMetadata));
                 }
+                if (Settings.GenTestsProject)
+                {
+                    projectGenerators.Add(new TestsProject(projectMetadata));
+                }
+
             }
 
             return projectGenerators;

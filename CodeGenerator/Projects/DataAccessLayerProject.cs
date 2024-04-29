@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class BuisinessLogicLayerProject : Project, IProject
+    public class DataAccessLayerProject : Project, IProject
     {
-        public BuisinessLogicLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
+        public DataAccessLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "BuisinessLogicLayer";
+            Name = "DataAccessLayer";
         }
 
         public void GenProjectFiles()

@@ -24,7 +24,7 @@ namespace CodeGenerator.Projects
         /// <summary>
         /// Копирование шалонных файлов проекта
         /// </summary>
-        internal void GenTemplateFiles()
+        internal virtual void GenTemplateFiles()
         {
             string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
                 ? Metadata.Path

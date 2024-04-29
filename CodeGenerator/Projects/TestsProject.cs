@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Projects
 {
-    public class WebApiProject : Project, IProject
+    public class TestsProject : Project, IProject
     {
-        public WebApiProject(ProjectMetadata projectMetadata) : base(projectMetadata)
+        public TestsProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "WebApi";
+            Name = "Tests";
         }
 
         public void GenProjectFiles()

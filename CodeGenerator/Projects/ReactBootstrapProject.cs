@@ -12,9 +12,9 @@ namespace CodeGenerator.Projects
 {
     public class ReactBootstrapProject : Project, IProject
     {
-        public string Name = "react-redux";
         public ReactBootstrapProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
+            Name = "react-redux";
         }
 
         public void GenProjectFiles()
