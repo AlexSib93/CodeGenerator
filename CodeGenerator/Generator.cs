@@ -1,27 +1,88 @@
-﻿using CodeGenerator.Metadata;
+﻿using CodeGenerator.Interfaces;
+using CodeGenerator.Metadata;
 using CodeGenerator.Projects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace CodeGenerator
 {
-    public static class Generator
+    public class Generator
     {
-        public static void GenCode(string projectName, string fileType)
+        public Settings Settings { get; set; } = Settings.DefaultDevSettings;
+        public void GenCode(string projectName)
         {
-            ProjectMetadata projectMetadata = ReadMetaInfo(projectName);
+            ProjectMetadata projectMetadata = (!string.IsNullOrEmpty(projectName))
+                ? ReadMetaInfo(projectName)
+                : TestProjectMetadata();
 
-            new ReactBootstrapProject(projectMetadata).GenProjectFiles();
+            List<IProject> projectGenerators = GetGeneratorsForSolution(projectMetadata);
 
-            new WinDrawScriptProject(projectMetadata).GenProjectFiles();
+            foreach (IProject project in projectGenerators)
+            {
+                project.GenProjectFiles();
+            }
 
-            new BuisinessLogicLayerProject(projectMetadata).GenProjectFiles();
+        }
 
-            new WebApiProject(projectMetadata).GenProjectFiles();
+        private List<IProject> GetGeneratorsForSolution(ProjectMetadata projectMetadata)
+        {
+            List<IProject> projectGenerators = new List<IProject>();
+
+            if (Settings != null)
+            {
+                //TODO: для каждого проекта свои MetaData
+                if (Settings.GenBllProject)
+                {
+                    projectGenerators.Add(new BuisinessLogicLayerProject(projectMetadata));
+                }
+                if (Settings.GenReactProject)
+                {
+                    projectGenerators.Add(new ReactBootstrapProject(projectMetadata));
+                }
+                if (Settings.GenWdScriptProject)
+                {
+                    projectGenerators.Add(new WinDrawScriptProject(projectMetadata));
+                }
+                if (Settings.GenWebApiProject)
+                {
+                    projectGenerators.Add(new WebApiProject(projectMetadata));
+                }
+            }
+
+            return projectGenerators;
+        }
+
+        private static ProjectMetadata TestProjectMetadata()
+        {
+            ProjectMetadata metadata = new ProjectMetadata();
+            metadata.Name = "TestSoloution";
+            metadata.Description = "Solution for testing generator when development";
+            metadata.Models = new List<ModelMetadata> { 
+                new ModelMetadata(){
+                    Name = "TestModel1",  
+                    Caption = "Тестовая модель 1",
+                    NameSpace = "TestNamespace",
+                    Props = new List<PropMetadata>()
+                    {
+                        new PropMetadata()
+                        {
+                            Name = "Name",
+                            Type = "string"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Description",
+                            Type = "string"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Id",
+                            Type = "int"
+                        }
+                    }
+                    
+                }
+            };
+
+            return metadata;
         }
 
         private static ProjectMetadata ReadMetaInfo(string projectName)

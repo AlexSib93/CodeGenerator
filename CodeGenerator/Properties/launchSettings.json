@@ -1,8 +1,7 @@
 {
   "profiles": {
     "CodeGenerator": {
-      "commandName": "Project",
-      "commandLineArgs": "\"Terminal\" \"scm\""
+      "commandName": "Project"
     }
   }
 }

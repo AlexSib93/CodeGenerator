@@ -12,7 +12,7 @@ namespace CodeGenerator.Projects
 {
     public class BuisinessLogicLayerProject : IProject
     {
-        public string Name { get; set; } = "BuisinessLagicLayer";
+        public string Name { get; set; } = "BuisinessLogicLayer";
         public string Description { get; set; }
         public ProjectMetadata Metadata { get; set; }
         public List<ProjectItem> Items { get; set; } = new List<ProjectItem>();
