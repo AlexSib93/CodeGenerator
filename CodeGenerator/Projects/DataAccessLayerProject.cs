@@ -5,6 +5,7 @@ using CodeGenerator.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,8 @@ namespace CodeGenerator.Projects
             {
                 Items.Add(new ProjectItem(this, new CsClass(model), model.Name, $"{projectPath}\\Models", "cs"));
             }
+            Items.Add(new ProjectItem(this, new CsInterfaceUnitOfWork(projectMetadata.Models), "IUnitOfWork", projectPath, "cs"));
+            Items.Add(new ProjectItem(this, new CsMockClass(projectMetadata.Models), "MockUnit", $"{projectPath}\\Data", "cs"));
         }
 
     }

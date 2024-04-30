@@ -94,6 +94,35 @@ namespace CodeGenerator
                         }
                     }
                     
+                },
+                new ModelMetadata(){
+                    Name = "DebugUnit",
+                    Caption = "Едиица отладки",
+                    NameSpace = "TestNamespace",
+                    Props = new List<PropMetadata>()
+                    {
+                        new PropMetadata()
+                        {
+                            Name = "Name",
+                            Type = "string"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Id",
+                            Type = "int"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Count",
+                            Type = "int?"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Date",
+                            Type = "DateTime"
+                        }
+                    }
+
                 }
             };
 

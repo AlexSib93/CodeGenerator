@@ -64,7 +64,7 @@ namespace CodeGenerator.CSharp.Class
         {{
             {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.GetById(id);
 
-            return {param};
+            return t;
         }}";
 
             return res;
