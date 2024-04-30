@@ -21,6 +21,8 @@ namespace CodeGenerator.CSharp.Class
         public string Header => $@"{UsingText}";
         public string Body => $@"namespace Tests
 {{
+
+    [TestClass]
     public class {ClassInfo.Name}Test
     {{
 {CreateSetAndGetPositionsOperationText()}
