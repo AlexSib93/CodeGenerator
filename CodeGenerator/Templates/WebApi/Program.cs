@@ -6,8 +6,8 @@ using Swashbuckle.AspNetCore.Filters;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using TerminalApi;
-using DataAccessLayer.Ef;
 using BuisinessLogicLayer.Services;
+using DataAccessLayer.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,10 +27,10 @@ builder.Services.AddCors(options =>
         });
 });
 builder.Services.AddControllers();
-builder.Services.AddDbContext<WdContext>(options =>
-{
-   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
+// builder.Services.AddDbContext<WdContext>(options =>
+// {
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+// });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -60,8 +60,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services
     .AddScoped<IUserService, UserService>()
-    .AddScoped<IGenUoW, EfUnit>()
-    .AddScoped<IPeoplesService, PeoplesService>();
+    .AddScoped<IUnitOfWork, MockUnit>();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();

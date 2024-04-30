@@ -45,7 +45,7 @@ namespace CodeGenerator.CSharp.Class
         {{
             try
             {{
-                {ClassInfo.Name} res = _{ParamName}Service.Create({ParamName});
+                {ClassInfo.Name} res = _{ParamName}Service.Add({ParamName});
 
                 return Ok(res);
             }}
@@ -83,9 +83,9 @@ namespace CodeGenerator.CSharp.Class
         {{
             try
             {{
-                {ClassInfo.Name} res = _{ParamName}Service.Delete(id);
+                _{ParamName}Service.Delete(id);
 
-                return Ok(res);
+                return Ok();
             }}
             catch (Exception ex)
             {{
@@ -114,7 +114,7 @@ namespace CodeGenerator.CSharp.Class
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using BuisinessLogicLayer.Views;";
+using DataAccessLayer.Dto;";
 
         public string Gen()
         {

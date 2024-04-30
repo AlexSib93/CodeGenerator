@@ -30,6 +30,8 @@ namespace CodeGenerator.CSharp.Class
 {GetOperationText()}
 
 {GetAllOperationText()}
+
+{DeleteOperationText()}
     }}
 }}
 ";
@@ -63,6 +65,17 @@ namespace CodeGenerator.CSharp.Class
             {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.GetById(id);
 
             return {param};
+        }}";
+
+            return res;
+        }
+
+        private string DeleteOperationText()
+        {
+            string param = ClassInfo.Name.Substring(0, 1).ToLower();
+            string res = $@"        public void Delete(int id)
+        {{
+            Unit.Rep{ClassInfo.Name}.Delete(id);
         }}";
 
             return res;
