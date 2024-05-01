@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator
+namespace CodeGenerator.ProjectFiles.Cs
 {
     public class CsClass : IClass, IGenerator
     {
@@ -33,7 +33,7 @@ namespace CodeGenerator
 
         public string Gen()
         {
-            return $"{ Header }\n\n{ Body}";
+            return $"{Header}\n\n{Body}";
         }
     }
 }

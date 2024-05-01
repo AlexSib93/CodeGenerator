@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.CSharp.Class
+namespace CodeGenerator.ProjectFiles.Ts
 {
     public class TsListFormClass : IClass, IGenerator
     {

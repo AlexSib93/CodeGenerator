@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.CSharp.Class
+namespace CodeGenerator.ProjectFiles.Cs
 {
     public class CsTestClass : IClass, IGenerator
     {
@@ -47,7 +47,7 @@ namespace CodeGenerator.CSharp.Class
 
         public string Gen()
         {
-            return $"{ Header}\n\n{ Body}";
+            return $"{Header}\n\n{Body}";
         }
 
         public string UsingText => $@"using BuisinessLogicLayer.Services;

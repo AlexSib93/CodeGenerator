@@ -1,7 +1,7 @@
 ﻿using CodeGenerator.Classes;
-using CodeGenerator.CSharp.Class;
 using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
+using CodeGenerator.ProjectFiles.Cs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

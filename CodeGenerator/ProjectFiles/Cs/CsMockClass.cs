@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator
+namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsInterfaceUnitOfWork : IClass, IGenerator
+    public class CsMockClass : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsInterfaceUnitOfWork(List<ModelMetadata> models)
+        public CsMockClass(List<ModelMetadata> models)
         {
             Models = models;
         }
@@ -19,12 +19,15 @@ namespace CodeGenerator
         public List<ModelMetadata> Models { get; set; }
 
         public string Header => $@"{UsingText}";
-        public string Body => $@"namespace DataAccessLayer
+        public string Body => $@"namespace DataAccessLayer.Data
 {{
-    public interface IUnitOfWork : IDisposable
+    public class MockUnit : IUnitOfWork, IDisposable
     {{
 {GetModelsText(Models)}
 
+        public void Dispose()
+        {{
+        }}
     }}
 }}
 ";
@@ -36,7 +39,11 @@ using DataAccessLayer.Dto;";
         {
             string res = "";
             res += $@"
-        IRepository<{classInfo.Name}> Rep{classInfo.Name} {{ get;}}";
+        private IRepository<{classInfo.Name}> _rep{classInfo.Name};
+        public IRepository<{classInfo.Name}> Rep{classInfo.Name}
+        {{
+            get {{ return _rep{classInfo.Name} ?? (_rep{classInfo.Name} = new MockRepository<{classInfo.Name}>()); }}
+        }}";
 
             return res;
         }
@@ -50,12 +57,12 @@ using DataAccessLayer.Dto;";
 
             }
 
-
             return res;
         }
+
         public string Gen()
         {
-            return $"{ Header }\n\n{ Body}";
+            return $"{Header}\n\n{Body}";
         }
 
     }

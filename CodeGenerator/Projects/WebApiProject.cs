@@ -1,5 +1,4 @@
-﻿using CodeGenerator.Classes;
-using CodeGenerator.CSharp.Class;
+﻿using CodeGenerator.ProjectFiles.Cs;
 using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
 using System;

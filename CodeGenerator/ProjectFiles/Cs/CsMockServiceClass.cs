@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodeGenerator.CSharp.Class
+namespace CodeGenerator.ProjectFiles.Cs
 {
     public class CsMockServiceClass : IClass, IGenerator
     {
@@ -57,7 +57,7 @@ namespace CodeGenerator.CSharp.Class
 
         private string GetOperationText()
         {
-            string param = ClassInfo.Name.Substring(0,1).ToLower();
+            string param = ClassInfo.Name.Substring(0, 1).ToLower();
             string res = $@"        public {ClassInfo.Name} Get(int id)
         {{
             Unit.Rep{ClassInfo.Name}.Get({param} => {param}.Id{ClassInfo.Name}==id);
@@ -83,7 +83,7 @@ namespace CodeGenerator.CSharp.Class
 
         public string Gen()
         {
-            return $"{ Header}\n\n{ Body}";
+            return $"{Header}\n\n{Body}";
         }
 
         public string UsingText => $@"using System;
