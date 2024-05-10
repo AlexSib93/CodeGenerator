@@ -70,12 +70,12 @@ namespace CodeGenerator
             metadata.Name = "TestSoloution";
             metadata.Description = "Solution for testing generator when development";
             metadata.Path = "./TestSolution";
-            metadata.Models = new List<ModelMetadata> { 
-                new ModelMetadata(){
-                    Name = "TestModel1",  
-                    Caption = "Тестовая модель 1",
-                    NameSpace = "TestNamespace",
-                    Props = new List<PropMetadata>()
+            ModelMetadata modelMetadata1 = new ModelMetadata()
+            {
+                Name = "TestModel1",
+                Caption = "Тестовая модель 1",
+                NameSpace = "TestNamespace",
+                Props = new List<PropMetadata>()
                     {
                         new PropMetadata()
                         {
@@ -93,13 +93,14 @@ namespace CodeGenerator
                             Type = "int"
                         }
                     }
-                    
-                },
-                new ModelMetadata(){
-                    Name = "DebugUnit",
-                    Caption = "Едиица отладки",
-                    NameSpace = "TestNamespace",
-                    Props = new List<PropMetadata>()
+
+            };
+            ModelMetadata modelMetadata2 = new ModelMetadata()
+            {
+                Name = "DebugUnit",
+                Caption = "Едиица отладки",
+                NameSpace = "TestNamespace",
+                Props = new List<PropMetadata>()
                     {
                         new PropMetadata()
                         {
@@ -123,6 +124,19 @@ namespace CodeGenerator
                         }
                     }
 
+            };
+            metadata.Models = new List<ModelMetadata> {
+                modelMetadata1,
+                modelMetadata2
+            };
+            metadata.Forms = new List<FormMetadata>
+            {
+                new FormMetadata()
+                {
+                    Name = "TestModelList",
+                    Caption = "Тестовые модели",
+                    Model = modelMetadata1,
+                    AddToNavBar = true
                 }
             };
 

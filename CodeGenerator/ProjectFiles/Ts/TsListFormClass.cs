@@ -1,4 +1,5 @@
 ﻿using CodeGenerator.Interfaces;
+using CodeGenerator.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Ts
 {
-    public class TsListFormClass : IClass, IGenerator
+    public class TsListFormClass : IGenerator
     {
         public string Name { get; set; }
-        public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
-        public TsListFormClass(ModelMetadata classInfo)
+        public FormMetadata FormInfo { get; set; }
+        public TsListFormClass(FormMetadata formMeta)
         {
-            ClassInfo = classInfo;
+            FormInfo = formMeta;
         }
-
-        public ModelMetadata ClassInfo { get; set; }
 
         public string Header => $@"{UsingText}";
         public string Body => $@"{CreateListFormPropsInterface()}
@@ -28,18 +27,18 @@ namespace CodeGenerator.ProjectFiles.Ts
 
         private object CreateListFormPropsInterface()
         {
-            return $@"export interface I{ClassInfo.Name}ListFormProps
+            return $@"export interface I{FormInfo.Name}Props
 {{
-    items: {ClassInfo.Name}[],
+    items: {FormInfo.Model.Name}[],
     autoFetch: boolean
 }}";
         }
 
         private object CreateRowComponentText()
         {
-            return $@"const {ClassInfo.Name}Row = ({ParamName}: {ClassInfo.Name}) => {{
+            return $@"const {FormInfo.Model.Name}Row = ({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)}: {FormInfo.Model.Name}) => {{
     return (<tr>
-{TsRowPropBuilder.GetPropsText(ClassInfo)}
+{TsRowPropBuilder.GetPropsText(FormInfo.Model)}
         <td>
             <button className = ""btn btn-secondary"" >Tap the Button</button>
         </td>
@@ -49,7 +48,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         }
         private object CreateComponentText()
         {
-            return $@"export const {ClassInfo.Name}ListForm = (props: I{ClassInfo.Name}ListFormProps) => {{
+            return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
     // const {{ state, dispatch }} = React.useContext(ContextApp);
     //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
     // useEffect(() => {{
@@ -67,12 +66,12 @@ namespace CodeGenerator.ProjectFiles.Ts
          < table className = ""table table-striped table-sm"" >
               < thead >
                   < tr >
-{TsHeaderPropBuilder.GetPropsText(ClassInfo)}
+{TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
                            < th ></ th >
                        </ tr >
                    </ thead >
                    < tbody >
-                    {{ (items) && items.map(o => {ClassInfo.Name}Row(o))}}
+                    {{ (items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
                 </ tbody >
             </ table >
         </ div >
@@ -83,8 +82,8 @@ namespace CodeGenerator.ProjectFiles.Ts
 
         public string UsingText => $@"
 import {{ useEffect,useState }} from ""react"";
-import {{ {ClassInfo.Name} }} from ""../models/{ClassInfo.Name}"";
-import {ClassInfo.Name}Service from ""../services/{ClassInfo.Name}Service"";";
+import {{ {FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
+import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";";
 
         public string Footer => $@"";
 

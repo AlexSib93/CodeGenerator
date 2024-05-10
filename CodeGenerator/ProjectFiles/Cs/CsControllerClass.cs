@@ -32,6 +32,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
 {GetOperationText()}
 
+{GetAllOperationText()}
+
 {DeleteOperationText()}
 
     }}
@@ -70,7 +72,26 @@ namespace CodeGenerator.ProjectFiles.Cs
             }}
             catch (Exception ex)
             {{
-                _logger.LogError(ex, ""Не удалось создать {ClassInfo.Caption}"");
+                _logger.LogError(ex, ""Не удалось получить {ClassInfo.Caption}"");
+                return BadRequest(ex.Message + "" "" + ex.InnerException?.Message);
+            }}
+        }}";
+        }
+
+        private string GetAllOperationText()
+        {
+            return $@"        [HttpGet(""getall"")]
+        public IActionResult GetAll()
+        {{
+            try
+            {{
+                IEnumerable<{ClassInfo.Name}> res = _{ParamName}Service.Get();
+
+                return Ok(res);
+            }}
+            catch (Exception ex)
+            {{
+                _logger.LogError(ex, ""Не удалось получить все {ClassInfo.Caption}"");
                 return BadRequest(ex.Message + "" "" + ex.InnerException?.Message);
             }}
         }}";
