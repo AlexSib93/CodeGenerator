@@ -36,7 +36,7 @@ namespace CodeGenerator
         /// </summary>
         public bool GenWdScriptProject { get; set; }
 
-        public static string TemplatesPath => @"..\..\..\Templates";
+        public static string TemplatesPath { get; set; } = @"..\..\..\Templates";
 
         public static Settings DefaultDevSettings => GetDefaultDevSettings();
         private static Settings GetDefaultDevSettings()
