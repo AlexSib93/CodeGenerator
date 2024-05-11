@@ -2,6 +2,8 @@ using CodeGenerator.Metadata;
 using CodeGenerator;
 using CodeGenerator.Services;
 using CodeGenerator.Projects;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace Tests
 {
@@ -11,7 +13,7 @@ namespace Tests
         [TestMethod]
         public void TestCreateProj()
         {
-            Settings.TemplatesPath =  @"..\..\..\..\CodeGenerator\Templates";
+            Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
             generator.GenCode(TestProjectMetadata());
         }
@@ -19,9 +21,81 @@ namespace Tests
         [TestMethod]
         public void TestCreateGeneratorGui()
         {
-            Settings.TemplatesPath =  @"..\..\..\..\CodeGenerator\Templates";
+            Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
             generator.GenCode(GeneratorProjectMetadata());
+        }
+
+        [TestMethod]
+        public void TestGui()
+        {
+            Process hostClientProcess = BuildAndRunClient(true);
+            Process hostApiProcess = BuildAndRunWebApi();
+
+            hostClientProcess.WaitForExit();
+            hostApiProcess.WaitForExit();
+
+            hostClientProcess.Kill();
+            hostApiProcess.Kill();
+
+        }
+
+        private Process BuildAndRunWebApi()
+        {
+            string webApiPath = @"..\..\..\..\CodeGeneratorGUI\WebApi\";
+            bool useCmdWindow = true;
+            Process process = RunCommand("dotnet", "run", webApiPath, useCmdWindow, false);
+
+            return process;
+        }
+
+        [TestMethod]
+        public void TestClientApp()
+        {
+            Process hostClientProcess =  BuildAndRunClient(true);
+            hostClientProcess.WaitForExit();
+            hostClientProcess.Kill();
+        }
+
+        private Process BuildAndRunClient(bool useCmdWindow = true)
+        {
+            string workDirrectory = @"..\..\..\..\CodeGeneratorGUI\ReactRedux";
+
+            Process process = RunCommand("npm", "i", workDirrectory, useCmdWindow);
+            process.Kill();
+            process.Dispose();
+
+            Process process2 = RunCommand("npm", "start", workDirrectory, useCmdWindow, false);
+
+            return process2;
+        }
+
+        private static Process RunCommand(string fileName, string args, string workDirrectory, bool useCmdWindow, bool waitForExit = true)
+        {
+            Process process = new Process();
+
+            process.StartInfo.FileName = fileName; // »спользуем команду dotnet
+            process.StartInfo.Arguments = args; // »спользуем команду run дл€ запуска проекта .NET Core или .NET 5+
+            process.StartInfo.WorkingDirectory = workDirrectory;
+            process.StartInfo.UseShellExecute = useCmdWindow; // Ёто нужно, чтобы скрыть окно командной строки (если не требуетс€ отображение)
+            process.StartInfo.RedirectStandardOutput = !useCmdWindow; // ”казываем, что хотим перехватить вывод командной строки
+            process.StartInfo.CreateNoWindow = !useCmdWindow; // —крываем окно командной строки
+
+            // «апускаем процесс
+            process.Start();
+
+            if (!useCmdWindow)
+            {
+                string output = process.StandardOutput.ReadToEnd();
+                Console.WriteLine(output);
+            }
+
+            if (waitForExit)
+            {
+                process.WaitForExit();
+            }
+
+            return process;
         }
 
         private static ProjectMetadata TestProjectMetadata()
@@ -103,7 +177,7 @@ namespace Tests
             return metadata;
         }
 
-        
+
         private static ProjectMetadata GeneratorProjectMetadata()
         {
             string nameSpace = "CodeGeneratorGUI";
@@ -135,7 +209,7 @@ namespace Tests
                     //    public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
                     //    public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
                 }
-            };            
+            };
             ModelMetadata modelMetadata3 = new ModelMetadata()
             {
                 Name = "FormMetadata",
