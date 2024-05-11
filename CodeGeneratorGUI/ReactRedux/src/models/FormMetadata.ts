@@ -2,13 +2,13 @@ export interface FormMetadata {
   name:string;
   caption:string;
   description:string;
-  addToNavBar:bool;
+  addToNavBar:boolean;
 }
 
 export const initFormMetadata = {
   name:'',
   caption:'',
   description:'',
-  addToNavBar:bool,
+  addToNavBar:false,
 
 }

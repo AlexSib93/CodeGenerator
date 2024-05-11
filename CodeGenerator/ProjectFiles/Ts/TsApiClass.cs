@@ -24,6 +24,7 @@ namespace CodeGenerator.ProjectFiles.Ts
 
 {GetOperationText()}
   
+{GetAllOperationText()}
 }}";
 
         private object GetOperationText()
@@ -38,7 +39,16 @@ namespace CodeGenerator.ProjectFiles.Ts
       );
   }}";
         }
-
+        private object GetAllOperationText()
+        {
+            return $@"  getall(): Promise<{ClassInfo.Name}[]> {{
+    return ApiDataService.get('{ClassInfo.Name.ToLower()}', `getall`)
+      .then(
+        (response) => Promise.resolve(response.data),
+        (message) => Promise.reject(message)
+      );
+  }}";
+        }
         private object CreateOperationText()
         {
             return $@"  post({ParamName}:{ClassInfo.Name}) {{

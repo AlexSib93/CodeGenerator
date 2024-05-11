@@ -11,16 +11,16 @@ export interface IModelsProps
 
 export const Models = (props: IModelsProps) => {
     // const { state, dispatch } = React.useContext(ContextApp);
-    //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
-    // useEffect(() => {
-    //     if(props.autoFetch) {
-    //         RotoxHouseService.getAll().then((orders) => {
-    //             setRotoxHouses(orders);
-    //         });
-    //     }
-    // }, [])
+    const [items, setItems] = useState<ModelMetadata[]>(props.items);
+    useEffect(() => {
+        if(props.autoFetch) {
+            ModelMetadataService.getall().then((item) => {
+                setItems(item);
+            });
+        }
+    }, [])
 
-    const {items} = props;
+    //const {items} = props;
 
     return (
     < div className = "table-responsive" >

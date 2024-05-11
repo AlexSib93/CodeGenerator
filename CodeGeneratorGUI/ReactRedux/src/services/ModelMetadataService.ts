@@ -18,6 +18,13 @@ class ModelMetadataService {
       );
   }
   
+  getall(): Promise<ModelMetadata[]> {
+    return ApiDataService.get('modelmetadata', `getall`)
+      .then(
+        (response) => Promise.resolve(response.data),
+        (message) => Promise.reject(message)
+      );
+  }
 }
 
 export default new ModelMetadataService();

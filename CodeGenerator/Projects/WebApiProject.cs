@@ -14,10 +14,14 @@ namespace CodeGenerator.Projects
         public WebApiProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
             Name = "WebApi";
+
+            Items.Add(new ProjectItem(this, new CsWebApiProgramm(projectMetadata), "Program", $"{Metadata.Path}\\{Name}", "cs"));
+
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
                 Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
             }
+            
         }
 
     }

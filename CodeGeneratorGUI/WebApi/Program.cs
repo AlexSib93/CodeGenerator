@@ -9,6 +9,8 @@ using TerminalApi;
 using BuisinessLogicLayer.Services;
 using DataAccessLayer.Data;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -60,7 +62,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services
     .AddScoped<IUserService, UserService>()
-    .AddScoped<IUnitOfWork, MockUnit>();
+    .AddScoped<IUnitOfWork, MockUnit>()
+    .AddScoped<IModelMetadataService, ModelMetadataService>()
+    .AddScoped<IProjectMetadataService, ProjectMetadataService>()
+    .AddScoped<IFormMetadataService, FormMetadataService>();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
@@ -85,3 +90,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

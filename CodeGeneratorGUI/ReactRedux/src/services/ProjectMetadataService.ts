@@ -18,6 +18,13 @@ class ProjectMetadataService {
       );
   }
   
+  getall(): Promise<ProjectMetadata> {
+    return ApiDataService.get('projectmetadata', `getall`)
+      .then(
+        (response) => Promise.resolve(response.data),
+        (message) => Promise.reject(message)
+      );
+  }
 }
 
 export default new ProjectMetadataService();

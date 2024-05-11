@@ -59,6 +59,9 @@ namespace CodeGenerator
                 case "DateTime":
                     res = "Date";
                     break;
+                case "bool":
+                    res = "boolean";
+                    break;
                 default:
                     break;
             }
@@ -81,6 +84,9 @@ namespace CodeGenerator
                     break;
                 case "string":
                     res = "''";
+                    break;
+                case "bool":
+                    res = "false";
                     break;
                 default:
                     break;

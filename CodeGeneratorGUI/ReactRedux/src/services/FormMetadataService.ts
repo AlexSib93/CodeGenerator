@@ -18,6 +18,13 @@ class FormMetadataService {
       );
   }
   
+  getall(): Promise<FormMetadata> {
+    return ApiDataService.get('formmetadata', `getall`)
+      .then(
+        (response) => Promise.resolve(response.data),
+        (message) => Promise.reject(message)
+      );
+  }
 }
 
 export default new FormMetadataService();
