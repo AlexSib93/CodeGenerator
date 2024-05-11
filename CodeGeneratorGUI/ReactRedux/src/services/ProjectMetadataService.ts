@@ -18,7 +18,7 @@ class ProjectMetadataService {
       );
   }
   
-  getall(): Promise<ProjectMetadata> {
+  getall(): Promise<ProjectMetadata[]> {
     return ApiDataService.get('projectmetadata', `getall`)
       .then(
         (response) => Promise.resolve(response.data),

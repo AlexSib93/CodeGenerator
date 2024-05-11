@@ -20,7 +20,6 @@ export const Models = (props: IModelsProps) => {
         }
     }, [])
 
-    //const {items} = props;
 
     return (
     < div className = "table-responsive" >

@@ -50,16 +50,15 @@ namespace CodeGenerator.ProjectFiles.Ts
         {
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
     // const {{ state, dispatch }} = React.useContext(ContextApp);
-    //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
-    // useEffect(() => {{
-    //     if(props.autoFetch) {{
-    //         RotoxHouseService.getAll().then((orders) => {{
-    //             setRotoxHouses(orders);
-    //         }});
-    //     }}
-    // }}, [])
+    const [items, setItems] = useState<{FormInfo.Model.Name}[]>(props.items);
+    useEffect(() => {{
+        if(props.autoFetch) {{
+            {FormInfo.Model.Name}Service.getall().then((item) => {{
+                setItems(item);
+            }});
+        }}
+    }}, [])
 
-    const {{items}} = props;
 
     return (
     < div className = ""table-responsive"" >

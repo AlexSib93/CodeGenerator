@@ -11,16 +11,15 @@ export interface IFormsProps
 
 export const Forms = (props: IFormsProps) => {
     // const { state, dispatch } = React.useContext(ContextApp);
-    //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
-    // useEffect(() => {
-    //     if(props.autoFetch) {
-    //         RotoxHouseService.getAll().then((orders) => {
-    //             setRotoxHouses(orders);
-    //         });
-    //     }
-    // }, [])
+    const [items, setItems] = useState<FormMetadata[]>(props.items);
+    useEffect(() => {
+        if(props.autoFetch) {
+            FormMetadataService.getall().then((item) => {
+                setItems(item);
+            });
+        }
+    }, [])
 
-    const {items} = props;
 
     return (
     < div className = "table-responsive" >

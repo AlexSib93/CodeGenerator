@@ -18,7 +18,7 @@ class FormMetadataService {
       );
   }
   
-  getall(): Promise<FormMetadata> {
+  getall(): Promise<FormMetadata[]> {
     return ApiDataService.get('formmetadata', `getall`)
       .then(
         (response) => Promise.resolve(response.data),

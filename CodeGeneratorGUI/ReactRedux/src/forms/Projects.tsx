@@ -11,16 +11,15 @@ export interface IProjectsProps
 
 export const Projects = (props: IProjectsProps) => {
     // const { state, dispatch } = React.useContext(ContextApp);
-    //const [rotoxHouses, setRotoxHouses] = useState<RotoxHouse[]>(props.items);
-    // useEffect(() => {
-    //     if(props.autoFetch) {
-    //         RotoxHouseService.getAll().then((orders) => {
-    //             setRotoxHouses(orders);
-    //         });
-    //     }
-    // }, [])
+    const [items, setItems] = useState<ProjectMetadata[]>(props.items);
+    useEffect(() => {
+        if(props.autoFetch) {
+            ProjectMetadataService.getall().then((item) => {
+                setItems(item);
+            });
+        }
+    }, [])
 
-    const {items} = props;
 
     return (
     < div className = "table-responsive" >
