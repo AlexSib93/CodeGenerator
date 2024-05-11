@@ -26,10 +26,10 @@ export const Forms = (props: IFormsProps) => {
          < table className = "table table-striped table-sm" >
               < thead >
                   < tr >
-               <th>name</th> 
-               <th>caption</th> 
-               <th>description</th> 
-               <th>addToNavBar</th> 
+               <th>Name</th> 
+               <th>Caption</th> 
+               <th>Description</th> 
+               <th>AddToNavBar</th> 
 
                            < th ></ th >
                        </ tr >

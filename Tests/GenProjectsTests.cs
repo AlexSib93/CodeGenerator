@@ -117,9 +117,9 @@ namespace Tests
                 Caption = "Модель",
                 NameSpace = nameSpace,
                 Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "Name", Type = "string" },
-                    new PropMetadata() { Name = "NameSpace", Type = "string" },
-                    new PropMetadata() { Name = "Caption", Type = "string" }
+                    new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                    new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
+                    new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" }
                     //public List<PropMetadata> Props
                 }
             };

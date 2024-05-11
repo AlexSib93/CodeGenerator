@@ -26,9 +26,9 @@ export const Models = (props: IModelsProps) => {
          < table className = "table table-striped table-sm" >
               < thead >
                   < tr >
-               <th>name</th> 
-               <th>nameSpace</th> 
-               <th>caption</th> 
+               <th>Имя</th> 
+               <th>Пространство имен</th> 
+               <th>Отображаемое имя</th> 
 
                            < th ></ th >
                        </ tr >

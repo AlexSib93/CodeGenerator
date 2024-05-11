@@ -26,9 +26,9 @@ export const Projects = (props: IProjectsProps) => {
          < table className = "table table-striped table-sm" >
               < thead >
                   < tr >
-               <th>name</th> 
-               <th>description</th> 
-               <th>path</th> 
+               <th>Name</th> 
+               <th>Description</th> 
+               <th>Path</th> 
 
                            < th ></ th >
                        </ tr >
