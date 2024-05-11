@@ -2,6 +2,7 @@
 using CodeGenerator.Metadata;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,10 +71,13 @@ namespace CodeGenerator.ProjectFiles.Ts
     }};
 
 {CreateRowComponentText()}
+    const addItem = () => {{
+        setItem({{...init{FormInfo.Model.Name}}});
+    }}
 
     return (
     < div className = ""table-responsive"" >
-         {{!item && < table className = ""table table-striped table-sm"" >
+         {{!item &&  <div>< table className = ""table table-striped table-sm"" >
               < thead >
                   < tr >
 {TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
@@ -83,12 +87,20 @@ namespace CodeGenerator.ProjectFiles.Ts
                    < tbody >
                     {{ (items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
                 </ tbody >
-            </ table > }}
+            {GetComponentsText()}
+            </ table > </div> }}
           {EditFormComponent()}
         </ div >
     );
 }};
 ";
+        }
+
+        private string GetComponentsText()
+        {
+            return (FormInfo.Components!= null)
+                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c)))
+                : "";
         }
 
         private string EditFormComponent()
@@ -100,7 +112,7 @@ namespace CodeGenerator.ProjectFiles.Ts
 
         public string UsingText => $@"
 import {{ useEffect,useState }} from ""react"";
-import {{ {FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
+import {{ {FormInfo.Model.Name},  init{FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
 import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";
 {(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
 

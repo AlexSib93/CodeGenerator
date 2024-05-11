@@ -1,6 +1,6 @@
 
 import { useEffect,useState } from "react";
-import { FormMetadata } from "../models/FormMetadata";
+import { FormMetadata,  initFormMetadata } from "../models/FormMetadata";
 import FormMetadataService from "../services/FormMetadataService";
 
 
@@ -44,9 +44,13 @@ const FormMetadataRow = (formMetadata: FormMetadata) => {
  }
 
 
+    const addItem = () => {
+        setItem({...initFormMetadata});
+    }
+
     return (
     < div className = "table-responsive" >
-         {!item && < table className = "table table-striped table-sm" >
+         {!item &&  <div>< table className = "table table-striped table-sm" >
               < thead >
                   < tr >
                <th>Name</th> 
@@ -60,7 +64,8 @@ const FormMetadataRow = (formMetadata: FormMetadata) => {
                    < tbody >
                     { (items) && items.map(o => FormMetadataRow(o))}
                 </ tbody >
-            </ table > }
+            
+            </ table > </div> }
           
         </ div >
     );

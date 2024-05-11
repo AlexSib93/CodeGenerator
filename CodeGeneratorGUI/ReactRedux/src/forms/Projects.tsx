@@ -1,6 +1,6 @@
 
 import { useEffect,useState } from "react";
-import { ProjectMetadata } from "../models/ProjectMetadata";
+import { ProjectMetadata,  initProjectMetadata } from "../models/ProjectMetadata";
 import ProjectMetadataService from "../services/ProjectMetadataService";
 
 
@@ -42,10 +42,13 @@ const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
     </tr>);
  }
 
+    const addItem = () => {
+        setItem({...initProjectMetadata});
+    }
 
     return (
     < div className = "table-responsive" >
-         {!item && < table className = "table table-striped table-sm" >
+         {!item &&  <div>< table className = "table table-striped table-sm" >
               < thead >
                   < tr >
                <th>Name</th> 
@@ -58,7 +61,8 @@ const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
                    < tbody >
                     { (items) && items.map(o => ProjectMetadataRow(o))}
                 </ tbody >
-            </ table > }
+            
+            </ table > </div> }
           
         </ div >
     );

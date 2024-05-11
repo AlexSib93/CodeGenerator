@@ -243,6 +243,7 @@ namespace Tests
                     Caption = "Модели",
                     Model = modelMetadata1,
                     AddToNavBar = true,
+                    Components = new ComponentMetadata[] {new ComponentMetadata() { Type = "AddButton"  } },
                     EditForm = new FormMetadata()
                     {
                         Name = "Model",

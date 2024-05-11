@@ -84,8 +84,9 @@ namespace CodeGenerator
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
       </div>";
                     break;
-                case "DateTime":
-                    res = "Date";
+                case "AddButton":
+                    res = $@"
+            <button className=""w-100 btn btn-lg btn-primary"" onClick={{addItem}} >Добавить</button>";
                     break;
                 default:
                     break;

@@ -1,6 +1,6 @@
 
 import { useEffect,useState } from "react";
-import { ModelMetadata } from "../models/ModelMetadata";
+import { ModelMetadata,  initModelMetadata } from "../models/ModelMetadata";
 import ModelMetadataService from "../services/ModelMetadataService";
 import Model from "./Model";
 
@@ -42,10 +42,13 @@ const ModelMetadataRow = (modelMetadata: ModelMetadata) => {
     </tr>);
  }
 
+    const addItem = () => {
+        setItem({...initModelMetadata});
+    }
 
     return (
     < div className = "table-responsive" >
-         {!item && < table className = "table table-striped table-sm" >
+         {!item &&  <div>< table className = "table table-striped table-sm" >
               < thead >
                   < tr >
                <th>Имя</th> 
@@ -58,7 +61,9 @@ const ModelMetadataRow = (modelMetadata: ModelMetadata) => {
                    < tbody >
                     { (items) && items.map(o => ModelMetadataRow(o))}
                 </ tbody >
-            </ table > }
+            
+            <button className="w-100 btn btn-lg btn-primary" onClick={addItem} >Добавить</button>
+            </ table > </div> }
            {item && <div>
                 <Model model={item} onSave={handleSave} />
             </div> }
