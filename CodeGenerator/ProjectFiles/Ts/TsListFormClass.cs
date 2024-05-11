@@ -12,9 +12,11 @@ namespace CodeGenerator.ProjectFiles.Ts
     {
         public string Name { get; set; }
         public FormMetadata FormInfo { get; set; }
-        public TsListFormClass(FormMetadata formMeta)
+        public FormMetadata EditForm { get; set; }
+        public TsListFormClass(FormMetadata formMeta, FormMetadata editForm)
         {
             FormInfo = formMeta;
+            EditForm = editForm;
         }
 
         public string Header => $@"{UsingText}";
@@ -22,7 +24,6 @@ namespace CodeGenerator.ProjectFiles.Ts
 
 {CreateComponentText()}
   
-{CreateRowComponentText()}
 ";
 
         private object CreateListFormPropsInterface()
@@ -40,7 +41,7 @@ namespace CodeGenerator.ProjectFiles.Ts
     return (<tr>
 {TsRowPropBuilder.GetPropsText(FormInfo.Model)}
         <td>
-            <button className = ""btn btn-secondary"" >Tap the Button</button>
+            <button className = ""btn btn-secondary"" onClick={{() => setItem({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)})}} >Edit</button>
         </td>
     </tr>);
  }}
@@ -50,6 +51,8 @@ namespace CodeGenerator.ProjectFiles.Ts
         {
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
     // const {{ state, dispatch }} = React.useContext(ContextApp);
+
+    const [item, setItem] = useState<{FormInfo.Model.Name}>(null);
     const [items, setItems] = useState<{FormInfo.Model.Name}[]>(props.items);
     useEffect(() => {{
         if(props.autoFetch) {{
@@ -59,10 +62,18 @@ namespace CodeGenerator.ProjectFiles.Ts
         }}
     }}, [])
 
+    const handleSave = (model: {FormInfo.Model.Name}) => {{
+        setItem(null);
+
+        //setUser(updatedUser);
+        // Here you can make API calls to update the user data in the backend
+    }};
+
+{CreateRowComponentText()}
 
     return (
     < div className = ""table-responsive"" >
-         < table className = ""table table-striped table-sm"" >
+         {{!item && < table className = ""table table-striped table-sm"" >
               < thead >
                   < tr >
 {TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
@@ -72,17 +83,26 @@ namespace CodeGenerator.ProjectFiles.Ts
                    < tbody >
                     {{ (items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
                 </ tbody >
-            </ table >
+            </ table > }}
+          {EditFormComponent()}
         </ div >
     );
 }};
 ";
         }
 
+        private string EditFormComponent()
+        {
+            return (EditForm != null ? $@" {{item && <div>
+                <{EditForm.Name} model={{item}} onSave={{handleSave}} />
+            </div> }}" : "");
+        }
+
         public string UsingText => $@"
 import {{ useEffect,useState }} from ""react"";
 import {{ {FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
-import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";";
+import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";
+{(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
 
         public string Footer => $@"";
 

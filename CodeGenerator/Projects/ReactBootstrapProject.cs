@@ -23,11 +23,16 @@ namespace CodeGenerator.Projects
 
             foreach (FormMetadata formMeta in Metadata.Forms)
             {
-                Items.Add(new ProjectItem(this, new TsListFormClass(formMeta), $"{formMeta.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
+                if(formMeta.EditForm != null)
+                {
+                    Items.Add(new ProjectItem(this, new TsEditForm(formMeta.EditForm), $"{formMeta.EditForm.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
+                }
+                Items.Add(new ProjectItem(this, new TsListFormClass(formMeta, formMeta.EditForm), $"{formMeta.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
+                
             }
 
             Items.Add(new ProjectItem(this, new TsAppClass(Metadata.Forms), $"App", $"{Metadata.Path}\\{Name}\\src", "tsx"));
-            Items.Add(new ProjectItem(this, new TsNavBarClass(Metadata.Forms), $"Navbar", $"{Metadata.Path}\\{Name}\\src\\components", "tsx"));
+            Items.Add(new ProjectItem(this, new TsNavBarClass(Metadata), $"Navbar", $"{Metadata.Path}\\{Name}\\src\\components", "tsx"));
         }
 
     }

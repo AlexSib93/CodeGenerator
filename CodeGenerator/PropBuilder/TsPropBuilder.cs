@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeGenerator.Metadata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,6 +69,31 @@ namespace CodeGenerator
 
             return res;
         }
+        public static object GetTsComponent(ComponentMetadata component)
+        {
+            string res = "";
+            switch (component.Type)
+            {
+                case "SubmitButton":
+                    res = "            <button className=\"w-100 btn btn-lg btn-primary\" type=\"submit\">Сохранить</button>";
+                    break;
+                case "Input":
+                    res = $@"
+      <div className=""form-floating"">                
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange}} />
+        <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
+      </div>";
+                    break;
+                case "DateTime":
+                    res = "Date";
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
+        }
+
         private static object GetTsInitValue(string type)
         {
             string res = type;

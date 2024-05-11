@@ -13,6 +13,7 @@ namespace CodeGenerator.Metadata
         public string Description { get; set; }
         public ModelMetadata Model { get; set; }
         public bool AddToNavBar { get; set; }
+        public FormMetadata EditForm { get; set; }
         public IEnumerable<ComponentMetadata> Components { get; set; }
     }
 }

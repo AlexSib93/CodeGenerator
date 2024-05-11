@@ -16,7 +16,7 @@ const Header = () => {
         <header className="py-2 mb-3">
             <nav className="navbar navbar-expand-lg navbar-light bg-light rounded" aria-label="Eleventh navbar example">
                 <div className="container-fluid">
-                    <NavLink className="navbar-brand" to="/">WD терминал</NavLink>
+                    <NavLink className="navbar-brand" to="/">CodeGeneratorGUI</NavLink>
                     {state.ui.loading && <div className="text-right">
                         <div className="spinner-border" role="status">
                             <span className="visually-hidden">Loading...</span>

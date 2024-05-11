@@ -9,6 +9,8 @@ namespace CodeGenerator.Metadata
     public class ComponentMetadata
     {
         public string Name { get; set; }
+        public string Caption { get; set; }
         public string Description { get; set; }
+        public string Type { get; set; }
     }
 }

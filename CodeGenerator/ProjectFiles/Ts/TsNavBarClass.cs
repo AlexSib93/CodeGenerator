@@ -11,11 +11,13 @@ namespace CodeGenerator.ProjectFiles.Ts
     public class TsNavBarClass : IGenerator
     {
         public string Name { get; set; }
+        public ProjectMetadata Project { get; set; }
         public IEnumerable<FormMetadata> Forms { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
-        public TsNavBarClass(IEnumerable<FormMetadata> formsInfo)
+        public TsNavBarClass(ProjectMetadata proj)
         {
-            Forms = formsInfo;
+            Forms = proj.Forms;
+            Project = proj;
         }
 
         public ModelMetadata ClassInfo { get; set; }
@@ -38,7 +40,7 @@ const Header = () => {{
         <header className=""py-2 mb-3"">
             <nav className=""navbar navbar-expand-lg navbar-light bg-light rounded"" aria-label=""Eleventh navbar example"">
                 <div className=""container-fluid"">
-                    <NavLink className=""navbar-brand"" to=""/"">WD терминал</NavLink>
+                    <NavLink className=""navbar-brand"" to=""/"">{Project.Name}</NavLink>
                     {{state.ui.loading && <div className=""text-right"">
                         <div className=""spinner-border"" role=""status"">
                             <span className=""visually-hidden"">Loading...</span>

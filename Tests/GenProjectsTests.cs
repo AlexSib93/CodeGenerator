@@ -29,8 +29,8 @@ namespace Tests
         [TestMethod]
         public void TestGui()
         {
-            Process hostClientProcess = BuildAndRunClient(true);
             Process hostApiProcess = BuildAndRunWebApi();
+            Process hostClientProcess = BuildAndRunClient(true);
 
             hostClientProcess.WaitForExit();
             hostApiProcess.WaitForExit();
@@ -195,7 +195,7 @@ namespace Tests
                     new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
                     new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" }
                     //public List<PropMetadata> Props
-                }
+                }                
             };
             ModelMetadata modelMetadata2 = new ModelMetadata()
             {
@@ -242,7 +242,19 @@ namespace Tests
                     Name = "Models",
                     Caption = "Модели",
                     Model = modelMetadata1,
-                    AddToNavBar = true
+                    AddToNavBar = true,
+                    EditForm = new FormMetadata()
+                    {
+                        Name = "Model",
+                        Caption = "Модель",
+                        Model = modelMetadata1,
+                        Components = new ComponentMetadata[] {
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
+                            new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
+                            new ComponentMetadata() { Type = "SubmitButton"  }
+                        }
+                    }
                 },
                 new FormMetadata()
                 {
@@ -252,6 +264,7 @@ namespace Tests
                     AddToNavBar = true
                 }
             };
+
 
             return metadata;
         }
