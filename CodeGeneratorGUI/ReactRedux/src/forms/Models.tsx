@@ -35,6 +35,7 @@ const ModelMetadataRow = (modelMetadata: ModelMetadata) => {
                <td>{ modelMetadata.name }</td> 
                <td>{ modelMetadata.nameSpace }</td> 
                <td>{ modelMetadata.caption }</td> 
+               <td>{ modelMetadata.props }</td> 
 
         <td>
             <button className = "btn btn-secondary" onClick={() => setItem(modelMetadata)} >Edit</button>
@@ -54,6 +55,7 @@ const ModelMetadataRow = (modelMetadata: ModelMetadata) => {
                <th>Имя</th> 
                <th>Пространство имен</th> 
                <th>Отображаемое имя</th> 
+               <th>Свойства</th> 
 
                            < th ></ th >
                        </ tr >

@@ -49,22 +49,30 @@ namespace CodeGenerator
         private static object GetTsType(string type)
         {
             string res = type;
-            switch (type)
+            if(type.StartsWith("List"))
             {
-                case "int":
-                    res = "number";
-                    break;
-                case "int?":
-                    res = "number | null";
-                    break;
-                case "DateTime":
-                    res = "Date";
-                    break;
-                case "bool":
-                    res = "boolean";
-                    break;
-                default:
-                    break;
+                string classOfArray = type.Substring(type.IndexOf("<")+1, type.IndexOf(">") - type.IndexOf("<") - 1);
+                res = $@"{classOfArray}[]";
+            }
+            else
+            {
+                switch (type)
+                {
+                    case "int":
+                        res = "number";
+                        break;
+                    case "int?":
+                        res = "number | null";
+                        break;
+                    case "DateTime":
+                        res = "Date";
+                        break;
+                    case "bool":
+                        res = "boolean";
+                        break;
+                    default:
+                        break;
+                }
             }
 
             return res;
@@ -98,25 +106,32 @@ namespace CodeGenerator
         private static object GetTsInitValue(string type)
         {
             string res = type;
-            switch (type)
+            if (type.StartsWith("List"))
             {
-                case "int":
-                    res = "0";
-                    break;
-                case "int?":
-                    res = "null";
-                    break;
-                case "DateTime":
-                    res = "new Date()";
-                    break;
-                case "string":
-                    res = "''";
-                    break;
-                case "bool":
-                    res = "false";
-                    break;
-                default:
-                    break;
+                res = "[]";
+            }
+            else
+            {
+                switch (type)
+                {
+                    case "int":
+                        res = "0";
+                        break;
+                    case "int?":
+                        res = "null";
+                        break;
+                    case "DateTime":
+                        res = "new Date()";
+                        break;
+                    case "string":
+                        res = "''";
+                        break;
+                    case "bool":
+                        res = "false";
+                        break;
+                    default:
+                        break;
+                }
             }
 
             return res;

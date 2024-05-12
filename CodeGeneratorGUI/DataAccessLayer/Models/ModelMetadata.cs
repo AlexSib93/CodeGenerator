@@ -7,6 +7,7 @@ namespace DataAccessLayer.Dto
       public string Name { get; set; }
       public string NameSpace { get; set; }
       public string Caption { get; set; }
+      public List<PropMetadata> Props { get; set; }
 
     }
 }

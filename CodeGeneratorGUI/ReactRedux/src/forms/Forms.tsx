@@ -43,7 +43,6 @@ const FormMetadataRow = (formMetadata: FormMetadata) => {
     </tr>);
  }
 
-
     const addItem = () => {
         setItem({...initFormMetadata});
     }

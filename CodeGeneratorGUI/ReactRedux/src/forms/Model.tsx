@@ -40,6 +40,7 @@ import ModelMetadataService from "../services/ModelMetadataService";
         <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" value={editedItem.caption} onChange={ handleInputChange} />
         <label htmlFor="floatingInputCaption">Отображаемое имя</label>
       </div>
+
             <button className="w-100 btn btn-lg btn-primary" type="submit">Сохранить</button>
      </form>
    );
