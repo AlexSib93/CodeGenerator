@@ -193,8 +193,8 @@ namespace Tests
                 Props = new List<PropMetadata>() {
                     new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
                     new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
-                    new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" }
-                    //public List<PropMetadata> Props
+                    new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" },
+                    new PropMetadata { Name = "Props", Caption = "Свойства", Type = "List<PropMetadata>" }
                 }                
             };
             ModelMetadata modelMetadata2 = new ModelMetadata()
@@ -205,9 +205,9 @@ namespace Tests
                 Props = new List<PropMetadata>() {
                     new PropMetadata() { Name = "Name", Type = "string" },
                     new PropMetadata() { Name =  "Description", Type = "string" },
-                    new PropMetadata() { Name =  "Path", Type = "string"}
-                    //    public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
-                    //    public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
+                    new PropMetadata() { Name =  "Path", Type = "string"},
+                    new PropMetadata { Name = "Models", Caption = "Модели", Type = "List<ModelMetadata>" },
+                    new PropMetadata { Name = "Forms", Caption = "Формы", Type = "List<FormMetadata>" }
                 }
             };
             ModelMetadata modelMetadata3 = new ModelMetadata()
@@ -220,13 +220,26 @@ namespace Tests
                     new PropMetadata() { Name =  "Caption", Type = "string"},
                     new PropMetadata() { Name =  "Description", Type = "string" },
                     new PropMetadata() { Name =  "AddToNavBar", Type = "bool"}
+                    //new PropMetadata { Name = "Components", Caption = "Формы", Type = "List<ComponentMetadata>" }
                     //    public IEnumerable<ComponentMetadata> Components { get; set; }
+                }
+            };
+            ModelMetadata modelMetadata4 = new ModelMetadata()
+            {
+                Name = "PropMetadata",
+                Caption = "Свойство",
+                NameSpace = nameSpace,
+                Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name =  "Type", Caption="Тип данных C#", Type = "string"},
+                    new PropMetadata() { Name =  "Caption", Caption="Отображаемое имя", Type = "string" },
                 }
             };
             metadata.Models = new List<ModelMetadata> {
                 modelMetadata1,
                 modelMetadata2,
-                modelMetadata3
+                modelMetadata3,
+                modelMetadata4
             };
             metadata.Forms = new List<FormMetadata>
             {
@@ -253,6 +266,7 @@ namespace Tests
                             new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
                             new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input"  },
                             new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "ListForm"  },
                             new ComponentMetadata() { Type = "SubmitButton"  }
                         }
                     }

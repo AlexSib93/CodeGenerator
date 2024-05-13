@@ -35,6 +35,8 @@ const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
                <td>{ projectMetadata.name }</td> 
                <td>{ projectMetadata.description }</td> 
                <td>{ projectMetadata.path }</td> 
+               <td>{ projectMetadata.models }</td> 
+               <td>{ projectMetadata.forms }</td> 
 
         <td>
             <button className = "btn btn-secondary" onClick={() => setItem(projectMetadata)} >Edit</button>
@@ -54,6 +56,8 @@ const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
                <th>Name</th> 
                <th>Description</th> 
                <th>Path</th> 
+               <th>Модели</th> 
+               <th>Формы</th> 
 
                            < th ></ th >
                        </ tr >

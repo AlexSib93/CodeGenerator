@@ -16,6 +16,7 @@ namespace CodeGenerator.ProjectFiles.Ts
             ClassInfo = classInfo;
         }
 
+        public string Header => $@"{TsPropBuilder.UsingPropTypeText(ClassInfo.Props)}";
 
         public string Body => $@"export interface {ClassInfo.Name} {{
 {GetPropsText}}}
@@ -33,7 +34,7 @@ export const init{ClassInfo.Name} = {{
 
         public string Gen()
         {
-            return $@"{Body}";
+            return $@"{Header}{Body}";
         }
     }
 }

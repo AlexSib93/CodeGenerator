@@ -24,6 +24,12 @@ namespace DataAccessLayer.Data
             get { return _repFormMetadata ?? (_repFormMetadata = new MockRepository<FormMetadata>()); }
         }
 
+        private IRepository<PropMetadata> _repPropMetadata;
+        public IRepository<PropMetadata> RepPropMetadata
+        {
+            get { return _repPropMetadata ?? (_repPropMetadata = new MockRepository<PropMetadata>()); }
+        }
+
 
         public void Dispose()
         {

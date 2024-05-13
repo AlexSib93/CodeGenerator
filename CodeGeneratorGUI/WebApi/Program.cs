@@ -65,7 +65,8 @@ builder.Services
     .AddScoped<IUnitOfWork, MockUnit>()
     .AddScoped<IModelMetadataService, ModelMetadataService>()
     .AddScoped<IProjectMetadataService, ProjectMetadataService>()
-    .AddScoped<IFormMetadataService, FormMetadataService>();
+    .AddScoped<IFormMetadataService, FormMetadataService>()
+    .AddScoped<IPropMetadataService, PropMetadataService>();
 
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();

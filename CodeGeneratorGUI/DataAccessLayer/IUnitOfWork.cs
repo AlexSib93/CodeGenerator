@@ -12,6 +12,8 @@ namespace DataAccessLayer
 
         IRepository<FormMetadata> RepFormMetadata { get;}
 
+        IRepository<PropMetadata> RepPropMetadata { get;}
+
 
     }
 }

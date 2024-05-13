@@ -8,29 +8,29 @@ namespace CodeGeneratorGUI
 {    
     [Route("api/[controller]")]
     [ApiController]
-    public class ModelMetadataController : ControllerBase
+    public class PropMetadataController : ControllerBase
     {
-        private IModelMetadataService _modelMetadataService { get; set; }
-        private readonly ILogger<ModelMetadataController> _logger;
-        public ModelMetadataController(ILogger<ModelMetadataController> logger, IModelMetadataService modelMetadataService)
+        private IPropMetadataService _propMetadataService { get; set; }
+        private readonly ILogger<PropMetadataController> _logger;
+        public PropMetadataController(ILogger<PropMetadataController> logger, IPropMetadataService propMetadataService)
         {
             _logger = logger;
-            _modelMetadataService = modelMetadataService;
+            _propMetadataService = propMetadataService;
         }
 
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] ModelMetadata modelMetadata)
+        public IActionResult Create([FromBody] PropMetadata propMetadata)
         {
             try
             {
-                ModelMetadata res = _modelMetadataService.Add(modelMetadata);
+                PropMetadata res = _propMetadataService.Add(propMetadata);
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Не удалось создать Модель");
+                _logger.LogError(ex, "Не удалось создать Свойство");
                 return BadRequest(ex.Message + " " + ex.InnerException?.Message);
             }
         }
@@ -40,13 +40,13 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                ModelMetadata res = _modelMetadataService.Get(id);
+                PropMetadata res = _propMetadataService.Get(id);
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Не удалось получить Модель");
+                _logger.LogError(ex, "Не удалось получить Свойство");
                 return BadRequest(ex.Message + " " + ex.InnerException?.Message);
             }
         }
@@ -56,13 +56,13 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                IEnumerable<ModelMetadata> res = _modelMetadataService.Get();
+                IEnumerable<PropMetadata> res = _propMetadataService.Get();
 
                 return Ok(res);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Не удалось получить все Модель");
+                _logger.LogError(ex, "Не удалось получить все Свойство");
                 return BadRequest(ex.Message + " " + ex.InnerException?.Message);
             }
         }
@@ -72,13 +72,13 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                _modelMetadataService.Delete(id);
+                _propMetadataService.Delete(id);
 
                 return Ok();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Не удалось удалить Модель");
+                _logger.LogError(ex, "Не удалось удалить Свойство");
                 return BadRequest(ex.Message + " " + ex.InnerException?.Message);
             }
         }

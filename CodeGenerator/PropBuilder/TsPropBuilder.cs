@@ -38,6 +38,22 @@ namespace CodeGenerator
 
             return res;
         }
+
+        public static string UsingPropTypeText(IEnumerable<PropMetadata> props)
+        {
+            string res = "";
+            foreach (PropMetadata prop in props)
+            {
+                if (prop.Type.StartsWith("List"))
+                {
+                    string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
+                    res += $"import {{ {classOfArray} }} from \"./{classOfArray}\";" + Environment.NewLine;
+
+                }
+            }            
+
+            return res;
+        }
         public static string GetInitPropText(PropMetadata propInfo)
         {
             string res =
