@@ -93,7 +93,7 @@ namespace CodeGenerator
 
             return res;
         }
-        public static object GetTsComponent(ComponentMetadata component)
+        public static object GetTsComponent(ComponentMetadata component, string addstring = "")
         {
             string res = "";
             switch (component.Type)
@@ -107,6 +107,12 @@ namespace CodeGenerator
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange}} />
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
       </div>";
+                    break;                
+                case "Table":
+                    string props = string.Join(", ",component.Props.Where(p=>!p.Type.StartsWith("List")).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
+                    res = $@"
+      < Table {addstring} props={{[{props}]}} />
+";
                     break;
                 case "AddButton":
                     res = $@"

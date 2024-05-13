@@ -2,6 +2,7 @@
 import { useEffect,useState } from "react";
 import { FormMetadata,  initFormMetadata } from "../models/FormMetadata";
 import FormMetadataService from "../services/FormMetadataService";
+import { Table } from "../components/Table";
 
 
 export interface IFormsProps
@@ -23,57 +24,20 @@ export const Forms = (props: IFormsProps) => {
         }
     }, [])
 
+    const addItem = () => {
+        setItem({ ...initFormMetadata });
+    }
+
     const handleSave = (model: FormMetadata) => {
         setItem(null);
 
         //setUser(updatedUser);
         // Here you can make API calls to update the user data in the backend
     };
-
-
-    const FormMetadataRow = (formMetadata: FormMetadata) => {
-        return (<tr>
-                        <td>{ formMetadata.name }</td> 
-            <td>{ formMetadata.caption }</td> 
-            <td>{ formMetadata.description }</td> 
-            <td>{ formMetadata.addToNavBar }</td> 
-
-            <td>
-                <button className="btn btn-secondary" onClick={() => setItem(formMetadata)} >Edit</button>
-            </td>
-        </tr>);
-    }
-
-    const addItem = () => {
-        setItem({ ...initFormMetadata });
-    }
-
-    const tableFormMetadata = (items: FormMetadata[]) => <table className="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>Name</th> 
-                <th>Caption</th> 
-                <th>Description</th> 
-                <th>AddToNavBar</th> 
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {(items) && items.map(o => FormMetadataRow(o))}
-        </tbody>
-        
-    </table>;
-
-    return (
-        <div className="table-responsive" >
-            {!item && <div>
-                {tableFormMetadata(items)}
-            </div>}
+       return <div className="table-responsive" >
+          
           
         </ div >
-    );
-
 };
 
   

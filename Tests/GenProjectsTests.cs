@@ -256,7 +256,10 @@ namespace Tests
                     Caption = "Модели",
                     Model = modelMetadata1,
                     AddToNavBar = true,
-                    Components = new ComponentMetadata[] {new ComponentMetadata() { Type = "AddButton"  } },
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata1.Props  },
+                        new ComponentMetadata() { Type = "AddButton"  } 
+                    },
                     EditForm = new FormMetadata()
                     {
                         Name = "Model",
@@ -266,7 +269,7 @@ namespace Tests
                             new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
                             new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input"  },
                             new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "ListForm"  },
+                            new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata4.Props },
                             new ComponentMetadata() { Type = "SubmitButton"  }
                         }
                     }

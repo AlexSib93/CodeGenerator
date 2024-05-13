@@ -2,6 +2,7 @@
 import { useEffect,useState } from "react";
 import { ProjectMetadata,  initProjectMetadata } from "../models/ProjectMetadata";
 import ProjectMetadataService from "../services/ProjectMetadataService";
+import { Table } from "../components/Table";
 
 
 export interface IProjectsProps
@@ -23,59 +24,20 @@ export const Projects = (props: IProjectsProps) => {
         }
     }, [])
 
+    const addItem = () => {
+        setItem({ ...initProjectMetadata });
+    }
+
     const handleSave = (model: ProjectMetadata) => {
         setItem(null);
 
         //setUser(updatedUser);
         // Here you can make API calls to update the user data in the backend
     };
-
-
-    const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
-        return (<tr>
-                        <td>{ projectMetadata.name }</td> 
-            <td>{ projectMetadata.description }</td> 
-            <td>{ projectMetadata.path }</td> 
-            <td>{ projectMetadata.models }</td> 
-            <td>{ projectMetadata.forms }</td> 
-
-            <td>
-                <button className="btn btn-secondary" onClick={() => setItem(projectMetadata)} >Edit</button>
-            </td>
-        </tr>);
-    }
-
-    const addItem = () => {
-        setItem({ ...initProjectMetadata });
-    }
-
-    const tableProjectMetadata = (items: ProjectMetadata[]) => <table className="table table-striped table-sm">
-        <thead>
-            <tr>
-                <th>Name</th> 
-                <th>Description</th> 
-                <th>Path</th> 
-                <th>Модели</th> 
-                <th>Формы</th> 
-
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {(items) && items.map(o => ProjectMetadataRow(o))}
-        </tbody>
-        
-    </table>;
-
-    return (
-        <div className="table-responsive" >
-            {!item && <div>
-                {tableProjectMetadata(items)}
-            </div>}
+       return <div className="table-responsive" >
+          
           
         </ div >
-    );
-
 };
 
   

@@ -2,6 +2,7 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { ModelMetadata } from "../models/ModelMetadata";
 import ModelMetadataService from "../services/ModelMetadataService";
+import {Table} from "../components/Table";
 
 
  interface ModelProps {
@@ -40,6 +41,8 @@ import ModelMetadataService from "../services/ModelMetadataService";
         <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" value={editedItem.caption} onChange={ handleInputChange} />
         <label htmlFor="floatingInputCaption">Отображаемое имя</label>
       </div>
+
+      < Table items={editedItem.props} props={[{Name:'name', Caption: 'Наименование'}, {Name:'type', Caption: 'Тип данных C#'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
 
             <button className="w-100 btn btn-lg btn-primary" type="submit">Сохранить</button>
      </form>

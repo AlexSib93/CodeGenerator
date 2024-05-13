@@ -19,6 +19,12 @@ namespace CodeGenerator.ProjectFiles.Ts
         }
 
         public string Header => $@"{UsingText}";
+        public string UsingText => $@"
+import React, {{ useState, ChangeEvent, FormEvent, useEffect }} from 'react';
+import {{ {Form.Model.Name} }} from ""../models/{Form.Model.Name}"";
+import {Form.Model.Name}Service from ""../services/{Form.Model.Name}Service"";
+import {{Table}} from ""../components/Table"";";
+
         public string Body => $@"
  interface {Form.Name}Props {{
    model: {Form.Model.Name};
@@ -49,14 +55,10 @@ namespace CodeGenerator.ProjectFiles.Ts
 
         private string ComponentsText()
         {
-            return string.Join(Environment.NewLine, Form.Components.Select(c => TsPropBuilder.GetTsComponent(c)));
+            return string.Join(Environment.NewLine, Form.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={editedItem.props}")));
         }
 
 
-        public string UsingText => $@"
-import React, {{ useState, ChangeEvent, FormEvent, useEffect }} from 'react';
-import {{ {Form.Model.Name} }} from ""../models/{Form.Model.Name}"";
-import {Form.Model.Name}Service from ""../services/{Form.Model.Name}Service"";";
 
         public string Footer => $@"
  export default {Form.Name};

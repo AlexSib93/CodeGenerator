@@ -36,45 +36,6 @@ namespace CodeGenerator.ProjectFiles.Ts
 }}";
         }
 
-        private object CreateTableComponentText()
-        {
-            return $@"
-    const {FormInfo.Model.Name}Row = ({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)}: {FormInfo.Model.Name}) => {{
-        return (<tr>
-            {TsRowPropBuilder.GetPropsText(FormInfo.Model)}
-            <td>
-                <button className=""btn btn-secondary"" onClick={{() => setItem({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)})}} >Edit</button>
-            </td>
-        </tr>);
-    }}
-
-    const addItem = () => {{
-        setItem({{ ...init{FormInfo.Model.Name} }});
-    }}
-
-    const table{FormInfo.Model.Name} = (items: {FormInfo.Model.Name}[]) => <table className=""table table-striped table-sm"">
-        <thead>
-            <tr>
-{TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {{(items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
-        </tbody>
-        {GetComponentsText()}
-    </table>;
-
-    return (
-        <div className=""table-responsive"" >
-            {{!item && <div>
-                {{table{FormInfo.Model.Name}(items)}}
-            </div>}}
-          {EditFormComponent()}
-        </ div >
-    );
-";
-        }
         private object CreateComponentText()
         {
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
@@ -90,14 +51,20 @@ namespace CodeGenerator.ProjectFiles.Ts
         }}
     }}, [])
 
+    const addItem = () => {{
+        setItem({{ ...init{FormInfo.Model.Name} }});
+    }}
+
     const handleSave = (model: {FormInfo.Model.Name}) => {{
         setItem(null);
 
         //setUser(updatedUser);
         // Here you can make API calls to update the user data in the backend
     }};
-
-{CreateTableComponentText()}
+       return <div className=""table-responsive"" >
+          {GetComponentsText()}
+          {EditFormComponent()}
+        </ div >
 }};
 ";
         }
@@ -105,7 +72,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         private string GetComponentsText()
         {
             return (FormInfo.Components!= null)
-                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c)))
+                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} editClick={setItem}")))
                 : "";
         }
 
@@ -120,6 +87,7 @@ namespace CodeGenerator.ProjectFiles.Ts
 import {{ useEffect,useState }} from ""react"";
 import {{ {FormInfo.Model.Name},  init{FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
 import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";
+import {{ Table }} from ""../components/Table"";
 {(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
 
         public string Footer => $@"";

@@ -13,7 +13,10 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                res += $"{GetPropText(classInfo.Name, propInfo)}\n";
+                if (!propInfo.Type.StartsWith("List"))
+                {
+                    res += $"{GetPropText(classInfo.Name, propInfo)}\n";
+                }
             }
 
             return res;
@@ -21,7 +24,9 @@ namespace CodeGenerator
 
         public static string GetPropText(string modelName, PropMetadata propInfo)
         {
-            return $"            <td>{{ {StringHelper.ToLowerFirstChar(modelName)}.{StringHelper.ToLowerFirstChar(propInfo.Name)} }}</td> "; ;
+            return (!propInfo.Type.StartsWith("List"))
+                ? $"            <td>{{ {StringHelper.ToLowerFirstChar(modelName)}.{StringHelper.ToLowerFirstChar(propInfo.Name)} }}</td> "
+                : "";
         }
     }
 }
