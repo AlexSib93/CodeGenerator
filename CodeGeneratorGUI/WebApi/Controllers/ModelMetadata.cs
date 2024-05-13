@@ -62,7 +62,27 @@ namespace CodeGeneratorGUI
                 {
                     Name = "ModelMetadata",
                     Caption = "Модель",
-                    NameSpace = nameSpace
+                    NameSpace = nameSpace,
+                    Props = new List<PropMetadata>() {
+                        new PropMetadata()
+                        {
+                            Name = "Name",
+                            Type = "string",
+                            Caption = "Имя"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Description",
+                            Type = "string",
+                            Caption = "Описание"
+                        },
+                        new PropMetadata()
+                        {
+                            Name =  "Id",
+                            Type = "int",
+                            Caption = "Идентификатор"
+                        }
+                    }
                 };
                 ModelMetadata modelMetadata2 = new ModelMetadata()
                 {
