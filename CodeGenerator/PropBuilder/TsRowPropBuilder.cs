@@ -21,7 +21,7 @@ namespace CodeGenerator
 
         public static string GetPropText(string modelName, PropMetadata propInfo)
         {
-            return $"               <td>{{ {StringHelper.ToLowerFirstChar(modelName)}.{StringHelper.ToLowerFirstChar(propInfo.Name)} }}</td> "; ;
+            return $"            <td>{{ {StringHelper.ToLowerFirstChar(modelName)}.{StringHelper.ToLowerFirstChar(propInfo.Name)} }}</td> "; ;
         }
     }
 }

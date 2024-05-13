@@ -30,46 +30,52 @@ export const Projects = (props: IProjectsProps) => {
         // Here you can make API calls to update the user data in the backend
     };
 
-const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
-    return (<tr>
-               <td>{ projectMetadata.name }</td> 
-               <td>{ projectMetadata.description }</td> 
-               <td>{ projectMetadata.path }</td> 
-               <td>{ projectMetadata.models }</td> 
-               <td>{ projectMetadata.forms }</td> 
 
-        <td>
-            <button className = "btn btn-secondary" onClick={() => setItem(projectMetadata)} >Edit</button>
-        </td>
-    </tr>);
- }
+    const ProjectMetadataRow = (projectMetadata: ProjectMetadata) => {
+        return (<tr>
+                        <td>{ projectMetadata.name }</td> 
+            <td>{ projectMetadata.description }</td> 
+            <td>{ projectMetadata.path }</td> 
+            <td>{ projectMetadata.models }</td> 
+            <td>{ projectMetadata.forms }</td> 
 
-    const addItem = () => {
-        setItem({...initProjectMetadata});
+            <td>
+                <button className="btn btn-secondary" onClick={() => setItem(projectMetadata)} >Edit</button>
+            </td>
+        </tr>);
     }
 
-    return (
-    < div className = "table-responsive" >
-         {!item &&  <div>< table className = "table table-striped table-sm" >
-              < thead >
-                  < tr >
-               <th>Name</th> 
-               <th>Description</th> 
-               <th>Path</th> 
-               <th>Модели</th> 
-               <th>Формы</th> 
+    const addItem = () => {
+        setItem({ ...initProjectMetadata });
+    }
 
-                           < th ></ th >
-                       </ tr >
-                   </ thead >
-                   < tbody >
-                    { (items) && items.map(o => ProjectMetadataRow(o))}
-                </ tbody >
-            
-            </ table > </div> }
+    const tableProjectMetadata = (items: ProjectMetadata[]) => <table className="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>Name</th> 
+                <th>Description</th> 
+                <th>Path</th> 
+                <th>Модели</th> 
+                <th>Формы</th> 
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {(items) && items.map(o => ProjectMetadataRow(o))}
+        </tbody>
+        
+    </table>;
+
+    return (
+        <div className="table-responsive" >
+            {!item && <div>
+                {tableProjectMetadata(items)}
+            </div>}
           
         </ div >
     );
+
 };
 
   

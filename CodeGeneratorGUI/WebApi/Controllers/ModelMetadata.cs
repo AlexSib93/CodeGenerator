@@ -56,8 +56,31 @@ namespace CodeGeneratorGUI
         {
             try
             {
-                IEnumerable<ModelMetadata> res = _modelMetadataService.Get();
-
+                //IEnumerable<ModelMetadata> res = _modelMetadataService.Get();
+                string nameSpace = "CodeGeneratorGUI";
+                ModelMetadata modelMetadata1 = new ModelMetadata()
+                {
+                    Name = "ModelMetadata",
+                    Caption = "Модель",
+                    NameSpace = nameSpace
+                };
+                ModelMetadata modelMetadata2 = new ModelMetadata()
+                {
+                    Name = "ProjectMetadata",
+                    Caption = "Проект",
+                    NameSpace = nameSpace,
+                };
+                ModelMetadata modelMetadata3 = new ModelMetadata()
+                {
+                    Name = "FormMetadata",
+                    Caption = "Форма",
+                    NameSpace = nameSpace
+                };
+                IEnumerable<ModelMetadata> res = new List<ModelMetadata> {
+                modelMetadata1,
+                modelMetadata2,
+                modelMetadata3
+            };//_modelMetadataService.Get();
                 return Ok(res);
             }
             catch (Exception ex)

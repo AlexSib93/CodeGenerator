@@ -40,6 +40,14 @@ namespace Tests
 
         }
 
+        [TestMethod]
+        public void TestClientApp()
+        {
+            Process hostClientProcess = BuildAndRunClient(true);
+            hostClientProcess.WaitForExit();
+            hostClientProcess.Kill();
+        }
+
         private Process BuildAndRunWebApi()
         {
             string webApiPath = @"..\..\..\..\CodeGeneratorGUI\WebApi\";
@@ -47,14 +55,6 @@ namespace Tests
             Process process = RunCommand("dotnet", "run", webApiPath, useCmdWindow, false);
 
             return process;
-        }
-
-        [TestMethod]
-        public void TestClientApp()
-        {
-            Process hostClientProcess =  BuildAndRunClient(true);
-            hostClientProcess.WaitForExit();
-            hostClientProcess.Kill();
         }
 
         private Process BuildAndRunClient(bool useCmdWindow = true)

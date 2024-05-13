@@ -36,16 +36,43 @@ namespace CodeGenerator.ProjectFiles.Ts
 }}";
         }
 
-        private object CreateRowComponentText()
+        private object CreateTableComponentText()
         {
-            return $@"const {FormInfo.Model.Name}Row = ({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)}: {FormInfo.Model.Name}) => {{
-    return (<tr>
-{TsRowPropBuilder.GetPropsText(FormInfo.Model)}
-        <td>
-            <button className = ""btn btn-secondary"" onClick={{() => setItem({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)})}} >Edit</button>
-        </td>
-    </tr>);
- }}
+            return $@"
+    const {FormInfo.Model.Name}Row = ({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)}: {FormInfo.Model.Name}) => {{
+        return (<tr>
+            {TsRowPropBuilder.GetPropsText(FormInfo.Model)}
+            <td>
+                <button className=""btn btn-secondary"" onClick={{() => setItem({StringHelper.ToLowerFirstChar(FormInfo.Model.Name)})}} >Edit</button>
+            </td>
+        </tr>);
+    }}
+
+    const addItem = () => {{
+        setItem({{ ...init{FormInfo.Model.Name} }});
+    }}
+
+    const table{FormInfo.Model.Name} = (items: {FormInfo.Model.Name}[]) => <table className=""table table-striped table-sm"">
+        <thead>
+            <tr>
+{TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{(items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
+        </tbody>
+        {GetComponentsText()}
+    </table>;
+
+    return (
+        <div className=""table-responsive"" >
+            {{!item && <div>
+                {{table{FormInfo.Model.Name}(items)}}
+            </div>}}
+          {EditFormComponent()}
+        </ div >
+    );
 ";
         }
         private object CreateComponentText()
@@ -70,28 +97,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         // Here you can make API calls to update the user data in the backend
     }};
 
-{CreateRowComponentText()}
-    const addItem = () => {{
-        setItem({{...init{FormInfo.Model.Name}}});
-    }}
-
-    return (
-    < div className = ""table-responsive"" >
-         {{!item &&  <div>< table className = ""table table-striped table-sm"" >
-              < thead >
-                  < tr >
-{TsHeaderPropBuilder.GetPropsText(FormInfo.Model)}
-                           < th ></ th >
-                       </ tr >
-                   </ thead >
-                   < tbody >
-                    {{ (items) && items.map(o => {FormInfo.Model.Name}Row(o))}}
-                </ tbody >
-            {GetComponentsText()}
-            </ table > </div> }}
-          {EditFormComponent()}
-        </ div >
-    );
+{CreateTableComponentText()}
 }};
 ";
         }
