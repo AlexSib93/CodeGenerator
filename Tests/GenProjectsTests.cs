@@ -203,9 +203,9 @@ namespace Tests
                 Caption = "Проект",
                 NameSpace = nameSpace,
                 Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "Name", Type = "string" },
-                    new PropMetadata() { Name =  "Description", Type = "string" },
-                    new PropMetadata() { Name =  "Path", Type = "string"},
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string" },
+                    new PropMetadata() { Name = "Path", Caption = "Путь", Type = "string"},
                     new PropMetadata { Name = "Models", Caption = "Модели", Type = "List<ModelMetadata>" },
                     new PropMetadata { Name = "Forms", Caption = "Формы", Type = "List<FormMetadata>" }
                 }
@@ -216,10 +216,10 @@ namespace Tests
                 Caption = "Форма",
                 NameSpace = nameSpace,
                 Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "Name", Type = "string" },
-                    new PropMetadata() { Name =  "Caption", Type = "string"},
-                    new PropMetadata() { Name =  "Description", Type = "string" },
-                    new PropMetadata() { Name =  "AddToNavBar", Type = "bool"}
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name =  "Caption", Caption = "Отображаемое имя", Type = "string"},
+                    new PropMetadata() { Name =  "Description", Caption = "Описание", Type = "string" },
+                    new PropMetadata() { Name =  "AddToNavBar", Caption = "Добавить в панель навигации", Type = "bool"}
                     //new PropMetadata { Name = "Components", Caption = "Формы", Type = "List<ComponentMetadata>" }
                     //    public IEnumerable<ComponentMetadata> Components { get; set; }
                 }
@@ -248,7 +248,11 @@ namespace Tests
                     Name = "Projects",
                     Caption = "Проекты",
                     Model = modelMetadata2,
-                    AddToNavBar = true
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Projects", Caption = "Проекты", Type = "Table", Props = modelMetadata2.Props  }
+                    }
+
                 },
                 new FormMetadata()
                 {
@@ -257,7 +261,7 @@ namespace Tests
                     Model = modelMetadata1,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata1.Props  },
+                        new ComponentMetadata() { Name = "Models", Caption = "Модели", Type = "Table", Props = modelMetadata1.Props  },
                         new ComponentMetadata() { Type = "AddButton"  } 
                     },
                     EditForm = new FormMetadata()
@@ -279,7 +283,10 @@ namespace Tests
                     Name = "Forms",
                     Caption = "Формы",
                     Model = modelMetadata3,
-                    AddToNavBar = true
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props  }
+                    }
                 }
             };
 

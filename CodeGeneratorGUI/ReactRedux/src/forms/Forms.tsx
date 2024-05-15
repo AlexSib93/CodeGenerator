@@ -35,6 +35,11 @@ export const Forms = (props: IFormsProps) => {
         // Here you can make API calls to update the user data in the backend
     };
        return <div className="table-responsive" >
+            { !item && <div>
+                
+      < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
+
+            </div>}
           
           
         </ div >

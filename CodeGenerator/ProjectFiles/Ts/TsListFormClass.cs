@@ -62,7 +62,10 @@ namespace CodeGenerator.ProjectFiles.Ts
         // Here you can make API calls to update the user data in the backend
     }};
        return <div className=""table-responsive"" >
-          {GetComponentsText()}
+            {$@"{{ !item && <div>
+                {GetComponentsText()}
+            </div>}}"}
+          
           {EditFormComponent()}
         </ div >
 }};

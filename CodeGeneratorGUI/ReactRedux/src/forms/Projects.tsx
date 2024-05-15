@@ -35,6 +35,11 @@ export const Projects = (props: IProjectsProps) => {
         // Here you can make API calls to update the user data in the backend
     };
        return <div className="table-responsive" >
+            { !item && <div>
+                
+      < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'description', Caption: 'Описание'}, {Name:'path', Caption: 'Путь'}]} />
+
+            </div>}
           
           
         </ div >

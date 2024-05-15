@@ -35,11 +35,14 @@ export const Models = (props: IModelsProps) => {
         // Here you can make API calls to update the user data in the backend
     };
        return <div className="table-responsive" >
-          
+            { !item && <div>
+                
       < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
 
 
             <button className="w-100 btn btn-lg btn-primary" onClick={addItem} >Добавить</button>
+            </div>}
+          
            {item && <div>
                 <Model model={item} onSave={handleSave} />
             </div> }
