@@ -116,7 +116,7 @@ namespace CodeGenerator
                     break;
                 case "AddButton":
                     res = $@"
-            <button className=""w-100 btn btn-lg btn-primary"" onClick={{addItem}} >Добавить</button>";
+            <button className=""w-100 btn btn-success"" onClick={{addItem}} >Add</button>";
                     break;
                 default:
                     break;

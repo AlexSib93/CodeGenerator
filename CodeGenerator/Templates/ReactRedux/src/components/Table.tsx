@@ -1,9 +1,10 @@
 
-const ModelMetadataRow = (item: any, props: PropMetadata[], editClick: (item: any) => void) => {
+const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDelete: (item: any) => void) => {
     return (<tr>
         {props.map(p => <td>{item[p.Name]}</td>)}
         <td>
-            {editClick && <button className="btn btn-secondary" onClick={() => editClick(item)} >Edit</button>}
+            {onEdit && <button className="btn btn-secondary" onClick={() => onEdit(item)} >Edit</button>}
+            {onDelete && <button className="btn btn-danger" onClick={() => onDelete(item)} >Delete</button>}
         </td>
     </tr>);
 }
@@ -11,12 +12,13 @@ const ModelMetadataRow = (item: any, props: PropMetadata[], editClick: (item: an
 export interface ITableProps {
     items: any[], 
     props: PropMetadata[], 
-    addItem?: () => void, 
-    editClick?: (item: any) => void
+    onEdit?: (item: any) => void,
+    onDelete?: (item: any) => void,
+    onAdd?: (item: any) => void
 }
 
 export const Table = (props: ITableProps) => {
-    let {items, addItem, editClick } = props;
+    let {items, onAdd, onEdit, onDelete } = props;
     return <table className="table table-striped table-sm">
         <thead>
             <tr>
@@ -26,9 +28,9 @@ export const Table = (props: ITableProps) => {
             </tr>
         </thead>
         <tbody>
-            {(items) && items.map(o => ModelMetadataRow(o, props.props, editClick))}
+            {(items) && items.map(o => Row(o, props.props, onEdit, onDelete))}
         </tbody>
-        {addItem && <button className="w-100 btn btn-lg btn-primary" onClick={addItem} >Добавить</button>}
+        {onAdd && <button className="w-100 btn btn-success" onClick={onAdd} >Add</button>}
     </table>;
 }
 

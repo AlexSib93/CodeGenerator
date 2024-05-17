@@ -39,50 +39,68 @@ namespace CodeGenerator.ProjectFiles.Ts
         private object CreateComponentText()
         {
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
-    // const {{ state, dispatch }} = React.useContext(ContextApp);
-
     const [item, setItem] = useState<{FormInfo.Model.Name}>(null);
     const [items, setItems] = useState<{FormInfo.Model.Name}[]>(props.items);
+
     useEffect(() => {{
-        if(props.autoFetch) {{
+        if (props.autoFetch) {{
             {FormInfo.Model.Name}Service.getall().then((item) => {{
                 setItems(item);
             }});
         }}
     }}, [])
 
+
     const addItem = () => {{
-        setItem({{ ...init{FormInfo.Model.Name} }});
+        var newItem = {{ ...init{FormInfo.Model.Name} }};
+        setItem(newItem);
     }}
 
-    const handleSave = (model: {FormInfo.Model.Name}) => {{
-        setItem(null);
-
-        //setUser(updatedUser);
-        // Here you can make API calls to update the user data in the backend
+    const handleAdd = (model: {FormInfo.Model.Name}) => {{
+        setItems([...items, model]);
     }};
-       return <div className=""table-responsive"" >
-            {$@"{{ !item && <div>
-                {GetComponentsText()}
-            </div>}}"}
-          
-          {EditFormComponent()}
+
+    const handleEdit = (model: {FormInfo.Model.Name}) => {{
+        var newItems = items.map(i => (i === item) ? model : i);
+        setItems(newItems);
+        setItem(null);
+    }};
+
+    const handleDelete = (model: {FormInfo.Model.Name}) => {{
+        var newItems = items.filter(i => i !== model);
+        setItems(newItems);
+    }};
+
+    const submitEditForm = (model: {FormInfo.Model.Name}) => {{
+        if(items.some(m => m === item)) {{
+            handleEdit(model);
+        }} else {{
+            handleAdd(model);
+        }}
+        setItem(null); 
+    }}
+
+    return <div className=""table-responsive"" >
+        {$@"{{ !item && <div>
+            {GetComponentsText()}
+        </div>}}"}
+            {EditFormComponent()}
         </ div >
-}};
+    }};
 ";
         }
 
         private string GetComponentsText()
         {
             return (FormInfo.Components!= null)
-                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} editClick={setItem}")))
+                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}")))
                 : "";
         }
 
         private string EditFormComponent()
         {
             return (EditForm != null ? $@" {{item && <div>
-                <{EditForm.Name} model={{item}} onSave={{handleSave}} />
+                <{EditForm.Name} model={{item}} onSave={{submitEditForm}} />
             </div> }}" : "");
         }
 

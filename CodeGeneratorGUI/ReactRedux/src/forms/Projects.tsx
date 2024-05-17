@@ -12,38 +12,56 @@ export interface IProjectsProps
 }
 
 export const Projects = (props: IProjectsProps) => {
-    // const { state, dispatch } = React.useContext(ContextApp);
-
     const [item, setItem] = useState<ProjectMetadata>(null);
     const [items, setItems] = useState<ProjectMetadata[]>(props.items);
+
     useEffect(() => {
-        if(props.autoFetch) {
+        if (props.autoFetch) {
             ProjectMetadataService.getall().then((item) => {
                 setItems(item);
             });
         }
     }, [])
 
+
     const addItem = () => {
-        setItem({ ...initProjectMetadata });
+        var newItem = { ...initProjectMetadata };
+        setItem(newItem);
     }
 
-    const handleSave = (model: ProjectMetadata) => {
-        setItem(null);
-
-        //setUser(updatedUser);
-        // Here you can make API calls to update the user data in the backend
+    const handleAdd = (model: ProjectMetadata) => {
+        setItems([...items, model]);
     };
-       return <div className="table-responsive" >
-            { !item && <div>
-                
-      < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'description', Caption: 'Описание'}, {Name:'path', Caption: 'Путь'}]} />
 
-            </div>}
-          
-          
+    const handleEdit = (model: ProjectMetadata) => {
+        var newItems = items.map(i => (i === item) ? model : i);
+        setItems(newItems);
+        setItem(null);
+    };
+
+    const handleDelete = (model: ProjectMetadata) => {
+        var newItems = items.filter(i => i !== model);
+        setItems(newItems);
+    };
+
+    const submitEditForm = (model: ProjectMetadata) => {
+        if(items.some(m => m === item)) {
+            handleEdit(model);
+        } else {
+            handleAdd(model);
+        }
+        setItem(null); 
+    }
+
+    return <div className="table-responsive" >
+        { !item && <div>
+            
+      < Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'description', Caption: 'Описание'}, {Name:'path', Caption: 'Путь'}]} />
+
+        </div>}
+            
         </ div >
-};
+    };
 
   
 

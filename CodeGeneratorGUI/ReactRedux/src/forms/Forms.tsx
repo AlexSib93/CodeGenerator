@@ -12,38 +12,56 @@ export interface IFormsProps
 }
 
 export const Forms = (props: IFormsProps) => {
-    // const { state, dispatch } = React.useContext(ContextApp);
-
     const [item, setItem] = useState<FormMetadata>(null);
     const [items, setItems] = useState<FormMetadata[]>(props.items);
+
     useEffect(() => {
-        if(props.autoFetch) {
+        if (props.autoFetch) {
             FormMetadataService.getall().then((item) => {
                 setItems(item);
             });
         }
     }, [])
 
+
     const addItem = () => {
-        setItem({ ...initFormMetadata });
+        var newItem = { ...initFormMetadata };
+        setItem(newItem);
     }
 
-    const handleSave = (model: FormMetadata) => {
-        setItem(null);
-
-        //setUser(updatedUser);
-        // Here you can make API calls to update the user data in the backend
+    const handleAdd = (model: FormMetadata) => {
+        setItems([...items, model]);
     };
-       return <div className="table-responsive" >
-            { !item && <div>
-                
-      < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
 
-            </div>}
-          
-          
+    const handleEdit = (model: FormMetadata) => {
+        var newItems = items.map(i => (i === item) ? model : i);
+        setItems(newItems);
+        setItem(null);
+    };
+
+    const handleDelete = (model: FormMetadata) => {
+        var newItems = items.filter(i => i !== model);
+        setItems(newItems);
+    };
+
+    const submitEditForm = (model: FormMetadata) => {
+        if(items.some(m => m === item)) {
+            handleEdit(model);
+        } else {
+            handleAdd(model);
+        }
+        setItem(null); 
+    }
+
+    return <div className="table-responsive" >
+        { !item && <div>
+            
+      < Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
+
+        </div>}
+            
         </ div >
-};
+    };
 
   
 

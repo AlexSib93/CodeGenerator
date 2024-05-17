@@ -12,42 +12,58 @@ export interface IModelsProps
 }
 
 export const Models = (props: IModelsProps) => {
-    // const { state, dispatch } = React.useContext(ContextApp);
-
     const [item, setItem] = useState<ModelMetadata>(null);
     const [items, setItems] = useState<ModelMetadata[]>(props.items);
+
     useEffect(() => {
-        if(props.autoFetch) {
+        if (props.autoFetch) {
             ModelMetadataService.getall().then((item) => {
                 setItems(item);
             });
         }
     }, [])
 
+
     const addItem = () => {
-        setItem({ ...initModelMetadata });
+        var newItem = { ...initModelMetadata };
+        setItem(newItem);
     }
 
-    const handleSave = (model: ModelMetadata) => {
-        setItem(null);
-
-        //setUser(updatedUser);
-        // Here you can make API calls to update the user data in the backend
+    const handleAdd = (model: ModelMetadata) => {
+        setItems([...items, model]);
     };
-       return <div className="table-responsive" >
-            { !item && <div>
-                
-      < Table items={items} editClick={setItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
 
+    const handleEdit = (model: ModelMetadata) => {
+        var newItems = items.map(i => (i === item) ? model : i);
+        setItems(newItems);
+        setItem(null);
+    };
 
-            <button className="w-100 btn btn-lg btn-primary" onClick={addItem} >Добавить</button>
-            </div>}
-          
-           {item && <div>
-                <Model model={item} onSave={handleSave} />
+    const handleDelete = (model: ModelMetadata) => {
+        var newItems = items.filter(i => i !== model);
+        setItems(newItems);
+    };
+
+    const submitEditForm = (model: ModelMetadata) => {
+        if(items.some(m => m === item)) {
+            handleEdit(model);
+        } else {
+            handleAdd(model);
+        }
+        setItem(null); 
+    }
+
+    return <div className="table-responsive" >
+        { !item && <div>
+            
+      < Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
+
+        </div>}
+             {item && <div>
+                <Model model={item} onSave={submitEditForm} />
             </div> }
         </ div >
-};
+    };
 
   
 

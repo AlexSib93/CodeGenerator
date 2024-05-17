@@ -2,11 +2,9 @@
 using CodeGenerator.Metadata;
 using System.Diagnostics;
 
-internal static class GenProjectsTestsHelpers
+internal static class ProjectMetadataHelper
 {
-
-
-    private static ProjectMetadata GeneratorProjectMetadata()
+    public static ProjectMetadata GeneratorProjectMetadata()
     {
         string nameSpace = "CodeGeneratorGUI";
         ProjectMetadata metadata = new ProjectMetadata();
@@ -31,9 +29,9 @@ internal static class GenProjectsTestsHelpers
             Caption = "Проект",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "Name", Type = "string" },
-                    new PropMetadata() { Name =  "Description", Type = "string" },
-                    new PropMetadata() { Name =  "Path", Type = "string"},
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string" },
+                    new PropMetadata() { Name = "Path", Caption = "Путь", Type = "string"},
                     new PropMetadata { Name = "Models", Caption = "Модели", Type = "List<ModelMetadata>" },
                     new PropMetadata { Name = "Forms", Caption = "Формы", Type = "List<FormMetadata>" }
                 }
@@ -44,10 +42,10 @@ internal static class GenProjectsTestsHelpers
             Caption = "Форма",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "Name", Type = "string" },
-                    new PropMetadata() { Name =  "Caption", Type = "string"},
-                    new PropMetadata() { Name =  "Description", Type = "string" },
-                    new PropMetadata() { Name =  "AddToNavBar", Type = "bool"}
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name =  "Caption", Caption = "Отображаемое имя", Type = "string"},
+                    new PropMetadata() { Name =  "Description", Caption = "Описание", Type = "string" },
+                    new PropMetadata() { Name =  "AddToNavBar", Caption = "Добавить в панель навигации", Type = "bool"}
                     //new PropMetadata { Name = "Components", Caption = "Формы", Type = "List<ComponentMetadata>" }
                     //    public IEnumerable<ComponentMetadata> Components { get; set; }
                 }
@@ -76,7 +74,11 @@ internal static class GenProjectsTestsHelpers
                     Name = "Projects",
                     Caption = "Проекты",
                     Model = modelMetadata2,
-                    AddToNavBar = true
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Projects", Caption = "Проекты", Type = "Table", Props = modelMetadata2.Props  }
+                    }
+
                 },
                 new FormMetadata()
                 {
@@ -84,7 +86,9 @@ internal static class GenProjectsTestsHelpers
                     Caption = "Модели",
                     Model = modelMetadata1,
                     AddToNavBar = true,
-                    Components = new ComponentMetadata[] {new ComponentMetadata() { Type = "AddButton"  } },
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Models", Caption = "Модели", Type = "Table", Props = modelMetadata1.Props  }
+                    },
                     EditForm = new FormMetadata()
                     {
                         Name = "Model",
@@ -94,7 +98,7 @@ internal static class GenProjectsTestsHelpers
                             new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
                             new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input"  },
                             new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "ListForm"  },
+                            new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata4.Props },
                             new ComponentMetadata() { Type = "SubmitButton"  }
                         }
                     }
@@ -104,7 +108,10 @@ internal static class GenProjectsTestsHelpers
                     Name = "Forms",
                     Caption = "Формы",
                     Model = modelMetadata3,
-                    AddToNavBar = true
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props  }
+                    }
                 }
             };
 
@@ -112,35 +119,7 @@ internal static class GenProjectsTestsHelpers
         return metadata;
     }
 
-    private static Process RunCommand(string fileName, string args, string workDirrectory, bool useCmdWindow, bool waitForExit = true)
-    {
-        Process process = new Process();
-
-        process.StartInfo.FileName = fileName; // Используем команду dotnet
-        process.StartInfo.Arguments = args; // Используем команду run для запуска проекта .NET Core или .NET 5+
-        process.StartInfo.WorkingDirectory = workDirrectory;
-        process.StartInfo.UseShellExecute = useCmdWindow; // Это нужно, чтобы скрыть окно командной строки (если не требуется отображение)
-        process.StartInfo.RedirectStandardOutput = !useCmdWindow; // Указываем, что хотим перехватить вывод командной строки
-        process.StartInfo.CreateNoWindow = !useCmdWindow; // Скрываем окно командной строки
-
-        // Запускаем процесс
-        process.Start();
-
-        if (!useCmdWindow)
-        {
-            string output = process.StandardOutput.ReadToEnd();
-            Console.WriteLine(output);
-        }
-
-        if (waitForExit)
-        {
-            process.WaitForExit();
-        }
-
-        return process;
-    }
-
-    private static ProjectMetadata TestProjectMetadata()
+    public static ProjectMetadata TestProjectMetadata()
     {
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "TestSoloution";
@@ -218,4 +197,5 @@ internal static class GenProjectsTestsHelpers
 
         return metadata;
     }
+
 }
