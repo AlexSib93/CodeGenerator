@@ -99,24 +99,25 @@ namespace CodeGenerator
             switch (component.Type)
             {
                 case "SubmitButton":
-                    res = "            <button className=\"w-100 btn btn-lg btn-primary\" type=\"submit\">Сохранить</button>";
+                    res = "         <button className=\"w-100 btn btn-success\" type=\"submit\">Сохранить</button>";
                     break;
                 case "Input":
                     res = $@"
-      <div className=""form-floating"">                
+      <div className=""form-floating m-3"">                
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange}} />
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
       </div>";
                     break;                
                 case "Table":
                     string props = string.Join(", ",component.Props.Where(p=>!p.Type.StartsWith("List")).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
-                    res = $@"
-      < Table {addstring} props={{[{props}]}} />
-";
+                    res = $@"      <div className=""m-3"">    
+       <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
+       <Table {addstring} props={{[{props}]}} />
+      </div>";
                     break;
                 case "AddButton":
                     res = $@"
-            <button className=""w-100 btn btn-success"" onClick={{addItem}} >Add</button>";
+            <button className=""w-100 btn btn-success"" onClick={{addItem}} >Добавить</button>";
                     break;
                 default:
                     break;

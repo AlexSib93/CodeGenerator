@@ -3,8 +3,8 @@ const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDe
     return (<tr>
         {props.map(p => <td>{item[p.Name]}</td>)}
         <td>
-            {onEdit && <button className="btn btn-secondary" onClick={() => onEdit(item)} >Edit</button>}
-            {onDelete && <button className="btn btn-danger" onClick={() => onDelete(item)} >Delete</button>}
+            {onEdit && <button className="btn btn-secondary" onClick={() => onEdit(item)} >Редактировать</button>}
+            {onDelete && <button className="btn btn-danger" onClick={() => onDelete(item)} >Удалить</button>}
         </td>
     </tr>);
 }
@@ -30,7 +30,7 @@ export const Table = (props: ITableProps) => {
         <tbody>
             {(items) && items.map(o => Row(o, props.props, onEdit, onDelete))}
         </tbody>
-        {onAdd && <button className="w-100 btn btn-success" onClick={onAdd} >Add</button>}
+        {onAdd && <button className="w-100 btn btn-success" onClick={onAdd} >Добавить</button>}
     </table>;
 }
 

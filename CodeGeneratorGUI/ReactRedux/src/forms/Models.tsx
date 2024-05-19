@@ -55,9 +55,10 @@ export const Models = (props: IModelsProps) => {
 
     return <div className="table-responsive" >
         { !item && <div>
-            
-      < Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
-
+                  <div className="m-3">    
+       <h1 className="h4 mt-4 fw-normal">Модели</h1>
+       <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
+      </div>
         </div>}
              {item && <div>
                 <Model model={item} onSave={submitEditForm} />
