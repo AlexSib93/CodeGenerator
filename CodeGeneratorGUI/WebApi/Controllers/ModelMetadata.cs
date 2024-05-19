@@ -57,13 +57,25 @@ namespace CodeGeneratorGUI
             try
             {
                 //IEnumerable<ModelMetadata> res = _modelMetadataService.Get();
-                string nameSpace = "CodeGeneratorGUI";
-                ModelMetadata modelMetadata1 = new ModelMetadata()
-                {
-                    Name = "ModelMetadata",
-                    Caption = "Модель",
-                    NameSpace = nameSpace,
-                    Props = new List<PropMetadata>() {
+                IEnumerable<ModelMetadata> res = InitModels();//_modelMetadataService.Get();
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Не удалось получить все Модель");
+                return BadRequest(ex.Message + " " + ex.InnerException?.Message);
+            }
+        }
+
+        private static IEnumerable<ModelMetadata> InitModels()
+        {
+            string nameSpace = "CodeGeneratorGUI";
+            ModelMetadata modelMetadata1 = new ModelMetadata()
+            {
+                Name = "ModelMetadata",
+                Caption = "Модель",
+                NameSpace = nameSpace,
+                Props = new List<PropMetadata>() {
                         new PropMetadata()
                         {
                             Name = "Name",
@@ -83,31 +95,25 @@ namespace CodeGeneratorGUI
                             Caption = "Идентификатор"
                         }
                     }
-                };
-                ModelMetadata modelMetadata2 = new ModelMetadata()
-                {
-                    Name = "ProjectMetadata",
-                    Caption = "Проект",
-                    NameSpace = nameSpace,
-                };
-                ModelMetadata modelMetadata3 = new ModelMetadata()
-                {
-                    Name = "FormMetadata",
-                    Caption = "Форма",
-                    NameSpace = nameSpace
-                };
-                IEnumerable<ModelMetadata> res = new List<ModelMetadata> {
+            };
+            ModelMetadata modelMetadata2 = new ModelMetadata()
+            {
+                Name = "ProjectMetadata",
+                Caption = "Проект",
+                NameSpace = nameSpace,
+            };
+            ModelMetadata modelMetadata3 = new ModelMetadata()
+            {
+                Name = "FormMetadata",
+                Caption = "Форма",
+                NameSpace = nameSpace
+            };
+            IEnumerable<ModelMetadata> res = new List<ModelMetadata> {
                 modelMetadata1,
                 modelMetadata2,
                 modelMetadata3
-            };//_modelMetadataService.Get();
-                return Ok(res);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Не удалось получить все Модель");
-                return BadRequest(ex.Message + " " + ex.InnerException?.Message);
-            }
+            };
+            return res;
         }
 
         [HttpDelete("delete")]
