@@ -99,11 +99,11 @@ namespace CodeGenerator
             switch (component.Type)
             {
                 case "SubmitButton":
-                    res = "            <button className=\"w-100 btn btn-lg btn-primary\" type=\"submit\">Сохранить</button>";
+                    res = "            <button className=\"w-100 btn btn-success\" type=\"submit\">Сохранить</button>";
                     break;
                 case "Input":
                     res = $@"
-      <div className=""form-floating"">                
+      <div className=""form-floating m-3"">                
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange}} />
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
       </div>";
