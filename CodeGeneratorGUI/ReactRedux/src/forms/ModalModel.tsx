@@ -1,4 +1,5 @@
 import { Modal, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
+import { Table } from "../components/Table";
 import { ModelMetadata } from '../models/ModelMetadata';
 
 export interface IMessageBoxProps {
