@@ -1,6 +1,7 @@
 import React from "react";
 import { authReducer, IAuthActionPayload, IAuthState, initialAuthState } from "./auth-state";
 import { IUiActionPayload, IUserInterface, uiReducer, uiInit } from "./ui-state";
+import { IModelDialogActionPayload } from "./model-dialog-state";
 
 export const ContextApp = React.createContext<ContextType | null>(null);
 export const initialAppState: AppState = { auth: initialAuthState, ui: uiInit }
@@ -20,7 +21,7 @@ export const appReducer = (state: AppState = initialAppState, action: Action): A
 export type Action = IActionWithPayload;
 export interface IActionWithPayload {
     type: string;
-    payload: IUiActionPayload & IAuthActionPayload;
+    payload: IUiActionPayload & IAuthActionPayload & IModelDialogActionPayload;
 }
 
 export interface ContextType {
