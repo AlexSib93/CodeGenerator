@@ -1,23 +1,50 @@
-import { MouseEventHandler } from "react"
 import { Modal, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
+import { ModelMetadata } from '../models/ModelMetadata';
 
 export interface IMessageBoxProps {
     onConfirm?: () => void,
     onHide?: () => void,
     title: string,
-    text: string,
-    show: boolean
+    show: boolean,
+    editedItem: ModelMetadata
 }
 
-export const MessageBox = (props: IMessageBoxProps) => {
-    let { show, onConfirm, onHide, title, text } = props
+export const ModalModel = (props: IMessageBoxProps) => {
+    let { show, onConfirm, onHide, title, editedItem } = props
+    
+    const handleInputChange = () => {
+
+    }
+
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
                 <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {text}
+                <form onSubmit={onConfirm} className="form">
+                    <h1 className="h3 mb-3 fw-normal">Модель</h1>
+
+                    <div className="form-floating m-3">
+                        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" value={editedItem.name} onChange={handleInputChange} />
+                        <label htmlFor="floatingInputName">Наименование</label>
+                    </div>
+
+                    <div className="form-floating m-3">
+                        <input name="nameSpace" className="form-control" id="floatingInputNameSpace" placeholder="Пространство имен" value={editedItem.nameSpace} onChange={handleInputChange} />
+                        <label htmlFor="floatingInputNameSpace">Пространство имен</label>
+                    </div>
+
+                    <div className="form-floating m-3">
+                        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" value={editedItem.caption} onChange={handleInputChange} />
+                        <label htmlFor="floatingInputCaption">Отображаемое имя</label>
+                    </div>
+                    <div className="m-3">
+                        <h1 className="h4 mt-4 fw-normal">Свойства</h1>
+                        {/* <Table items={editedItem.props} props={[{Name:'name', Caption: 'Наименование'}, {Name:'type', Caption: 'Тип данных C#'}, {Name:'caption', Caption: 'Отображаемое имя'}]} /> */}
+                    </div>
+                    <button className="w-100 btn btn-success" type="submit">Сохранить</button>
+                </form>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
