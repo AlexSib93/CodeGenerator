@@ -2,7 +2,7 @@ import { Modal, Button, Form, InputGroup, Row, Col } from 'react-bootstrap';
 import { Table } from "../components/Table";
 import { ModelMetadata } from '../models/ModelMetadata';
 
-export interface IMessageBoxProps {
+export interface IModalModelProps {
     onConfirm?: () => void,
     onHide?: () => void,
     title: string,
@@ -10,7 +10,7 @@ export interface IMessageBoxProps {
     editedItem: ModelMetadata
 }
 
-export const ModalModel = (props: IMessageBoxProps) => {
+export const ModalModel = (props:  IModalModelProps) => {
     let { show, onConfirm, onHide, title, editedItem } = props
     
     const handleInputChange = () => {

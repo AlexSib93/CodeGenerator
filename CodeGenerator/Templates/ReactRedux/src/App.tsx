@@ -37,8 +37,8 @@ function App() {
           </main>
         {/* </BrowserRouter> */}
         </HashRouter>
-        <ModalEditForms/>
         <Toasts />
+        <ModalEditForms/>
       </ContextApp.Provider>
     </div>
   );
