@@ -2,7 +2,7 @@ import React from "react";
 import { authReducer, IAuthActionPayload, IAuthState, initialAuthState } from "./auth-state";
 import { IUiActionPayload, IUserInterface, uiReducer, uiInit } from "./ui-state";
 import { IModalModelProps } from "../forms/ModalModel";
-import { editFormsReducer, initialEditFormsState } from "./editforms-state";
+import { editFormsReducer, IEditFormsActionPayload, initialEditFormsState } from "./editforms-state";
 
 export const ContextApp = React.createContext<ContextType | null>(null);
 export const initialAppState: AppState = { auth: initialAuthState, ui: uiInit, editForms: initialEditFormsState }
@@ -23,7 +23,7 @@ export const appReducer = (state: AppState = initialAppState, action: Action): A
 export type Action = IActionWithPayload;
 export interface IActionWithPayload {
     type: string;
-    payload: IUiActionPayload & IAuthActionPayload;
+    payload: IUiActionPayload & IAuthActionPayload & IEditFormsActionPayload;
 }
 
 export interface ContextType {

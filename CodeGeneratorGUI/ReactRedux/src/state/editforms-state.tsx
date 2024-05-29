@@ -4,7 +4,7 @@ import { ModelMetadata, initModelMetadata } from "../models/ModelMetadata";
 import { IModalModelProps } from "../forms/ModalModel";
 
 export interface IEditFormsActionPayload {
-    modalModel: IModalModelProps,
+    editedItem?: ModelMetadata
 }
 
 export interface IEditFormsState {
@@ -13,9 +13,9 @@ export interface IEditFormsState {
 
 export const initialEditFormsState: IEditFormsState = {
     modalModelProps: {
-        show:false,
+        show:true,
         editedItem: initModelMetadata,
-        title: ""
+        title: "Модель"
     }
 }
 
@@ -26,11 +26,29 @@ export const editFormsReducer = (state: IEditFormsState = initialEditFormsState,
         case EditFormsActionKind.Close:
             return {
                 ...state,
+                modalModelProps: {
+                    ...state.modalModelProps,
+                    show: false
+                }
             };
         default:
             return state;
     }
 }
+
+export const closeAction = (): Action => {
+    return {
+      type: EditFormsActionKind.Close,
+      payload: {}
+    }
+  }
+
+  export const editAction = (editedItem: ModelMetadata): Action => {
+    return {
+      type: EditFormsActionKind.Edit,
+      payload: { editedItem }
+    }
+  }
 
 export enum EditFormsActionKind {
     Submit = 'SUBMIT',
