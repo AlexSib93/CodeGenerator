@@ -1,5 +1,6 @@
 using System;
 using DataAccessLayer.Dto;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer.Data
 {
@@ -28,6 +29,12 @@ namespace DataAccessLayer.Data
         public IRepository<PropMetadata> RepPropMetadata
         {
             get { return _repPropMetadata ?? (_repPropMetadata = new MockRepository<PropMetadata>()); }
+        }
+
+        private IRepository<User> _repUser;
+        public IRepository<User> RepUser
+        {
+            get { return _repUser ?? (_repUser = new MockRepository<User>()); }
         }
 
 

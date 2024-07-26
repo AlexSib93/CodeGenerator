@@ -17,9 +17,8 @@ const Register = () => {
             name,
             lastName: lastname,
             middleName: middlename,
-            phone,
             userPassword: userpassword,
-            userLogin: userlogin,
+            login: userlogin,
             email
         };
         AuthService.register(user);
@@ -53,7 +52,7 @@ const Register = () => {
                 <label htmlFor="floatingInput">Электронная почта</label>
             </div>
             <div className="form-floating">
-                <input type="userlogin" className="form-control" id="floatingInput" placeholder="name@example.com" 
+                <input type="login" className="form-control" id="floatingInput" placeholder="name@example.com" 
                     onChange={ e => setUserlogin(e.target.value)}
                 />
                 <label htmlFor="floatingInput">Логин</label>

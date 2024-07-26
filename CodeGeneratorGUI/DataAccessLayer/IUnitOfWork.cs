@@ -1,5 +1,6 @@
 using System;
 using DataAccessLayer.Dto;
+using DataAccessLayer.Models;
 
 namespace DataAccessLayer
 {
@@ -13,6 +14,7 @@ namespace DataAccessLayer
         IRepository<FormMetadata> RepFormMetadata { get;}
 
         IRepository<PropMetadata> RepPropMetadata { get;}
+        IRepository<User> RepUser{ get;}
 
 
     }

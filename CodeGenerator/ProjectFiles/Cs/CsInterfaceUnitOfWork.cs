@@ -50,6 +50,10 @@ using DataAccessLayer.Dto;";
 
             }
 
+            //Auth
+            ModelMetadata authClass = new ModelMetadata() { Name = "User"};
+            res += $"{GetModelText(authClass)}\n";
+
 
             return res;
         }

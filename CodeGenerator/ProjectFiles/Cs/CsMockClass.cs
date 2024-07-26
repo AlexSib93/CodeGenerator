@@ -57,6 +57,9 @@ using DataAccessLayer.Dto;";
 
             }
 
+            //Auth
+            res += $"{GetModelText(new ModelMetadata() { Name = "User"})}\n";
+
             return res;
         }
 

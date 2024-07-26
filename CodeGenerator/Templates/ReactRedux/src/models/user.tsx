@@ -4,10 +4,8 @@ export interface User
     name : string,
     lastName : string,
     middleName : string,
-    phone : string,
-    comment : string,
     userPassword : string,
-    userLogin : string,
+    login : string,
     email : string,
     jwt : string
 }
@@ -17,10 +15,8 @@ export const initialUser : User = {
     name: '',
     lastName: '',
     middleName: '',
-    phone: '',
-    comment: '',
     userPassword: '',
-    userLogin: '',
+    login: '',
     email: '',
     jwt: ''
 }

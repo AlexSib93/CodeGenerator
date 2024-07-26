@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace TerminalApi
 {
-    public class UserService : IUserService
+    public class AuthService : IAuthService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserService(IHttpContextAccessor httpContextAccessor)
+        public AuthService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public int GetIdPeople()
+        public int GetIdUser()
         {
             int res = 0;
             if(_httpContextAccessor.HttpContext != null)
