@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
-using DataAccessLayer.Models;
 
 namespace BuisinessLogicLayer.Services
 {

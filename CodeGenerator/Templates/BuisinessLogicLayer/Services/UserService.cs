@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
-using DataAccessLayer.Models;
 using System.Security.Cryptography;
 
 namespace BuisinessLogicLayer.Services

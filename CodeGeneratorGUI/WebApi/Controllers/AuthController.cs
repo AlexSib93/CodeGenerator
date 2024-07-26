@@ -10,7 +10,6 @@ using DataAccessLayer;
 using Mapster;
 using BuisinessLogicLayer.Services;
 using System.Text;
-using DataAccessLayer.Models;
 
 namespace TerminalApi.Controllers
 {
