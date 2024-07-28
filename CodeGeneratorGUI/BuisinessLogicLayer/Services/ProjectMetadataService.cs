@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
 
@@ -9,9 +10,17 @@ namespace BuisinessLogicLayer.Services
     {
         public ProjectMetadataService(IUnitOfWork unit) : base(unit)
         {
+
         }
 
         public ProjectMetadata Add(ProjectMetadata projectMetadata)
+        {
+            Unit.RepProjectMetadata.Add(projectMetadata);
+
+            return projectMetadata;
+        }
+
+        public IEnumerable<ProjectMetadata> Add(IEnumerable<ProjectMetadata> projectMetadata)
         {
             Unit.RepProjectMetadata.Add(projectMetadata);
 

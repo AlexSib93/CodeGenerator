@@ -27,6 +27,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
 {CreateOperationText()}
 
+{CreateManyOperationText()}
+
 {GetOperationText()}
 
 {GetAllOperationText()}
@@ -40,7 +42,20 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             string res = $@"        public {ClassInfo.Name}Service(IUnitOfWork unit) : base(unit)
         {{
+{GetInitDataText()}
         }}";
+
+            return res;
+        }
+
+        public string GetInitDataText()
+        {
+            string res = "";
+
+            if (!string.IsNullOrEmpty(ClassInfo.InitData))
+            {
+                res = $@"Add(JsonConvert.DeserializeObject<IEnumerable<{ClassInfo.Name}>>(@""{ClassInfo.InitData.Replace("\"","\"\"")}""));";
+            }
 
             return res;
         }
@@ -48,6 +63,18 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string CreateOperationText()
         {
             string res = $@"        public {ClassInfo.Name} Add({ClassInfo.Name} {ParamName})
+        {{
+            Unit.Rep{ClassInfo.Name}.Add({ParamName});
+
+            return {ParamName};
+        }}";
+
+            return res;
+        }
+
+        private string CreateManyOperationText()
+        {
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> Add(IEnumerable<{ClassInfo.Name}> {ParamName})
         {{
             Unit.Rep{ClassInfo.Name}.Add({ParamName});
 
@@ -101,6 +128,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         public string UsingText => $@"using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;";
 

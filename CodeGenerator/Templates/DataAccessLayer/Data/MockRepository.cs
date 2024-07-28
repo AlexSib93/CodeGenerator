@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +35,11 @@ namespace DataAccessLayer.Data
         public void Delete(int id)
         {
             // Ваш код удаления элемента по id
+        }
+
+        public void Add(IEnumerable<T> entities)
+        {
+            _entities.AddRange(entities);
         }
     }
 }

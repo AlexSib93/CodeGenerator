@@ -33,17 +33,17 @@ import {Table} from "../components/Table";
        <h1 className="h3 mb-3 fw-normal">Модель</h1>
            
       <div className="form-floating m-3">                
-        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" autocomplete="off" value={editedItem.name} onChange={ handleInputChange } />
+        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" autoComplete="off" value={editedItem.name} onChange={ handleInputChange } />
         <label htmlFor="floatingInputName">Наименование</label>
       </div>
 
       <div className="form-floating m-3">                
-        <input name="nameSpace" className="form-control" id="floatingInputNameSpace" placeholder="Пространство имен" autocomplete="off" value={editedItem.nameSpace} onChange={ handleInputChange } />
+        <input name="nameSpace" className="form-control" id="floatingInputNameSpace" placeholder="Пространство имен" autoComplete="off" value={editedItem.nameSpace} onChange={ handleInputChange } />
         <label htmlFor="floatingInputNameSpace">Пространство имен</label>
       </div>
 
       <div className="form-floating m-3">                
-        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" autocomplete="off" value={editedItem.caption} onChange={ handleInputChange } />
+        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" autoComplete="off" value={editedItem.caption} onChange={ handleInputChange } />
         <label htmlFor="floatingInputCaption">Отображаемое имя</label>
       </div>
       <div className="m-3">    

@@ -11,6 +11,7 @@ namespace DataAccessLayer
         IEnumerable<T> GetAll();
         T GetById(int id);
         void Add(T entity);
+        void Add(IEnumerable<T> entities);
         void Update(T entity);
         void Delete(int id);
     }

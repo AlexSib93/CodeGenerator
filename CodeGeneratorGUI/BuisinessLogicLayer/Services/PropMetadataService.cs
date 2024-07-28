@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
 
@@ -9,9 +10,17 @@ namespace BuisinessLogicLayer.Services
     {
         public PropMetadataService(IUnitOfWork unit) : base(unit)
         {
+
         }
 
         public PropMetadata Add(PropMetadata propMetadata)
+        {
+            Unit.RepPropMetadata.Add(propMetadata);
+
+            return propMetadata;
+        }
+
+        public IEnumerable<PropMetadata> Add(IEnumerable<PropMetadata> propMetadata)
         {
             Unit.RepPropMetadata.Add(propMetadata);
 

@@ -104,7 +104,7 @@ namespace CodeGenerator
                 case "Input":
                     res = $@"
       <div className=""form-floating m-3"">                
-        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autocomplete=""off"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
       </div>";
                     break;                     

@@ -21,7 +21,43 @@ internal static class ProjectMetadataHelper
                     new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
                     new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" },
                     new PropMetadata { Name = "Props", Caption = "Свойства", Type = "List<PropMetadata>" }
-                }
+                },
+            InitData = @"[
+  {
+    ""Name"": ""ModelMetadata"",
+    ""NameSpace"": ""CodeGeneratorGUI"",
+    ""Caption"": ""Модель"",
+    ""Props"": [
+      {
+        ""Name"": ""Name"",
+        ""Type"": ""string"",
+        ""Caption"": ""Имя""
+      },
+      {
+        ""Name"": ""Description"",
+        ""Type"": ""string"",
+        ""Caption"": ""Описание""
+      },
+      {
+        ""Name"": ""Id"",
+        ""Type"": ""int"",
+        ""Caption"": ""Идентификатор""
+      }
+    ]
+  },
+  {
+    ""Name"": ""ProjectMetadata"",
+    ""NameSpace"": ""CodeGeneratorGUI"",
+    ""Caption"": ""Проект"",
+    ""Props"": null
+  },
+  {
+    ""Name"": ""FormMetadata"",
+    ""NameSpace"": ""CodeGeneratorGUI"",
+    ""Caption"": ""Форма"",
+    ""Props"": null
+  }
+]"
         };
         ModelMetadata modelMetadata2 = new ModelMetadata()
         {

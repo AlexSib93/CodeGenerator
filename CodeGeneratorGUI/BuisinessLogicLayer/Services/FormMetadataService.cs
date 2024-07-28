@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;
 
@@ -9,9 +10,17 @@ namespace BuisinessLogicLayer.Services
     {
         public FormMetadataService(IUnitOfWork unit) : base(unit)
         {
+
         }
 
         public FormMetadata Add(FormMetadata formMetadata)
+        {
+            Unit.RepFormMetadata.Add(formMetadata);
+
+            return formMetadata;
+        }
+
+        public IEnumerable<FormMetadata> Add(IEnumerable<FormMetadata> formMetadata)
         {
             Unit.RepFormMetadata.Add(formMetadata);
 

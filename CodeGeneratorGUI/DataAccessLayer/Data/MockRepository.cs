@@ -36,5 +36,10 @@ namespace DataAccessLayer.Data
         {
             // Ваш код удаления элемента по id
         }
+
+        public void Add(IEnumerable<T> entities)
+        {
+            _entities.AddRange(entities);
+        }
     }
 }
