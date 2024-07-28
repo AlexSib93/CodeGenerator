@@ -114,9 +114,9 @@ internal static class ProjectMetadataHelper
                     },
                     EditForm = new FormMetadata()
                     {
-                        Name = "Model",
-                        Caption = "Модель",
-                        Model = modelMetadata1,
+                        Name = "Form",
+                        Caption = "Форма",
+                        Model = modelMetadata3,
                         Components = new ComponentMetadata[] {
                             new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
                             new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },

@@ -3,7 +3,7 @@ import { useEffect,useState } from "react";
 import { FormMetadata,  initFormMetadata } from "../models/FormMetadata";
 import FormMetadataService from "../services/FormMetadataService";
 import { Table } from "../components/Table";
-import Model from "./Model";
+import Form from "./Form";
 
 export interface IFormsProps
 {
@@ -61,7 +61,7 @@ export const Forms = (props: IFormsProps) => {
       </div>
         </div>}
              {item && <div>
-                <Model model={item} onSave={submitEditForm} />
+                <Form model={item} onSave={submitEditForm} />
             </div> }
         </ div >
     };
