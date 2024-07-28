@@ -111,6 +111,19 @@ internal static class ProjectMetadataHelper
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
                         new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props  }
+                    },
+                    EditForm = new FormMetadata()
+                    {
+                        Name = "Model",
+                        Caption = "Модель",
+                        Model = modelMetadata1,
+                        Components = new ComponentMetadata[] {
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Description", Caption = "Описание", Type = "Input"  },
+                            new ComponentMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "CheckBox"  },
+                            new ComponentMetadata() { Type = "SubmitButton"  }
+                        }
                     }
                 }
             };
