@@ -17,7 +17,12 @@ import {Table} from "../components/Table";
      const { name, value } = e.target;
      setEditedItem({ ...editedItem, [name]: value });
    };
- 
+
+   const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    setEditedItem({ ...editedItem, [name]: checked });
+  };
+
    const handleSubmit = (e: FormEvent) => {
      e.preventDefault();
      onSave(editedItem);
@@ -28,22 +33,23 @@ import {Table} from "../components/Table";
        <h1 className="h3 mb-3 fw-normal">Модель</h1>
            
       <div className="form-floating m-3">                
-        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" value={editedItem.name} onChange={ handleInputChange} />
+        <input name="name" className="form-control" id="floatingInputName" placeholder="Наименование" autocomplete="off" value={editedItem.name} onChange={ handleInputChange } />
         <label htmlFor="floatingInputName">Наименование</label>
       </div>
 
       <div className="form-floating m-3">                
-        <input name="nameSpace" className="form-control" id="floatingInputNameSpace" placeholder="Пространство имен" value={editedItem.nameSpace} onChange={ handleInputChange} />
-        <label htmlFor="floatingInputNameSpace">Пространство имен</label>
+        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" autocomplete="off" value={editedItem.caption} onChange={ handleInputChange } />
+        <label htmlFor="floatingInputCaption">Отображаемое имя</label>
       </div>
 
       <div className="form-floating m-3">                
-        <input name="caption" className="form-control" id="floatingInputCaption" placeholder="Отображаемое имя" value={editedItem.caption} onChange={ handleInputChange} />
-        <label htmlFor="floatingInputCaption">Отображаемое имя</label>
+        <input name="description" className="form-control" id="floatingInputDescription" placeholder="Описание" autocomplete="off" value={editedItem.description} onChange={ handleInputChange } />
+        <label htmlFor="floatingInputDescription">Описание</label>
       </div>
-      <div className="m-3">    
-       <h1 className="h4 mt-4 fw-normal">Свойства</h1>
-       <Table items={editedItem.props} props={[{Name:'name', Caption: 'Наименование'}, {Name:'type', Caption: 'Тип данных C#'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
+
+      <div className="form-check m-3">
+        <input name="addToNavBar" className="form-check-input" type="checkbox" checked={editedItem.addToNavBar} id="flexCheckAddToNavBar" onChange={ handleCheckBoxChange } />
+        <label className="form-check-label" htmlFor="flexCheckAddToNavBar">Добавить в панель навигации</label>
       </div>
          <button className="w-100 btn btn-success" type="submit">Сохранить</button>
      </form>

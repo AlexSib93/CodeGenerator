@@ -3,7 +3,7 @@ import { useEffect,useState } from "react";
 import { FormMetadata,  initFormMetadata } from "../models/FormMetadata";
 import FormMetadataService from "../services/FormMetadataService";
 import { Table } from "../components/Table";
-
+import Model from "./Model";
 
 export interface IFormsProps
 {
@@ -60,7 +60,9 @@ export const Forms = (props: IFormsProps) => {
        <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
       </div>
         </div>}
-            
+             {item && <div>
+                <Model model={item} onSave={submitEditForm} />
+            </div> }
         </ div >
     };
 

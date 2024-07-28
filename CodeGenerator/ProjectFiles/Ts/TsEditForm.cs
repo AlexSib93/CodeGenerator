@@ -38,7 +38,12 @@ import {{Table}} from ""../components/Table"";";
      const {{ name, value }} = e.target;
      setEditedItem({{ ...editedItem, [name]: value }});
    }};
- 
+
+   const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {{
+    const {{ name, checked }} = e.target;
+    setEditedItem({{ ...editedItem, [name]: checked }});
+  }};
+
    const handleSubmit = (e: FormEvent) => {{
      e.preventDefault();
      onSave(editedItem);

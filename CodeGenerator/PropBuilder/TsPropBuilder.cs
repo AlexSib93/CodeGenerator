@@ -104,8 +104,15 @@ namespace CodeGenerator
                 case "Input":
                     res = $@"
       <div className=""form-floating m-3"">                
-        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange}} />
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autocomplete=""off"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
         <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
+      </div>";
+                    break;                     
+                case "CheckBox":
+                    res = $@"
+      <div className=""form-check m-3"">
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-check-input"" type=""checkbox"" checked={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} id=""flexCheck{component.Name}"" onChange={{ handleCheckBoxChange }} />
+        <label className=""form-check-label"" htmlFor=""flexCheck{component.Name}"">{component.Caption}</label>
       </div>";
                     break;                
                 case "Table":
