@@ -168,6 +168,109 @@ internal static class ProjectMetadataHelper
         return metadata;
     }
 
+    public static ProjectMetadata ComplectationArmProjectMetadata()
+    {
+        string nameSpace = "ComplectationArm";
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "ComplectationArm";
+        metadata.Description = "АРМ комплектовщика Web";
+        metadata.Path = @"..\..\..\..\..\std.gencode\ComplectationArm";
+        ModelMetadata delivDocModelMetadata = new ModelMetadata()
+        {
+            Name = "DelivDoc",
+            Caption = "Рейс",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                    new PropMetadata() { Name = "IdDelivDoc", Caption = "ID", Type = "int" },
+                    new PropMetadata() { Name = "Destanation", Caption = "Маршрут", Type = "string" },
+                    new PropMetadata() { Name = "IdDestanation", Caption = "ID маршрута", Type = "int" },
+                    new PropMetadata() { Name = "State", Caption = "Готовность", Type = "string" }
+                }
+        };
+
+        ModelMetadata orderModelMetadata = new ModelMetadata()
+        {
+            Name = "Order",
+            Caption = "Заказ",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                    new PropMetadata() { Name = "IdOrder", Caption = "ID", Type = "int" },
+                    new PropMetadata() { Name = "Destanation", Caption = "Маршрут", Type = "string" },
+                    new PropMetadata() { Name = "IdDestanation", Caption = "ID маршрута", Type = "int" }
+                }
+        };
+        ModelMetadata complectationModelMetadata = new ModelMetadata()
+        {
+            Name = "Complectation",
+            Caption = "Комплектация",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name = "BoxOperName", Caption = "Тип комплектации", Type = "string"},
+                    new PropMetadata() { Name = "IdBoxOper", Caption = "ID типа комплектации", Type = "int"},
+                    new PropMetadata() { Name = "IdBox", Caption = "ID", Type = "int"},
+                    new PropMetadata() { Name = "Num", Caption = "Номер", Type = "int"}
+                }
+        };
+
+        metadata.Models = new List<ModelMetadata> {
+                delivDocModelMetadata,
+                complectationModelMetadata,
+                orderModelMetadata
+            };
+        metadata.Forms = new List<FormMetadata>
+            {
+                new FormMetadata()
+                {
+                    Name = "ComplectationListForm",
+                    Caption = "Комплектации",
+                    Model = complectationModelMetadata,
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Complectations", Caption = "Комплектации", Type = "Table", Props = complectationModelMetadata.Props  }
+                    },
+                    EditForm = new FormMetadata()
+                    {
+                        Name = "ComplectationEditForm",
+                        Caption = "Комплектация",
+                        Model = complectationModelMetadata,
+                        Components = new ComponentMetadata[] {
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
+                            //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
+                            new ComponentMetadata() { Type = "SubmitButton"  }
+                        }
+                    }
+
+                },
+                new FormMetadata()
+                {
+                    Name = "DelivDocs",
+                    Caption = "Рейсы",
+                    Model = delivDocModelMetadata,
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", Type = "Table", Props = delivDocModelMetadata.Props  }
+                    }
+                },
+                new FormMetadata()
+                {
+                    Name = "Orders",
+                    Caption = "Заказы",
+                    Model = orderModelMetadata,
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Orders", Caption = "Заказы", Type = "Table", Props = orderModelMetadata.Props  }
+                    }
+                }
+            };
+
+
+        return metadata;
+    }
+
+
     public static ProjectMetadata TestProjectMetadata()
     {
         ProjectMetadata metadata = new ProjectMetadata();

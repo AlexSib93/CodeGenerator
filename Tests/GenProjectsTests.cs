@@ -29,8 +29,8 @@ namespace Tests
         [TestMethod]
         public void TestGui()
         {
-            Process hostApiProcess = BuildAndRunWebApi();
-            Process hostClientProcess = BuildAndRunClient(true);
+            Process hostApiProcess = BuildAndRunWebApi(ProjectMetadataHelper.GeneratorProjectMetadata());
+            Process hostClientProcess = BuildAndRunClient(ProjectMetadataHelper.GeneratorProjectMetadata(), true);
 
             hostClientProcess.WaitForExit();
             hostApiProcess.WaitForExit();
@@ -40,26 +40,40 @@ namespace Tests
 
         }
 
-        [TestMethod]
-        public void TestClientApp()
+        [TestMethod("ComplectationArm")]
+        public void TestCreateComplectationArm()
         {
-            Process hostClientProcess = BuildAndRunClient(true);
-            hostClientProcess.WaitForExit();
-            hostClientProcess.Kill();
+            Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
+            Generator generator = new Generator();
+            generator.GenCode(ProjectMetadataHelper.ComplectationArmProjectMetadata());
         }
 
-        private Process BuildAndRunWebApi()
+        [TestMethod]
+        public void TestComplectationArm()
         {
-            string webApiPath = @"..\..\..\..\CodeGeneratorGUI\WebApi\";
+            Process hostApiProcess = BuildAndRunWebApi(ProjectMetadataHelper.ComplectationArmProjectMetadata());
+            Process hostClientProcess = BuildAndRunClient(ProjectMetadataHelper.ComplectationArmProjectMetadata(), true);
+
+            hostClientProcess.WaitForExit();
+            hostApiProcess.WaitForExit();
+
+            hostClientProcess.Kill();
+            hostApiProcess.Kill();
+
+        }
+
+        private Process BuildAndRunWebApi(ProjectMetadata project)
+        {
+            string webApiPath = $@"{project.Path}\WebApi\";
             bool useCmdWindow = true;
             Process process = RunCommand("dotnet", "run", webApiPath, useCmdWindow, false);
 
             return process;
         }
 
-        private Process BuildAndRunClient(bool useCmdWindow = true)
+        private Process BuildAndRunClient(ProjectMetadata project, bool useCmdWindow = true)
         {
-            string workDirrectory = @"..\..\..\..\CodeGeneratorGUI\ReactRedux";
+            string workDirrectory = $@"{project.Path}\ReactRedux";
 
             Process process = RunCommand("npm", "i", workDirrectory, useCmdWindow);
             process.Kill();
