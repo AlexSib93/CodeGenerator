@@ -58,14 +58,14 @@ namespace BuisinessLogicLayer.Services
 
         public IEnumerable<User> Get()
         {
-            IEnumerable<User> modelMetadatas = Unit.RepUser.GetAll();
+            IEnumerable<User> users = Unit.RepUser.GetAll();
 
-            return modelMetadatas;
+            return users;
         }
 
         public void Delete(int id)
         {
-            Unit.RepModelMetadata.Delete(id);
+            Unit.RepUser.Delete(id);
         }
     }
 }
