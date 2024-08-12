@@ -1,4 +1,4 @@
-import { ModelMetadata, initModelMetadata } from "../models/ModelMetadata";
+﻿import { ModelMetadata, initModelMetadata } from "../models/ModelMetadata";
 import ApiDataService from "./ApiDataService";
 
 class ModelMetadataService {

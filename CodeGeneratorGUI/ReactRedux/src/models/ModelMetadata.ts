@@ -1,4 +1,4 @@
-import { PropMetadata } from "./PropMetadata";
+﻿import { PropMetadata } from "./PropMetadata";
 export interface ModelMetadata {
   name:string;
   nameSpace:string;

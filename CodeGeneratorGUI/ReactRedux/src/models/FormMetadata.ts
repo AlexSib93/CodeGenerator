@@ -1,4 +1,4 @@
-export interface FormMetadata {
+﻿export interface FormMetadata {
   name:string;
   caption:string;
   description:string;

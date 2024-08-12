@@ -1,4 +1,4 @@
-export interface PropMetadata {
+﻿export interface PropMetadata {
   name:string;
   type:string;
   caption:string;

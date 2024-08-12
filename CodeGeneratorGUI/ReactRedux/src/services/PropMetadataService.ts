@@ -1,4 +1,4 @@
-import { PropMetadata, initPropMetadata } from "../models/PropMetadata";
+﻿import { PropMetadata, initPropMetadata } from "../models/PropMetadata";
 import ApiDataService from "./ApiDataService";
 
 class PropMetadataService {

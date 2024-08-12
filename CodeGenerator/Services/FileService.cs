@@ -18,7 +18,7 @@ namespace CodeGenerator
                 Directory.CreateDirectory(outDir);
             }
             string fullPath = outDir + "\\"+ fileName;
-            File.WriteAllText(fullPath, content);
+            File.WriteAllText(fullPath, content, Encoding.UTF8);
         }
 
         public static T ReadFile<T>(string fileName)

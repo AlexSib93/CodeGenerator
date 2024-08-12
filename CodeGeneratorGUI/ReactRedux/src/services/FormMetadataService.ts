@@ -1,4 +1,4 @@
-import { FormMetadata, initFormMetadata } from "../models/FormMetadata";
+﻿import { FormMetadata, initFormMetadata } from "../models/FormMetadata";
 import ApiDataService from "./ApiDataService";
 
 class FormMetadataService {

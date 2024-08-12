@@ -1,4 +1,4 @@
-import { ProjectMetadata, initProjectMetadata } from "../models/ProjectMetadata";
+﻿import { ProjectMetadata, initProjectMetadata } from "../models/ProjectMetadata";
 import ApiDataService from "./ApiDataService";
 
 class ProjectMetadataService {

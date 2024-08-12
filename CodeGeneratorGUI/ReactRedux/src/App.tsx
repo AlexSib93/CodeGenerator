@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+﻿import { useReducer } from 'react';
 import './App.css';
 import Header from './components/Navbar';
 import Login from './pages/Login';
@@ -11,7 +11,6 @@ import { SettingsPage } from './pages/SettingsPage';
 import {Projects} from './forms/Projects';
 import {Models} from './forms/Models';
 import {Forms} from './forms/Forms';
-import { ModalEditForms } from './forms/ModalEditForms';
 
 
 
@@ -37,7 +36,6 @@ function App() {
           </main>
         {/* </BrowserRouter> */}
         </HashRouter>
-        <ModalEditForms/>
         <Toasts />
       </ContextApp.Provider>
     </div>
