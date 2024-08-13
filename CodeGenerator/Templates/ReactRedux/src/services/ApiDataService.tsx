@@ -30,9 +30,9 @@ class ApiDataService {
       });
   }
 
-  get(controller: string, meth: string) {
+  get(controller: string, meth: string, params: string = "") {
     return axios
-      .get(`${API_URL}${controller}/${meth}`)
+      .get(`${API_URL}${controller}/${meth}?${params}`)
       .catch((error: any) => {
         let message = '';
         if (error.response) {
