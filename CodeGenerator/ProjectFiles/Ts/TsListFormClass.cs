@@ -41,6 +41,7 @@ namespace CodeGenerator.ProjectFiles.Ts
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
     const [item, setItem] = useState<{FormInfo.Model.Name}>(null);
     const [items, setItems] = useState<{FormInfo.Model.Name}[]>(props.items);
+{StateNotModelProps()}
 
     useEffect(() => {{
         if (props.autoFetch) {{
@@ -96,7 +97,12 @@ namespace CodeGenerator.ProjectFiles.Ts
                 ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}")))
                 : "";
         }
-
+        private string StateNotModelProps()
+        {
+            return (FormInfo.Components != null)
+                ? string.Join(Environment.NewLine, FormInfo.Components.Where(c => !c.ModelProp).Select(c => TsPropBuilder.GetTsStateProp(c)))
+                : "";
+        }
         private string EditFormComponent()
         {
             return (EditForm != null ? $@" {{item && <div>

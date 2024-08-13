@@ -93,6 +93,7 @@ namespace CodeGenerator
 
             return res;
         }
+
         public static object GetTsComponent(ComponentMetadata component, string addstring = "")
         {
             string res = "";
@@ -104,27 +105,58 @@ namespace CodeGenerator
                 case "Input":
                     res = $@"
       <div className=""form-floating m-3"">                
-        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
-        <label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
+        {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>")}
       </div>";
                     break;                     
                 case "CheckBox":
                     res = $@"
       <div className=""form-check m-3"">
-        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-check-input"" type=""checkbox"" checked={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}} id=""flexCheck{component.Name}"" onChange={{ handleCheckBoxChange }} />
-        <label className=""form-check-label"" htmlFor=""flexCheck{component.Name}"">{component.Caption}</label>
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-check-input"" type=""checkbox"" checked={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} id=""flexCheck{component.Name}"" onChange={{ handleCheckBoxChange }} />
+        {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-check-label"" htmlFor=""flexCheck{component.Name}"">{component.Caption}</label>")}
       </div>";
                     break;                
                 case "Table":
                     string props = string.Join(", ",component.Props.Where(p=>!p.Type.StartsWith("List")).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
                     res = $@"      <div className=""m-3"">    
-       <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
-       <Table {addstring} props={{[{props}]}} />
+        <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
+        <Table {addstring} props={{[{props}]}} />
       </div>";
                     break;
                 case "AddButton":
                     res = $@"
             <button className=""w-100 btn btn-success"" onClick={{addItem}} >Добавить</button>";
+                    break;
+                case "DateTime":
+                    res = $@"
+      <div className=""form m-3"">   
+            {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""{component.Name}"">{component.Caption}</label>")}
+            <input id=""{component.Name}"" className=""form-control"" type=""date"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}.toISOString().substring(0, 10)}} onChange={{(e) => set{component.Name}(new Date(e.target.value))}}  />
+      </div>";
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
+        }       
+        
+        public static object GetTsStateProp(ComponentMetadata component)
+        {
+            string res = "";
+            switch (component.Type)
+            {
+                case "Input":
+                    res = $@"
+      const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<string>("""");";
+                    break;                     
+                case "CheckBox":
+                    res = $@"
+      const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<bool>(false);";
+                    break;        
+                case "DateTime":
+                    res = $@"
+      const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<Date>(new Date());";
                     break;
                 default:
                     break;
