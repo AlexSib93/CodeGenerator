@@ -47,10 +47,10 @@ builder.Services.AddCors(options =>
         }});
 }});
 builder.Services.AddControllers();
-// builder.Services.AddDbContext<WdContext>(options =>
-// {{
-//    options.UseSqlServer(builder.Configuration.GetConnectionString(""DefaultConnection""));
-// }});
+builder.Services.AddDbContext<DataBaseContext>(options =>
+{{
+    options.UseSqlServer(builder.Configuration.GetConnectionString(""DefaultConnection""));
+}});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

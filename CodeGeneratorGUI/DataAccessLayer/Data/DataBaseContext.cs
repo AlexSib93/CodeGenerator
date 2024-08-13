@@ -2,18 +2,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
-    public class TemplateContext : DbContext
+    public class DataBaseContext: DbContext
     {
 
-        public TemplateContext(string connectionString)
-           : base(new DbContextOptionsBuilder<TemplateContext>().UseSqlServer(connectionString).Options)
-        {
-        }
-        public TemplateContext()
+        public DataBaseContext(string connectionString)
+           : base(new DbContextOptionsBuilder<DataBaseContext>().UseSqlServer(connectionString).Options)
         {
         }
 
-        public TemplateContext(DbContextOptions<TemplateContext> options)
+        public DataBaseContext()
+        {
+        }
+
+        public DataBaseContext(DbContextOptions<DataBaseContext> options)
             : base(options)
         {
         }
