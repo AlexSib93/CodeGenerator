@@ -15,6 +15,7 @@ export const Forms = (props: IFormsProps) => {
     const [item, setItem] = useState<FormMetadata>(null);
     const [items, setItems] = useState<FormMetadata[]>(props.items);
 
+
     useEffect(() => {
         if (props.autoFetch) {
             FormMetadataService.getall().then((item) => {
@@ -56,8 +57,8 @@ export const Forms = (props: IFormsProps) => {
     return <div className="table-responsive" >
         { !item && <div>
                   <div className="m-3">    
-       <h1 className="h4 mt-4 fw-normal">Формы</h1>
-       <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
+        <h1 className="h4 mt-4 fw-normal">Формы</h1>
+        <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'caption', Caption: 'Отображаемое имя'}, {Name:'description', Caption: 'Описание'}, {Name:'addToNavBar', Caption: 'Добавить в панель навигации'}]} />
       </div>
         </div>}
              {item && <div>

@@ -15,6 +15,7 @@ export const Projects = (props: IProjectsProps) => {
     const [item, setItem] = useState<ProjectMetadata>(null);
     const [items, setItems] = useState<ProjectMetadata[]>(props.items);
 
+
     useEffect(() => {
         if (props.autoFetch) {
             ProjectMetadataService.getall().then((item) => {
@@ -56,8 +57,8 @@ export const Projects = (props: IProjectsProps) => {
     return <div className="table-responsive" >
         { !item && <div>
                   <div className="m-3">    
-       <h1 className="h4 mt-4 fw-normal">Проекты</h1>
-       <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'description', Caption: 'Описание'}, {Name:'path', Caption: 'Путь'}]} />
+        <h1 className="h4 mt-4 fw-normal">Проекты</h1>
+        <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Наименование'}, {Name:'description', Caption: 'Описание'}, {Name:'path', Caption: 'Путь'}]} />
       </div>
         </div>}
             

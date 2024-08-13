@@ -15,6 +15,7 @@ export const Models = (props: IModelsProps) => {
     const [item, setItem] = useState<ModelMetadata>(null);
     const [items, setItems] = useState<ModelMetadata[]>(props.items);
 
+
     useEffect(() => {
         if (props.autoFetch) {
             ModelMetadataService.getall().then((item) => {
@@ -56,8 +57,8 @@ export const Models = (props: IModelsProps) => {
     return <div className="table-responsive" >
         { !item && <div>
                   <div className="m-3">    
-       <h1 className="h4 mt-4 fw-normal">Модели</h1>
-       <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
+        <h1 className="h4 mt-4 fw-normal">Модели</h1>
+        <Table items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} props={[{Name:'name', Caption: 'Имя'}, {Name:'nameSpace', Caption: 'Пространство имен'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
       </div>
         </div>}
              {item && <div>

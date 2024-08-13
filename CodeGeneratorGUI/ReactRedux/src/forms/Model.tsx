@@ -47,8 +47,8 @@ import {Table} from "../components/Table";
         <label htmlFor="floatingInputCaption">Отображаемое имя</label>
       </div>
       <div className="m-3">    
-       <h1 className="h4 mt-4 fw-normal">Свойства</h1>
-       <Table items={editedItem.props} props={[{Name:'name', Caption: 'Наименование'}, {Name:'type', Caption: 'Тип данных C#'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
+        <h1 className="h4 mt-4 fw-normal">Свойства</h1>
+        <Table items={editedItem.props} props={[{Name:'name', Caption: 'Наименование'}, {Name:'type', Caption: 'Тип данных C#'}, {Name:'caption', Caption: 'Отображаемое имя'}]} />
       </div>
          <button className="w-100 btn btn-success" type="submit">Сохранить</button>
      </form>
