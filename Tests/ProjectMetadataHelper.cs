@@ -82,8 +82,8 @@ internal static class ProjectMetadataHelper
                     new PropMetadata() { Name =  "Caption", Caption = "Отображаемое имя", Type = "string"},
                     new PropMetadata() { Name =  "Description", Caption = "Описание", Type = "string" },
                     new PropMetadata() { Name =  "AddToNavBar", Caption = "Добавить в панель навигации", Type = "bool"}
-                    //new PropMetadata { Name = "Components", Caption = "Формы", Type = "List<ComponentMetadata>" }
-                    //    public IEnumerable<ComponentMetadata> Components { get; set; }
+                    //new PropMetadata() { Name = "Components", Caption = "Формы", Type = "List<ComponentMetadata>" }
+                    //public IEnumerable<ComponentMetadata> Components { get; set; }
                 }
         };
         ModelMetadata modelMetadata4 = new ModelMetadata()
@@ -112,9 +112,8 @@ internal static class ProjectMetadataHelper
                     Model = modelMetadata2,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Projects", Caption = "Проекты", Type = "Table", Props = modelMetadata2.Props  }
+                        new ComponentMetadata() { Name = "Projects", Caption = "Проекты", Type = "Table", Props = modelMetadata2.Props }
                     }
-
                 },
                 new FormMetadata()
                 {
@@ -123,7 +122,7 @@ internal static class ProjectMetadataHelper
                     Model = modelMetadata1,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Models", Caption = "Модели", Type = "Table", Props = modelMetadata1.Props  }
+                        new ComponentMetadata() { Name = "Models", Caption = "Модели", Type = "Table", Props = modelMetadata1.Props }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -131,11 +130,11 @@ internal static class ProjectMetadataHelper
                         Caption = "Модель",
                         Model = modelMetadata1,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
-                            new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input" },
+                            new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input" },
+                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input" },
                             new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata4.Props },
-                            new ComponentMetadata() { Type = "SubmitButton"  }
+                            new ComponentMetadata() { Type = "SubmitButton" }
                         }
                     }
                 },
@@ -146,7 +145,7 @@ internal static class ProjectMetadataHelper
                     Model = modelMetadata3,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props  }
+                        new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -154,10 +153,10 @@ internal static class ProjectMetadataHelper
                         Caption = "Форма",
                         Model = modelMetadata3,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Description", Caption = "Описание", Type = "Input"  },
-                            new ComponentMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "CheckBox"  },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input" },
+                            new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input" },
+                            new ComponentMetadata() { Name = "Description", Caption = "Описание", Type = "Input" },
+                            new ComponentMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "CheckBox" },
                             new ComponentMetadata() { Type = "SubmitButton"  }
                         }
                     }
@@ -251,6 +250,7 @@ internal static class ProjectMetadataHelper
                     Model = delivDocModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Date", Caption = "", Type = "DateTime", ModelProp = false },
                         new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", Type = "Table", Props = delivDocModelMetadata.Props  }
                     }
                 },
