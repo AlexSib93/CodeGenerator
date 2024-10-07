@@ -271,6 +271,104 @@ internal static class ProjectMetadataHelper
     }
 
 
+    public static ProjectMetadata RemakeArmProjectMetadata()
+    {
+        string nameSpace = "RemakeArm";
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "RemakeArm";
+        metadata.Description = "АРМ передельщика Web";
+        metadata.Path = @"..\..\..\..\..\RemakeArm";
+        ModelMetadata orderitemModelMetadata = new ModelMetadata()
+        {
+            Name = "RemakeOrderItem",
+            Caption = "Позиция",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Order", Caption = "Заказ", Type = "string" },
+                    new PropMetadata() { Name = "IdOrder", Caption = "ID заказа", Type = "int" },
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name = "OrderItemNum", Caption = "Номер позиции в заказе", Type = "int" },
+                    new PropMetadata() { Name = "IdOrderItem", Caption = "ID позиции заказа", Type = "int" },
+                    new PropMetadata() { Name = "ProfileSystem", Caption = "Профильная система", Type = "string" },
+                    new PropMetadata() { Name = "IdProfileSystem", Caption = "ID профильной системы", Type = "int" },
+                    new PropMetadata() { Name = "FurnSystem", Caption = "Фурнитурная система", Type = "string" },
+                    new PropMetadata() { Name = "IdFurnSystem", Caption = "ID фурнитурной системы", Type = "int" },
+                    new PropMetadata() { Name = "IdColorOut", Caption = "ID внешнего цвета", Type = "int" },
+                    new PropMetadata() { Name = "IdColorIn", Caption = "ID внутреннего цвета", Type = "int" },
+                    new PropMetadata() { Name = "ColorOut", Caption = "Цвет внутренний", Type = "string" },
+                    new PropMetadata() { Name = "ColorIn", Caption = "Цвет внешний", Type = "string" },
+                    new PropMetadata() { Name = "Sign", Caption = "Статус", Type = "string" },
+                    new PropMetadata() { Name = "IdSign", Caption = "ID статуса", Type = "int" },
+                    new PropMetadata() { Name = "SignDate", Caption = "Время статуса", Type = "DateTime" },
+                    new PropMetadata() { Name = "Picture", Caption = "Чертеж", Type = "Image" }
+                }
+        };
+
+        ModelMetadata orderModelMetadata = new ModelMetadata()
+        {
+            Name = "RemakeOrder",
+            Caption = "Переделка",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                    new PropMetadata() { Name = "IdOrder", Caption = "ID", Type = "int" },
+                    new PropMetadata() { Name = "ServiceReason", Caption = "Причина брака", Type = "string" },
+                    new PropMetadata() { Name = "IdServiceReason", Caption = "ID причины брака", Type = "int" },
+                    new PropMetadata() { Name = "Comment", Caption = "Комментарий", Type = "string" },
+                    new PropMetadata() { Name = "Picture", Caption = "Чертеж", Type = "Image" }
+                }
+        };
+        ModelMetadata materialModelMetadata = new ModelMetadata()
+        {
+            Name = "Material",
+            Caption = "Материал",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                    new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                    new PropMetadata() { Name = "BoxOperName", Caption = "Тип комплектации", Type = "string"},
+                    new PropMetadata() { Name = "IdBoxOper", Caption = "ID типа комплектации", Type = "int"},
+                    new PropMetadata() { Name = "IdBox", Caption = "ID", Type = "int"},
+                    new PropMetadata() { Name = "Num", Caption = "Номер", Type = "int"}
+                }
+        };
+
+        metadata.Models = new List<ModelMetadata> {
+                orderitemModelMetadata,
+                materialModelMetadata,
+                orderModelMetadata
+            };
+        metadata.Forms = new List<FormMetadata>
+            {
+                new FormMetadata()
+                {
+                    Name = "RemakeOrderListForm",
+                    Caption = "Переделки",
+                    Model = orderModelMetadata,
+                    AddToNavBar = true,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "RemakeOrders", Caption = "Переделки", Type = "Table", Props = orderModelMetadata.Props  }
+                    },
+                    EditForm = new FormMetadata()
+                    {
+                        Name = "RemakeOrderEditForm",
+                        Caption = "Переделкa",
+                        Model = orderModelMetadata,
+                        Components = new ComponentMetadata[] {
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Comment", Caption = "Комментарий", Type = "Input" },
+                            //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
+                            new ComponentMetadata() { Type = "SubmitButton"  }
+                        }
+                    }
+
+                }
+            };
+
+
+        return metadata;
+    }
+
+
     public static ProjectMetadata TestProjectMetadata()
     {
         ProjectMetadata metadata = new ProjectMetadata();

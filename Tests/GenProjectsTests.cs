@@ -62,6 +62,29 @@ namespace Tests
 
         }
 
+        [TestMethod("RemakeArm")]
+        public void TestCreateRemakeArm()
+        {
+            Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
+            Generator generator = new Generator();
+            generator.GenCode(ProjectMetadataHelper.RemakeArmProjectMetadata());
+        }
+
+
+        [TestMethod]
+        public void TestRemakeArm()
+        {
+            Process hostApiProcess = BuildAndRunWebApi(ProjectMetadataHelper.RemakeArmProjectMetadata());
+            Process hostClientProcess = BuildAndRunClient(ProjectMetadataHelper.RemakeArmProjectMetadata(), true);
+
+            hostClientProcess.WaitForExit();
+            hostApiProcess.WaitForExit();
+
+            hostClientProcess.Kill();
+            hostApiProcess.Kill();
+
+        }
+
         private Process BuildAndRunWebApi(ProjectMetadata project)
         {
             string webApiPath = $@"{project.Path}\WebApi\";
