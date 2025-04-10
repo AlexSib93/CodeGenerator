@@ -448,4 +448,220 @@ internal static class ProjectMetadataHelper
         return metadata;
     }
 
+    public static ProjectMetadata ProjectMetadataCorp()
+    {
+        string nameSpace = "Corp";
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "Corp";
+        metadata.Description = "GUI for manage projects to gen";
+        metadata.Path = @"..\..\..\..\Corp";
+        ModelMetadata modelMetadata1 = new ModelMetadata()
+        {
+            Name = "CharacteristicValue",
+            Caption = "Значение характеристики",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int" },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Characteristic", Caption = "Наименование", Type = "int" },
+            }
+        };
+        ModelMetadata modelMetadata2 = new ModelMetadata()
+        {
+            Name = "Characteristic",
+            Caption = "Характеристика",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int" },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+            }
+        };
+        ModelMetadata modelMetadata3 = new ModelMetadata()
+        {
+            Name = "CharacteristicObj",
+            Caption = "Характеристика объекта",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdCO", Caption = "Id характеристики объекта", Type = "int" },
+                new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
+                new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
+                new PropMetadata() { Name = "IdCharacteristic", Caption = "Id характеристики", Type = "int" },
+                new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int" },
+            }
+        };
+
+        ModelMetadata modelMetadata4 = new ModelMetadata()
+        {
+            Name = "Agreement",
+            Caption = "Договор, Соглашения",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int" },
+                new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
+                new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
+                new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
+                new PropMetadata() { Name = "TimePayKC2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
+                new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
+                new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
+                new PropMetadata() { Name = "IdObj", Caption = "Id объекта", Type = "int" },
+            }
+        };
+
+        ModelMetadata modelMetadata5 = new ModelMetadata()
+        {
+            Name = "Obj",
+            Caption = "Объект",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int" },
+                new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
+                new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string" },
+                new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
+                new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
+                new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
+                new PropMetadata() { Name = "IdAgent", Caption="Контрагент", Type = "int" },
+                new PropMetadata() { Name = "IdUser", Caption="Пользователь", Type = "int" },
+
+            }
+        };
+
+        ModelMetadata modelMetadata6 = new ModelMetadata()
+        {
+            Name = "Nomenclature",
+            Caption = "Номенклатура объекта",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdNom", Caption = "Id номенклатуры объекта", Type = "int" },
+                new PropMetadata() { Name = "Mark", Caption = "Показатели", Type = "string" },
+                new PropMetadata() { Name = "IdObj", Caption="Id Объекта", Type = "int"},
+
+            }
+        };
+
+        ModelMetadata modelMetadata7 = new ModelMetadata()
+        {
+            Name = "Agents",
+            Caption = "Контрагент",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int" },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "INN", Caption="ИНН", Type = "string"},
+                new PropMetadata() { Name = "BankAccount", Caption="Счет", Type = "string"},
+            }
+        };
+
+        ModelMetadata modelMetadata8 = new ModelMetadata()
+        {
+            Name = "Users",
+            Caption = "Пользователи",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdUser", Caption = "Id Пользователя", Type = "int" },
+                new PropMetadata() { Name = "FirstName", Caption = "Фамилия", Type = "string" },
+                new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                new PropMetadata() { Name = "LastName", Caption = "Отчество", Type = "string" },
+                new PropMetadata() { Name = "Role", Caption = "Роль", Type = "string" },
+
+            }
+        };
+
+        metadata.Models = new List<ModelMetadata> {
+            modelMetadata1,
+            modelMetadata2,
+            modelMetadata3,
+            modelMetadata4,
+            modelMetadata5,
+            modelMetadata6,
+            modelMetadata7,
+            modelMetadata8
+        };
+        metadata.Forms = new List<FormMetadata>
+        {
+            new FormMetadata()
+            {
+                Name = "CharacteristicValue",
+                Caption = "Значение характеристики",
+                Model = modelMetadata1,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "Table", Props = modelMetadata1.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Characteristic",
+                Caption = "Характеристика",
+                Model = modelMetadata2,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Characteristic", Caption = "Характеристика", Type = "Table", Props = modelMetadata2.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "CharacteristicObj",
+                Caption = "Характеристика объекта",
+                Model = modelMetadata3,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "CharacteristicObj", Caption = "Характеристика объекта", Type = "Table", Props = modelMetadata3.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Agreement",
+                Caption = "Договор, Соглашения",
+                Model = modelMetadata4,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Agreement", Caption = "Договор, Соглашения", Type = "Table", Props = modelMetadata4.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Obj",
+                Caption = "Объект",
+                Model = modelMetadata5,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Obj", Caption = "Объект", Type = "Table", Props = modelMetadata5.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Nomenclature",
+                Caption = "Номенклатура объекта",
+                Model = modelMetadata6,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Nomenclature", Caption = "Номенклатура объекта", Type = "Table", Props = modelMetadata6.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Agents",
+                Caption = "Контрагент",
+                Model = modelMetadata7,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Agents", Caption = "Контрагент", Type = "Table", Props = modelMetadata7.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Users",
+                Caption = "Пользователи",
+                Model = modelMetadata8,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Users", Caption = "Пользователи", Type = "Table", Props = modelMetadata8.Props }
+                }
+            }
+        };
+
+
+        return metadata;
+    }
+
 }

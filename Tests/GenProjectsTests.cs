@@ -40,6 +40,28 @@ namespace Tests
 
         }
 
+        [TestMethod("Corp")]
+        public void TestCreateProjectCorp()
+        {
+            Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
+            Generator generator = new Generator();
+            generator.GenCode(ProjectMetadataHelper.ProjectMetadataCorp());
+        }
+
+        [TestMethod]
+        public void TestCorp()
+        {
+            Process hostApiProcess = BuildAndRunWebApi(ProjectMetadataHelper.ProjectMetadataCorp());
+            Process hostClientProcess = BuildAndRunClient(ProjectMetadataHelper.ProjectMetadataCorp(), true);
+
+            hostClientProcess.WaitForExit();
+            hostApiProcess.WaitForExit();
+
+            hostClientProcess.Kill();
+            hostApiProcess.Kill();
+
+        }
+
         [TestMethod("ComplectationArm")]
         public void TestCreateComplectationArm()
         {
