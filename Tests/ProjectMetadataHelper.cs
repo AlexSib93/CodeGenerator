@@ -493,7 +493,7 @@ internal static class ProjectMetadataHelper
         ModelMetadata modelMetadata4 = new ModelMetadata()
         {
             Name = "Agreement",
-            Caption = "Договор, Соглашения",
+            Caption = "Договор, Соглашение",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int" },
@@ -520,7 +520,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
                 new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "IdAgent", Caption="Контрагент", Type = "int" },
-                new PropMetadata() { Name = "IdUser", Caption="Пользователь", Type = "int" },
+                new PropMetadata() { Name = "IdPeople", Caption="Пользователь", Type = "int" },
 
             }
         };
@@ -540,7 +540,7 @@ internal static class ProjectMetadataHelper
 
         ModelMetadata modelMetadata7 = new ModelMetadata()
         {
-            Name = "Agents",
+            Name = "Agent",
             Caption = "Контрагент",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
@@ -553,11 +553,11 @@ internal static class ProjectMetadataHelper
 
         ModelMetadata modelMetadata8 = new ModelMetadata()
         {
-            Name = "Users",
-            Caption = "Пользователи",
+            Name = "People",
+            Caption = "Пользователь",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdUser", Caption = "Id Пользователя", Type = "int" },
+                new PropMetadata() { Name = "IdPeople", Caption = "Id Пользователя", Type = "int" },
                 new PropMetadata() { Name = "FirstName", Caption = "Фамилия", Type = "string" },
                 new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
                 new PropMetadata() { Name = "LastName", Caption = "Отчество", Type = "string" },
@@ -580,8 +580,8 @@ internal static class ProjectMetadataHelper
         {
             new FormMetadata()
             {
-                Name = "CharacteristicValue",
-                Caption = "Значение характеристики",
+                Name = "CharacteristicValues",
+                Caption = "Значения характеристик",
                 Model = modelMetadata1,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -590,8 +590,8 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Characteristic",
-                Caption = "Характеристика",
+                Name = "Characteristics",
+                Caption = "Характеристики",
                 Model = modelMetadata2,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -600,8 +600,8 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "CharacteristicObj",
-                Caption = "Характеристика объекта",
+                Name = "CharacteristicObjs",
+                Caption = "Характеристики объекта",
                 Model = modelMetadata3,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -610,8 +610,8 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Agreement",
-                Caption = "Договор, Соглашения",
+                Name = "Agreements",
+                Caption = "Договоры, Соглашения",
                 Model = modelMetadata4,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -620,8 +620,8 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Obj",
-                Caption = "Объект",
+                Name = "Objects",
+                Caption = "Объекты",
                 Model = modelMetadata5,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -630,7 +630,7 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Nomenclature",
+                Name = "Nomenclatures",
                 Caption = "Номенклатура объекта",
                 Model = modelMetadata6,
                 AddToNavBar = true,
@@ -650,12 +650,12 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Users",
+                Name = "Peoples",
                 Caption = "Пользователи",
                 Model = modelMetadata8,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Users", Caption = "Пользователи", Type = "Table", Props = modelMetadata8.Props }
+                    new ComponentMetadata() { Name = "Peoples", Caption = "Пользователи", Type = "Table", Props = modelMetadata8.Props }
                 }
             }
         };
