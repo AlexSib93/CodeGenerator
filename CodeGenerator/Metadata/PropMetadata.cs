@@ -14,5 +14,17 @@
         /// Отображаемое имя
         /// </summary>
         public string Caption { get; set; }
+        /// <summary>
+        /// Первичный ключ, по умолчанию false, 
+        /// </summary>
+        public bool PrimaryKey { get; set; } = false;
+        /// <summary>
+        /// Имя столбца внешней связи
+        /// </summary>
+        public string? ForeigthName { get; set; }
+        /// <summary>
+        /// Имя таблицы внешнего ключа
+        /// </summary>
+        public string? ForeigthTable { get; set; }
     }
 }
