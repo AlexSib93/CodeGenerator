@@ -51,7 +51,7 @@ using DataAccessLayer.Dto;";
         public string GetModelsText(List<ModelMetadata> classesInfo)
         {
             string res = "";
-            foreach (ModelMetadata classInfo in classesInfo.Where(c => !c.IsDataBaseObject))
+            foreach (ModelMetadata classInfo in classesInfo)
             {
                 res += $"{GetModelText(classInfo)}\n";
 

@@ -14,7 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DataAccessLayer.Ef
+namespace DataAccessLayer.Data
 {
     public class DataBaseRepository<T> : IRepository<T> where T : class
     {

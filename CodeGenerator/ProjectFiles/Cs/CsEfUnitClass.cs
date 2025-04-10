@@ -27,17 +27,18 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private DataBaseContext _db;
         private IDbContextTransaction _trans;
+
 {GetModelsText(Models)}
 
 
-        public EfUnit(WdContext db)
+        public EfUnit(DataBaseContext db)
         {{
             _db = db;
         }}
 
         public EfUnit(string connectionString)
         {{
-            _db = new WdContext(connectionString);
+            _db = new DataBaseContext(connectionString);
         }}
 
         public virtual void Dispose(bool disposing)
@@ -308,7 +309,10 @@ using DataAccessLayer.Dto;";
         public string GetModelsText(List<ModelMetadata> classesInfo)
         {
             string res = "";
-            foreach (ModelMetadata classInfo in classesInfo.Where(c => c.IsDataBaseObject))
+            //Auth
+            res += GetModelText(new ModelMetadata() { Name = "User" });
+
+            foreach (ModelMetadata classInfo in classesInfo)
             {
                 res += $"{GetModelText(classInfo)}\n";
 
