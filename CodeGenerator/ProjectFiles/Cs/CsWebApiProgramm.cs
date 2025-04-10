@@ -12,9 +12,11 @@ namespace CodeGenerator.ProjectFiles.Cs
     {
         public string Name { get; set; }
         public ProjectMetadata Project { get; set; }
-        public CsWebApiProgramm(ProjectMetadata proj)
+        public string UnitOfWork {get; set; } = "MockUnit";
+        public CsWebApiProgramm(ProjectMetadata proj, string unitOfWork = "MockUnit")
         {
             Project = proj;
+            UnitOfWork = unitOfWork;
         }
 
         public string Header => $@"using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -110,7 +112,7 @@ app.Run();
             string res = $@"
 builder.Services
     .AddScoped<IUserService, UserService>()
-    .AddScoped<IUnitOfWork, MockUnit>(){GetServicesInjection()};";
+    .AddScoped<IUnitOfWork, {UnitOfWork}>(){GetServicesInjection()};";
 
             return res;
         }

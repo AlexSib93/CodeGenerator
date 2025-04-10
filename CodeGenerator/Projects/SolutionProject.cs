@@ -19,7 +19,7 @@ namespace CodeGenerator.Projects
             string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
                 ? Metadata.Path
                 : Directory.GetCurrentDirectory();
-            var templateGenerator = new TemplateFiles($@"{Settings.TemplatesPath}\{Name}", $@"{pathForCopyFiles}");
+            var templateGenerator = new TemplateFiles(Metadata, $@"{Settings.TemplatesPath}\{Name}", $@"{pathForCopyFiles}");
             templateGenerator.Gen();
         }
 

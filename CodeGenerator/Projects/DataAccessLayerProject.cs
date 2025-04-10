@@ -37,6 +37,7 @@ namespace CodeGenerator.Projects
             Items.Add(new ProjectItem(this, new CsInterfaceUnitOfWork(projectMetadata.Models), "IUnitOfWork", projectPath, "cs"));
             Items.Add(new ProjectItem(this, new CsMockClass(projectMetadata.Models), "MockUnit", $"{projectPath}\\Data", "cs"));
             Items.Add(new ProjectItem(this, new CsEfUnitClass(projectMetadata.Models), "EfUnit", $"{projectPath}\\Data", "cs"));
+            Items.Add(new ProjectItem(this, new CsDataBaseContextClass(projectMetadata.Models), "DataBaseContext", $"{projectPath}\\Data", "cs"));
         }
 
     }

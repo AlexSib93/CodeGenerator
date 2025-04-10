@@ -13,6 +13,8 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
+                if (propInfo.PrimaryKey)
+                    res += "      [Key]" + Environment.NewLine;
                 res += $"{GetPropText(propInfo)}\n";
             }
 

@@ -12,11 +12,13 @@ namespace CodeGenerator.Classes
 {
     public class TemplateFiles : IGenerator
     {
+        public ProjectMetadata ProjectMetadata { get; set; }
         public TemplateFilesMetadata TemplateFilesMetadata { get; set; }
 
-        public TemplateFiles(string templatePath, string outputPath)
+        public TemplateFiles(ProjectMetadata projectMetadata, string templatePath, string outputPath)
         {
             TemplateFilesMetadata = new TemplateFilesMetadata(templatePath, outputPath);
+            ProjectMetadata = projectMetadata;
         }
 
         public string Gen()
@@ -34,7 +36,7 @@ namespace CodeGenerator.Classes
             return text;
         }
 
-        static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
+        void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
         {
             var dir = new DirectoryInfo(sourceDir);
 
@@ -61,7 +63,7 @@ namespace CodeGenerator.Classes
                 }
             }
         }
-        static public void ReplaceInFile(string filePathIn, string filePathOut)
+        public void ReplaceInFile(string filePathIn, string filePathOut)
         {
 
             StreamReader reader = new StreamReader(filePathIn);
@@ -69,7 +71,12 @@ namespace CodeGenerator.Classes
             reader.Close();
 
             //ToDo: вынести в настройку 
-            content = ReplaceContent(content, "TemplateProjectName", "ProjectName");
+            if(ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.Name))
+                content = ReplaceContent(content, "TemplateProjectName", ProjectMetadata.Name);
+
+            if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.DbConnectionString))
+                content = ReplaceContent(content, "DefaultConnectionString", ProjectMetadata.DbConnectionString);
+
             content = ReplaceContent(content, "TemplateProjectNamespace", "ProjectNamespace");
 
             StreamWriter writer = new StreamWriter(filePathOut);

@@ -306,7 +306,7 @@ namespace DataAccessLayer.Data
 		
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+	        return Set();
         }
 
         public T GetById(int id)

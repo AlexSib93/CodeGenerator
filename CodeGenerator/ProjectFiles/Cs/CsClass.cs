@@ -29,7 +29,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         public string GetPropsText => CsPropBuilder.GetPropsText(ClassInfo);
 
-        public string UsingText => $@"using System;";
+        public string UsingText => $@"using System;
+using System.ComponentModel.DataAnnotations;";
 
         public string Gen()
         {

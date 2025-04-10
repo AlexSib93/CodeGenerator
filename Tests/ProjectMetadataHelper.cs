@@ -455,13 +455,14 @@ internal static class ProjectMetadataHelper
         metadata.Name = "Corp";
         metadata.Description = "GUI for manage projects to gen";
         metadata.Path = @"..\..\..\..\Corp";
+        metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
         ModelMetadata modelMetadata1 = new ModelMetadata()
         {
             Name = "CharacteristicValue",
             Caption = "Значение характеристики",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int" },
+                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int", PrimaryKey = true},
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "Наименование", Type = "int" },
             }
@@ -472,7 +473,7 @@ internal static class ProjectMetadataHelper
             Caption = "Характеристика",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int" },
+                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
@@ -482,7 +483,7 @@ internal static class ProjectMetadataHelper
             Caption = "Характеристика объекта",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCO", Caption = "Id характеристики объекта", Type = "int" },
+                new PropMetadata() { Name = "IdCO", Caption = "Id характеристики объекта", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
                 new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
                 new PropMetadata() { Name = "IdCharacteristic", Caption = "Id характеристики", Type = "int" },
@@ -496,7 +497,7 @@ internal static class ProjectMetadataHelper
             Caption = "Договор, Соглашение",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int" },
+                new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
                 new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
@@ -513,7 +514,7 @@ internal static class ProjectMetadataHelper
             Caption = "Объект",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int" },
+                new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string" },
                 new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
@@ -531,7 +532,7 @@ internal static class ProjectMetadataHelper
             Caption = "Номенклатура объекта",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdNom", Caption = "Id номенклатуры объекта", Type = "int" },
+                new PropMetadata() { Name = "IdNom", Caption = "Id номенклатуры объекта", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Mark", Caption = "Показатели", Type = "string" },
                 new PropMetadata() { Name = "IdObj", Caption="Id Объекта", Type = "int"},
 
@@ -544,7 +545,7 @@ internal static class ProjectMetadataHelper
             Caption = "Контрагент",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int" },
+                new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "INN", Caption="ИНН", Type = "string"},
                 new PropMetadata() { Name = "BankAccount", Caption="Счет", Type = "string"},
@@ -557,7 +558,7 @@ internal static class ProjectMetadataHelper
             Caption = "Пользователь",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdPeople", Caption = "Id Пользователя", Type = "int" },
+                new PropMetadata() { Name = "IdPeople", Caption = "Id Пользователя", Type = "int", PrimaryKey = true },
                 new PropMetadata() { Name = "FirstName", Caption = "Фамилия", Type = "string" },
                 new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
                 new PropMetadata() { Name = "LastName", Caption = "Отчество", Type = "string" },

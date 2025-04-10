@@ -18,13 +18,16 @@ namespace CodeGenerator.Projects
         {
             string Name = "SqlCommandCreateTable";
             string projectPath = $@"{projectMetadata.Path}\{Name}";
+            string code = "";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
                 if (model.Props.Count > 0)
                 {
-                    Items.Add(new ProjectItem(this, new SqlClass(GetSqlCommandText(model.Props, model.Name)), model.Name, $"{projectPath}", "sql"));
+                    code += Environment.NewLine + GetSqlCommandText(model.Props, model.Name);
+
                 }
             }
+            Items.Add(new ProjectItem(this, new SqlClass(code), "Create Data Base", $"{projectPath}", "sql"));
         }
 
         private static string GetSqlCommandText(List<PropMetadata> propMD, string name)
