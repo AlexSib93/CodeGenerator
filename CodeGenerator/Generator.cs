@@ -47,6 +47,10 @@ namespace CodeGenerator
                 {
                     projectGenerators.Add(new DataAccessLayerProject(projectMetadata));
                 }
+                if (Settings.GenDalProject)
+                {
+                    projectGenerators.Add(new SqlCommandText(projectMetadata));
+                }
                 if (Settings.GenReactProject)
                 {
                     projectGenerators.Add(new ReactBootstrapProject(projectMetadata));
