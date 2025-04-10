@@ -74,6 +74,7 @@ namespace CodeGenerator
             {
                 switch (type)
                 {
+                    case "decimal":
                     case "int":
                         res = "number";
                         break;
@@ -177,6 +178,9 @@ namespace CodeGenerator
                 switch (type)
                 {
                     case "int":
+                        res = "0";
+                        break;
+                    case "decimal":
                         res = "0";
                         break;
                     case "int?":
