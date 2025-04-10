@@ -617,7 +617,22 @@ internal static class ProjectMetadataHelper
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
                     new ComponentMetadata() { Name = "Agreement", Caption = "Договор, Соглашения", Type = "Table", Props = modelMetadata4.Props }
-                }
+                },
+                EditForm = new FormMetadata()
+                    {
+                        Name = "AgreementsEditForm",
+                        Caption = "Договор, Соглашение",
+                        Model = modelMetadata4,
+                        Components = new ComponentMetadata[] {
+                            new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },       
+                            new ComponentMetadata() { Name = "Summ", Caption = "Сумма", Type = "Input"  },       
+                            new ComponentMetadata() { Name = "PrePayment", Caption = "Сумма аванса, руб", Type = "Input"  },       
+                            new ComponentMetadata() { Name = "TimePayKC2", Caption = "Срок оплаты по КС2, дней после подписания", Type = "DateTime"  },
+                            new ComponentMetadata() { Name = "WarrantyRetention", Caption = "Гарантийные удержания, %от суммы КС2", Type = "Input"  },
+                            new ComponentMetadata() { Name = "FinishObj", Caption = "Завершение объекта, документ", Type = "Input"  },
+                            new ComponentMetadata() { Type = "SubmitButton"  }
+                        }
+                    }
             },
             new FormMetadata()
             {
