@@ -654,7 +654,7 @@ internal static class ProjectMetadataHelper
                 Model = modelMetadata6,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Nomenclature", Caption = "Номенклатура объекта", Type = "Table", Props = modelMetadata6.Props }
+                    new ComponentMetadata() { Name = "Nomenclature", Caption = "Номенклатура объекта", Type = "Table", Props = modelMetadata6.Props.Where(p => !p.IsVirtual).ToList() }
                 }
             },
             new FormMetadata()
