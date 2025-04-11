@@ -507,7 +507,8 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "TimePayKC2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
                 new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
                 new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
-                new PropMetadata() { Name = "IdObj", Caption = "Id объекта", Type = "int" },
+                new PropMetadata() { Name = "IdObj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
+                new PropMetadata() { Name = "IdСontractor", Caption = "Id подрядчика", Type = "Сontractor", IsVirtual = true },
             }
         };
 
@@ -523,22 +524,20 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
                 new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
                 new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
-                new PropMetadata() { Name = "IdAgent", Caption="Контрагент", Type = "int" },
-                new PropMetadata() { Name = "IdPeople", Caption="Пользователь", Type = "int" },
+                new PropMetadata() { Name = "IdAgent", Caption="Контрагент", Type = "Agent", IsVirtual = true },
+                new PropMetadata() { Name = "IdPeople", Caption="Пользователь", Type = "People", IsVirtual = true },
 
             }
         };
 
         ModelMetadata modelMetadata6 = new ModelMetadata()
         {
-            Name = "Nomenclature",
-            Caption = "Номенклатура объекта",
+            Name = "Сontractor",
+            Caption = "Подрядчик",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdNom", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true },
-                new PropMetadata() { Name = "Mark", Caption = "Показатели", Type = "string" },
-                new PropMetadata() { Name = "Obj", Caption="Объект", Type = "Obj", IsVirtual = true},
-
+                new PropMetadata() { Name = "IdСontractor", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
 
@@ -570,6 +569,86 @@ internal static class ProjectMetadataHelper
             }
         };
 
+        ModelMetadata modelMetadata9 = new ModelMetadata()
+        {
+            Name = "Indicator",
+            Caption = "Показатели объекта",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdIndicator", Caption = "Id показателя объекта", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "PlanSumm", Caption = "Плановая стоимость", Type = "decimal" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Фактическая стоимость", Type = "decimal" },
+                new PropMetadata() { Name = "IdNameIndicator", Caption = "Показатель", Type = "NameIndicator", IsVirtual= true },
+            }
+        };
+
+        ModelMetadata modelMetadata10 = new ModelMetadata()
+        {
+            Name = "NameIndicator",
+            Caption = "Наименование показателя",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdNameIndicator", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+            }
+        };
+
+        ModelMetadata modelMetadata11 = new ModelMetadata()
+        {
+            Name = "GPR",
+            Caption = "ГПР",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdGPR", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
+                new PropMetadata() { Name = "Fact", Caption = "Факт", Type = "decimal" },
+                new PropMetadata() { Name = "IdTypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true },
+            }
+        };
+
+        ModelMetadata modelMetadata12 = new ModelMetadata()
+        {
+            Name = "TypeWork",
+            Caption = "Виды работ",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdTypeWork", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+            }
+        };
+
+        ModelMetadata modelMetadata13 = new ModelMetadata()
+        {
+            Name = "KC",
+            Caption = "KC",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdKC", Caption = "Id KC", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "DateSubmission", Caption = "Дата Подачи", Type = "DateTime" },
+                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
+                new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string" },
+                new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime" },
+                new PropMetadata() { Name = "IdObj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
+            }
+        };
+
+        ModelMetadata modelMetadata14 = new ModelMetadata()
+        {
+            Name = "Payment",
+            Caption = "Платежи",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdPayments", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "PlanDate", Caption = "Дата план", Type = "DateTime" },
+                new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime" },
+                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
+                new PropMetadata() { Name = "IdKC", Caption = "KC", Type = "KC", IsVirtual=true },
+            }
+        };
+
         metadata.Models = new List<ModelMetadata> {
             modelMetadata1,
             modelMetadata2,
@@ -578,7 +657,13 @@ internal static class ProjectMetadataHelper
             modelMetadata5,
             modelMetadata6,
             modelMetadata7,
-            modelMetadata8
+            modelMetadata8,
+            modelMetadata9,
+            modelMetadata10,
+            modelMetadata11,
+            modelMetadata12,
+            modelMetadata13,
+            modelMetadata14
         };
         metadata.Forms = new List<FormMetadata>
         {
@@ -663,8 +748,8 @@ internal static class ProjectMetadataHelper
             },
             new FormMetadata()
             {
-                Name = "Nomenclatures",
-                Caption = "Номенклатура объекта",
+                Name = "Сontractors",
+                Caption = "Подрядчик",
                 Model = modelMetadata6,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
@@ -690,7 +775,68 @@ internal static class ProjectMetadataHelper
                 Components = new ComponentMetadata[] {
                     new ComponentMetadata() { Name = "Peoples", Caption = "Пользователи", Type = "Table", Props = modelMetadata8.Props }
                 }
-            }
+            },
+            new FormMetadata()
+            {
+                Name = "Indicators",
+                Caption = "Показатели объекта",
+                Model = modelMetadata9,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Indicators", Caption = "Показатели объекта", Type = "Table", Props = modelMetadata9.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "NameIndicators",
+                Caption = "Наименование показателя",
+                Model = modelMetadata10,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "NameIndicators", Caption = "Наименование показателя", Type = "Table", Props = modelMetadata10.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "GPRs",
+                Caption = "ГПР",
+                Model = modelMetadata11,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "GPRs", Caption = "ГПР", Type = "Table", Props = modelMetadata11.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "TypeWorks",
+                Caption = "Виды работ",
+                Model = modelMetadata12,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "TypeWorks", Caption = "Виды работ", Type = "Table", Props = modelMetadata12.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "KCs",
+                Caption = "KC",
+                Model = modelMetadata13,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "KCs", Caption = "KC", Type = "Table", Props = modelMetadata13.Props }
+                }
+            },
+            new FormMetadata()
+            {
+                Name = "Payments",
+                Caption = "Платежи",
+                Model = modelMetadata14,
+                AddToNavBar = true,
+                Components = new ComponentMetadata[] {
+                    new ComponentMetadata() { Name = "Payments", Caption = "Платежи", Type = "Table", Props = modelMetadata14.Props }
+                }
+            },
+
         };
 
 
