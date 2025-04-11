@@ -23,20 +23,20 @@ namespace CodeGenerator.Projects
             {
                 if (model.Props.Count > 0)
                 {
-                    code += Environment.NewLine + GetSqlCommandText(model.Props, model.Name);
+                    code += Environment.NewLine + GetSqlCommandText(model.Props, model.Name) + Environment.NewLine;
 
                 }
             }
             Items.Add(new ProjectItem(this, new SqlClass(code), "Create Data Base", $"{projectPath}", "sql"));
         }
 
-        private static string GetSqlCommandText(List<PropMetadata> propMD, string name)
+        private string GetSqlCommandText(List<PropMetadata> propMD, string name)
         {
-            string sqlCommand = $"Create Table {name} " +
+            string sqlCommand = $"CREATE TABLE {name} " +
                         $"\n(";
             foreach (PropMetadata pM in propMD)
             {
-                sqlCommand += $"\n{pM.Name} {GetSqlType(pM.Type)} {GetPrimatyKey(pM.PrimaryKey)} {GetForeightKey(pM)} {GetNullOrNotNull(pM.Type)},";
+                sqlCommand += $"\n  {((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)} {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {GetNullOrNotNull(pM.Type)},";
             }
             sqlCommand = sqlCommand.TrimEnd(',') + "\n)";
 
@@ -48,7 +48,7 @@ namespace CodeGenerator.Projects
             string res = "";
             if (!type.Contains("?"))
             {
-                res = "Not NUll";
+                res = "NOT NULL";
             }
             return res;
         }
@@ -56,58 +56,76 @@ namespace CodeGenerator.Projects
         private static string GetPrimatyKey(bool primaryKey)
         {
             string res = "";
-            if (primaryKey == true)
+            if (primaryKey)
             {
                 res = "PRIMARY KEY";
             }
             return res;
         }
 
-        private static string GetForeightKey(PropMetadata pM)
+        private string GetForeignKey(PropMetadata pM)
         {
             string res = "";
-            if (pM.ForeigthName != null && pM.ForeigthTable!=null)
+            if (pM.IsVirtual)
             {
-                res = $"REFERENCES {pM.ForeigthTable} ({pM.ForeigthName})";
+                ModelMetadata type = Metadata.Models.FirstOrDefault(m => m.Name == pM.Type);
+                if(type != null)
+                {
+                    PropMetadata pkPropReferenced = type.Props.FirstOrDefault(p => p.IsPrimaryKey);
+                    if(pkPropReferenced != null)
+                    {
+                        res = $"REFERENCES {pM.Type} ({pkPropReferenced.Name})";
+                    }
+                }
             }
+
             return res;
         }
 
-        private static object GetSqlType(string type)
+        private static object GetSqlType(PropMetadata prop)
         {
-            string res = type;
-            if (type.StartsWith("List"))
+            string res = prop.Type;
+            if(prop.IsVirtual)
             {
-                string classOfArray = type.Substring(type.IndexOf("<") + 1, type.IndexOf(">") - type.IndexOf("<") - 1);
-                res = "none"; // Вопрос с классами, в sql фиг сделаешь
+                //TODO: выйти на ключевое свойства
+                res = "INT";
             }
             else
             {
-                switch (type)
+                if (prop.Type.StartsWith("List"))
                 {
-                    case "decimal":
-                        res = "decimal";
-                        break;
-                    case "int":
-                        res = "int";
-                        break;
-                    case "int?":
-                        res = "int";
-                        break;
-                    case "DateTime":
-                        res = "DateTime";
-                        break;
-                    case "bool":
-                        res = "BIT";
-                        break;
-                    case "string":
-                        res = "varchar(max)";
-                        break;
-                    default:
-                        res = "None";
-                        break;
+                    string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
+                    res = "none"; // Вопрос с классами, в sql фиг сделаешь
+                }
+                else
+                {
+                    switch (prop.Type)
+                    {
+                        case "decimal":
+                            res = "DECIMAL";
+                            break;
+                        case "int":
+                            res = "INT";
+                            break;
+                        case "int?":
+                            res = "INT";
+                            break;
+                        case "DateTime":
+                            res = "DATETIME";
+                            break;
+                        case "bool":
+                            res = "BIT";
+                            break;
+                        case "string":
+                            res = "VARCHAR(MAX)";
+                            break;
+                        default:
+                            res = "None";
+                            break;
+                    }
                 }
             }
+            
 
             return res;
         }

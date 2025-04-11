@@ -15,7 +15,7 @@ namespace CodeGenerator.Projects
         {
             Name = "WebApi";
 
-            Items.Add(new ProjectItem(this, new CsWebApiProgramm(projectMetadata, "EfUnit"), "Program", $"{Metadata.Path}\\{Name}", "cs"));
+            Items.Add(new ProjectItem(this, new CsWebApiProgramm(projectMetadata), "Program", $"{Metadata.Path}\\{Name}", "cs"));
 
             foreach (ModelMetadata classMeta in Metadata.Models)
             {

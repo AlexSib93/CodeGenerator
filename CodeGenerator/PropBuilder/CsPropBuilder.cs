@@ -13,9 +13,22 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                if (propInfo.PrimaryKey)
-                    res += "      [Key]" + Environment.NewLine;
-                res += $"{GetPropText(propInfo)}\n";
+                if (propInfo.IsPrimaryKey)
+                    res += "        [Key]" + Environment.NewLine;
+
+                if (propInfo.IsVirtual)
+                {
+                    res += $@"
+        public int? Id{propInfo.Name} {{ get; set; }}
+
+        [ForeignKey(""Id{ propInfo.Name}"")]
+        public virtual {propInfo.Type} { propInfo.Name} {{ get; set; }}";
+                } 
+                else
+                {
+                    res += $"{GetPropText(propInfo)}\n";
+                }
+
             }
 
             return res;
@@ -23,8 +36,7 @@ namespace CodeGenerator
 
         public static string GetPropText(PropMetadata propInfo)
         {
-            string res = 
-                $"      public {propInfo.Type} {propInfo.Name} {{ get; set; }}";
+            string res = $"        public {propInfo.Type} {propInfo.Name} {{ get; set; }}";
 
             return res;
         }

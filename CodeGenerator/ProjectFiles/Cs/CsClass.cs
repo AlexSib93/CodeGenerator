@@ -30,7 +30,8 @@ namespace CodeGenerator.ProjectFiles.Cs
         public string GetPropsText => CsPropBuilder.GetPropsText(ClassInfo);
 
         public string UsingText => $@"using System;
-using System.ComponentModel.DataAnnotations;";
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;";
 
         public string Gen()
         {

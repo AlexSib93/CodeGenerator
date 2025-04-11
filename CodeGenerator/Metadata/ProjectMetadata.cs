@@ -12,6 +12,8 @@ namespace CodeGenerator.Metadata
         public string Description { get; set; }
         public string Path { get; set; }
         public string DbConnectionString { get; set; }
+        // Todo: переделать на enum
+        public string UnitOfWork { get; set; } = "MockUnit";
         public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
         public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
     }
