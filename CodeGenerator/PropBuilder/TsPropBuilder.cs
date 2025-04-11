@@ -42,13 +42,29 @@ namespace CodeGenerator
         public static string UsingPropTypeText(IEnumerable<PropMetadata> props)
         {
             string res = "";
-            foreach (PropMetadata prop in props)
+
+            var referencedTypes = props.Where(p => p.Type.StartsWith("List") || p.IsVirtual);
+
+
+            foreach (PropMetadata prop in referencedTypes)
             {
+                var existedImport = new List<string>();
                 if (prop.Type.StartsWith("List"))
                 {
                     string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
-                    res += $"import {{ {classOfArray} }} from \"./{classOfArray}\";" + Environment.NewLine;
-
+                    if (!existedImport.Contains(classOfArray))
+                    {
+                        res += $"import {{ {classOfArray}, init{classOfArray} }} from \"./{classOfArray}\";" + Environment.NewLine;
+                        existedImport.Add(classOfArray);
+                    }
+                }
+                else if(prop.IsVirtual)
+                {
+                    if (!existedImport.Contains(prop.Type))
+                    {
+                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
+                        existedImport.Add(prop.Type);
+                    }
                 }
             }            
 
@@ -57,7 +73,7 @@ namespace CodeGenerator
         public static string GetInitPropText(PropMetadata propInfo)
         {
             string res =
-                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsInitValue(propInfo.Type)},";
+                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}: { GetTsInitValue(propInfo.Type)},";
 
             return res;
         }
@@ -196,6 +212,7 @@ namespace CodeGenerator
                         res = "false";
                         break;
                     default:
+                        res = $"init{type}";
                         break;
                 }
             }
