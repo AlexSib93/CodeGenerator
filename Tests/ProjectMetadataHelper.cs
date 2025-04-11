@@ -645,6 +645,20 @@ internal static class ProjectMetadataHelper
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
                     new ComponentMetadata() { Name = "Obj", Caption = "Объект", Type = "Table", Props = modelMetadata5.Props }
+                },
+                EditForm = new FormMetadata()
+                    {
+                    Name = "ObjectEditForm",
+                    Caption = "Объект",
+                    Model = modelMetadata5,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },
+                        new ComponentMetadata() { Name = "Address", Caption = "Адрес", Type = "Input"  },
+                        new ComponentMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime"  },
+                        new ComponentMetadata() { Name = "FinishDate", Caption = "Дата окончания работ", Type = "DateTime"  },
+                        new ComponentMetadata() { Name = "ReturtDateWarranty", Caption = "Дата возврата гарантийных", Type = "DateTime"  },
+                        new ComponentMetadata() { Type = "SubmitButton"  }
+                    }
                 }
             },
             new FormMetadata()
