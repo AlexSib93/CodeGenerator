@@ -111,9 +111,13 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual);
             string res = $@"        public IEnumerable<{ClassInfo.Name}> Get()
         {{
-            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll();
+            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll({(
+                (ClassInfo.Props.Any(p => p.IsVirtual))
+                    ? "null," + string.Join(", ", virtualProps.Select(p => $"x => x.{p.Name}"))
+                    : "")});
 
             return {param};
         }}";

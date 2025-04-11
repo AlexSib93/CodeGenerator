@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace DataAccessLayer.Data
 {
@@ -13,6 +14,11 @@ namespace DataAccessLayer.Data
         public IEnumerable<T> GetAll()
         {
             return _entities;
+        }
+
+        public List<T> GetAll(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
+        {
+            throw new NotImplementedException();
         }
 
         public T GetById(int id)
