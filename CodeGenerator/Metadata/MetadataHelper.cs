@@ -13,7 +13,7 @@ namespace CodeGenerator.Metadata
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var component in mM.Props)
             {
-                if (component.Name[0].ToString().ToLower() != "i" && component.Name[1].ToString().ToLower() != "d")
+                if (component.IsPrimaryKey==false && component.IsVirtual==false)
                 {
                     components.Add(new ComponentMetadata()
                     {
@@ -23,7 +23,8 @@ namespace CodeGenerator.Metadata
                     });
                 }
             }
-            components.Add(new ComponentMetadata() { Type = "SubmitButton" });
+            if (components.Count>0)
+                components.Add(new ComponentMetadata() { Type = "SubmitButton" });
 
             return new FormMetadata()
             {
