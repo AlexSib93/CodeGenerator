@@ -476,7 +476,7 @@ internal static class ProjectMetadataHelper
             Caption = "Характеристика",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdC", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
@@ -508,7 +508,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
                 new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
                 new PropMetadata() { Name = "IdObj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
-                new PropMetadata() { Name = "IdСontractor", Caption = "Id подрядчика", Type = "Сontractor", IsVirtual = true },
+                new PropMetadata() { Name = "IdСontractorObj", Caption = "Id подрядчика", Type = "СontractorObj", IsVirtual = true },
             }
         };
 
@@ -532,11 +532,11 @@ internal static class ProjectMetadataHelper
 
         ModelMetadata modelMetadata6 = new ModelMetadata()
         {
-            Name = "Сontractor",
+            Name = "СontractorObj",
             Caption = "Подрядчик",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdСontractor", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdСontractorObj", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
@@ -667,16 +667,33 @@ internal static class ProjectMetadataHelper
         };
         metadata.Forms = new List<FormMetadata>
         {
+            EditFormAdd.GetFormMetadata(modelMetadata1),
+            EditFormAdd.GetFormMetadata(modelMetadata2),
+            
+            EditFormAdd.GetFormMetadata(modelMetadata3),
+            EditFormAdd.GetFormMetadata(modelMetadata4),
+            EditFormAdd.GetFormMetadata(modelMetadata5),
+            EditFormAdd.GetFormMetadata(modelMetadata6),
+            EditFormAdd.GetFormMetadata(modelMetadata7),
+            EditFormAdd.GetFormMetadata(modelMetadata8),
+            EditFormAdd.GetFormMetadata(modelMetadata9),
+            EditFormAdd.GetFormMetadata(modelMetadata10),
+            EditFormAdd.GetFormMetadata(modelMetadata11),
+            EditFormAdd.GetFormMetadata(modelMetadata12),
+            EditFormAdd.GetFormMetadata(modelMetadata13),
+            EditFormAdd.GetFormMetadata(modelMetadata14),
+            /*
             new FormMetadata()
             {
                 Name = "CharacteristicValues",
-                Caption = "Значения характеристик",
+                Caption = "Значение характеристики",
                 Model = modelMetadata1,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
                     new ComponentMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "Table", Props = modelMetadata1.Props }
                 }
             },
+
             new FormMetadata()
             {
                 Name = "Characteristics",
@@ -687,6 +704,7 @@ internal static class ProjectMetadataHelper
                     new ComponentMetadata() { Name = "Characteristic", Caption = "Характеристика", Type = "Table", Props = modelMetadata2.Props }
                 }
             },
+            
             new FormMetadata()
             {
                 Name = "CharacteristicObjs",
@@ -697,6 +715,7 @@ internal static class ProjectMetadataHelper
                     new ComponentMetadata() { Name = "CharacteristicObj", Caption = "Характеристика объекта", Type = "Table", Props = modelMetadata3.Props }
                 }
             },
+            
             new FormMetadata()
             {
                 Name = "Agreements",
@@ -707,20 +726,20 @@ internal static class ProjectMetadataHelper
                     new ComponentMetadata() { Name = "Agreement", Caption = "Договор, Соглашения", Type = "Table", Props = modelMetadata4.Props }
                 },
                 EditForm = new FormMetadata()
-                    {
-                        Name = "AgreementsEditForm",
-                        Caption = "Договор, Соглашение",
-                        Model = modelMetadata4,
-                        Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },       
-                            new ComponentMetadata() { Name = "Summ", Caption = "Сумма", Type = "Input"  },       
-                            new ComponentMetadata() { Name = "PrePayment", Caption = "Сумма аванса, руб", Type = "Input"  },       
-                            new ComponentMetadata() { Name = "TimePayKC2", Caption = "Срок оплаты по КС2, дней после подписания", Type = "DateTime"  },
-                            new ComponentMetadata() { Name = "WarrantyRetention", Caption = "Гарантийные удержания, %от суммы КС2", Type = "Input"  },
-                            new ComponentMetadata() { Name = "FinishObj", Caption = "Завершение объекта, документ", Type = "Input"  },
-                            new ComponentMetadata() { Type = "SubmitButton"  }
-                        }
+                {
+                    Name = "AgreementsEditForm",
+                    Caption = "Договор, Соглашение",
+                    Model = modelMetadata4,
+                    Components = new ComponentMetadata[] {
+                        new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },       
+                        new ComponentMetadata() { Name = "Summ", Caption = "Сумма", Type = "Input"  },       
+                        new ComponentMetadata() { Name = "PrePayment", Caption = "Сумма аванса, руб", Type = "Input"  },       
+                        new ComponentMetadata() { Name = "TimePayKC2", Caption = "Срок оплаты по КС2, дней после подписания", Type = "DateTime"  },
+                        new ComponentMetadata() { Name = "WarrantyRetention", Caption = "Гарантийные удержания, %от суммы КС2", Type = "Input"  },
+                        new ComponentMetadata() { Name = "FinishObj", Caption = "Завершение объекта, документ", Type = "Input"  },
+                        new ComponentMetadata() { Type = "SubmitButton"  }
                     }
+                }
             },
             new FormMetadata()
             {
@@ -836,7 +855,7 @@ internal static class ProjectMetadataHelper
                     new ComponentMetadata() { Name = "Payments", Caption = "Платежи", Type = "Table", Props = modelMetadata14.Props }
                 }
             },
-
+            */
         };
 
 
