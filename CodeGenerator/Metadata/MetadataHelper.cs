@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Metadata
 {
-    public class EditFormAdd
+    public class MetadataHelper
     {
         public static FormMetadata GetFormMetadata(ModelMetadata mM) 
         {

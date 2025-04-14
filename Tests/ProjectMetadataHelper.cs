@@ -667,21 +667,21 @@ internal static class ProjectMetadataHelper
         };
         metadata.Forms = new List<FormMetadata>
         {
-            EditFormAdd.GetFormMetadata(modelMetadata1),
-            EditFormAdd.GetFormMetadata(modelMetadata2),
+            MetadataHelper.GetFormMetadata(modelMetadata1),
+            MetadataHelper.GetFormMetadata(modelMetadata2),
             
-            EditFormAdd.GetFormMetadata(modelMetadata3),
-            EditFormAdd.GetFormMetadata(modelMetadata4),
-            EditFormAdd.GetFormMetadata(modelMetadata5),
-            EditFormAdd.GetFormMetadata(modelMetadata6),
-            EditFormAdd.GetFormMetadata(modelMetadata7),
-            EditFormAdd.GetFormMetadata(modelMetadata8),
-            EditFormAdd.GetFormMetadata(modelMetadata9),
-            EditFormAdd.GetFormMetadata(modelMetadata10),
-            EditFormAdd.GetFormMetadata(modelMetadata11),
-            EditFormAdd.GetFormMetadata(modelMetadata12),
-            EditFormAdd.GetFormMetadata(modelMetadata13),
-            EditFormAdd.GetFormMetadata(modelMetadata14),
+            MetadataHelper.GetFormMetadata(modelMetadata3),
+            MetadataHelper.GetFormMetadata(modelMetadata4),
+            MetadataHelper.GetFormMetadata(modelMetadata5),
+            MetadataHelper.GetFormMetadata(modelMetadata6),
+            MetadataHelper.GetFormMetadata(modelMetadata7),
+            MetadataHelper.GetFormMetadata(modelMetadata8),
+            MetadataHelper.GetFormMetadata(modelMetadata9),
+            MetadataHelper.GetFormMetadata(modelMetadata10),
+            MetadataHelper.GetFormMetadata(modelMetadata11),
+            MetadataHelper.GetFormMetadata(modelMetadata12),
+            MetadataHelper.GetFormMetadata(modelMetadata13),
+            MetadataHelper.GetFormMetadata(modelMetadata14),
             /*
             new FormMetadata()
             {
