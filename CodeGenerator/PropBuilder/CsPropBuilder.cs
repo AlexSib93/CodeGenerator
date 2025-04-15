@@ -21,6 +21,7 @@ namespace CodeGenerator
                     if(propInfo.IsEnumerable)
                     {
                         res += $@"
+        {((propInfo.JsonIgnore) ? "[JsonIgnore()]" : "")}
         public virtual {propInfo.Type} {propInfo.Name} {{ get; set; }}";
                     }
                     else
@@ -28,6 +29,7 @@ namespace CodeGenerator
                         res += $@"
         public int? Id{propInfo.Name} {{ get; set; }}
 
+        {((propInfo.JsonIgnore) ? "[JsonIgnore()]" : "")}
         [ForeignKey(""Id{propInfo.Name}"")]
         public virtual {propInfo.Type} {propInfo.Name} {{ get; set; }}";
                     }

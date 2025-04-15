@@ -53,7 +53,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         public string UsingText => $@"using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;";
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;";
 
         public string Gen()
         {

@@ -581,7 +581,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PlanSumm", Caption = "Плановая стоимость", Type = "decimal" },
                 new PropMetadata() { Name = "FactSumm", Caption = "Фактическая стоимость", Type = "decimal" },
                 new PropMetadata() { Name = "NameIndicator", Caption = "Показатель", Type = "NameIndicator", IsVirtual= true },
-                new PropMetadata() { Name = "Obj", Caption = "Объект", Type = "Obj", IsVirtual= true },
+                new PropMetadata() { Name = "Obj", Caption = "Объект", Type = "Obj", IsVirtual= true, JsonIgnore = true },
             }
         };
 
