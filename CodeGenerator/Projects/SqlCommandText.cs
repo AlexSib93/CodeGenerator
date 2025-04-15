@@ -19,7 +19,22 @@ namespace CodeGenerator.Projects
             string Name = "SqlCommandCreateTable";
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             string code = "";
-            foreach (ModelMetadata model in projectMetadata.Models)
+
+            List<ModelMetadata> sortedByDependencyModels = SortModelsByDependency(projectMetadata.Models);
+            List<ModelMetadata> descSortedByDependencyModels = new List<ModelMetadata>();
+            descSortedByDependencyModels.AddRange( sortedByDependencyModels);
+            descSortedByDependencyModels.Reverse();
+
+            foreach (ModelMetadata model in descSortedByDependencyModels)
+            {
+                if (model.Props.Count > 0)
+                {
+                    code += DropTableCode(model.Name) + Environment.NewLine;
+
+                }
+            }
+
+            foreach (ModelMetadata model in sortedByDependencyModels)
             {
                 if (model.Props.Count > 0)
                 {
@@ -30,13 +45,36 @@ namespace CodeGenerator.Projects
             Items.Add(new ProjectItem(this, new SqlClass(code), "Create Data Base", $"{projectPath}", "sql"));
         }
 
+        private List<ModelMetadata> SortModelsByDependency(List<ModelMetadata> models)
+        {
+            //Первые модели без виртульных полей
+            List<ModelMetadata> res = models.Where(m => !m.Props.Any(p => p.IsVirtual)).ToList();
+
+            List<ModelMetadata> otherModels = models.Except(res).ToList();
+            while (otherModels.Count > 0)
+            {
+                foreach (ModelMetadata model in otherModels)
+                {
+                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual);
+                    if (!virtualFields.Any(p => !res.Any(m=> m.Name == p.Type)))
+                    {
+                        res.Add(model);
+                    }
+                }
+
+                otherModels = otherModels.Except(res).ToList();
+            }
+
+            return res;
+        }
+
         private string GetSqlCommandText(List<PropMetadata> propMD, string name)
         {
             string sqlCommand = $"CREATE TABLE {name} " +
                         $"\n(";
             foreach (PropMetadata pM in propMD)
             {
-                sqlCommand += $"\n  {((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)} {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {GetNullOrNotNull(pM.Type)},";
+                sqlCommand += $"\n  [{((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)}] {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {GetNullOrNotNull(pM.Type)},";
             }
             sqlCommand = sqlCommand.TrimEnd(',') + "\n)";
 
@@ -60,6 +98,13 @@ namespace CodeGenerator.Projects
             {
                 res = "PRIMARY KEY";
             }
+            return res;
+        }
+
+        private static string DropTableCode(string tableName)
+        {
+            string res = $"DROP TABLE IF EXISTS [{tableName}]";
+
             return res;
         }
 
@@ -106,6 +151,8 @@ namespace CodeGenerator.Projects
                             break;
                         case "int":
                             res = "INT";
+                            if (prop.IsPrimaryKey)
+                                res += " IDENTITY";
                             break;
                         case "int?":
                             res = "INT";
