@@ -13,7 +13,7 @@ namespace CodeGenerator.Metadata
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var component in mM.Props)
             {
-                if (component.IsPrimaryKey==false && component.IsVirtual==false)
+                if (!component.IsPrimaryKey && !component.IsVirtual)
                 {
                     components.Add(new ComponentMetadata()
                     {
@@ -33,7 +33,7 @@ namespace CodeGenerator.Metadata
                 Model = mM,
                 AddToNavBar = true,
                 Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = mM.Name, Caption = mM.Caption, Type = "Table", Props = mM.Props }
+                    new ComponentMetadata() { Name = mM.Name, Caption = mM.Caption, Type = "Table", Props = mM.Props.Where(x=> !x.IsVirtual).ToList() }
                 },
                 EditForm = new FormMetadata()
                 {
