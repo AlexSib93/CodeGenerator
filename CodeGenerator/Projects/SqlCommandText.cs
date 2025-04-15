@@ -55,7 +55,7 @@ namespace CodeGenerator.Projects
             {
                 foreach (ModelMetadata model in otherModels)
                 {
-                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual);
+                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && !p.IsEnumerable);
                     if (!virtualFields.Any(p => !res.Any(m=> m.Name == p.Type)))
                     {
                         res.Add(model);
@@ -72,7 +72,7 @@ namespace CodeGenerator.Projects
         {
             string sqlCommand = $"CREATE TABLE {name} " +
                         $"\n(";
-            foreach (PropMetadata pM in propMD)
+            foreach (PropMetadata pM in propMD.Where(p=>!p.IsEnumerable))
             {
                 sqlCommand += $"\n  [{((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)}] {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {GetNullOrNotNull(pM.Type)},";
             }
@@ -137,7 +137,7 @@ namespace CodeGenerator.Projects
             }
             else
             {
-                if (prop.Type.StartsWith("List"))
+                if (prop.IsEnumerable)
                 {
                     string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
                     res = "none"; // Вопрос с классами, в sql фиг сделаешь

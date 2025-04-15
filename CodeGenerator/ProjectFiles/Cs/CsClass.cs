@@ -22,10 +22,32 @@ namespace CodeGenerator.ProjectFiles.Cs
 {{
     public class {ClassInfo.Name}
     {{
+{GetConstructorText()}
+
 {GetPropsText}
     }}
 }}
 ";
+
+        private object GetConstructorText()
+        {
+            return $@"
+        public {ClassInfo.Name}()
+        {{
+{GetConstructorInitCollectionsText()}
+        }}";
+        }
+
+        private object GetConstructorInitCollectionsText()
+        {
+            string res = "";
+            foreach (var prop in ClassInfo.Props.Where(p => p.IsVirtual && p.IsEnumerable))
+            {
+                res += $@"          {prop.Name} = new HashSet<{prop.TypeOfEnumerable}>();" + Environment.NewLine;
+            }
+
+            return res;
+        }
 
         public string GetPropsText => CsPropBuilder.GetPropsText(ClassInfo);
 

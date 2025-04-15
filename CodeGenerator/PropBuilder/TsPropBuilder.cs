@@ -34,7 +34,7 @@ namespace CodeGenerator
         public static string GetPropText(PropMetadata propInfo)
         {
             string res =
-                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo.Type)};";
+                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};";
 
             return res;
         }
@@ -43,19 +43,18 @@ namespace CodeGenerator
         {
             string res = "";
 
-            var referencedTypes = props.Where(p => p.Type.StartsWith("List") || p.IsVirtual);
+            var referencedTypes = props.Where(p => p.IsEnumerable || p.IsVirtual);
 
 
             foreach (PropMetadata prop in referencedTypes)
             {
                 var existedImport = new List<string>();
-                if (prop.Type.StartsWith("List"))
+                if (prop.IsEnumerable)
                 {
-                    string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
-                    if (!existedImport.Contains(classOfArray))
+                    if (!existedImport.Contains(prop.TypeOfEnumerable))
                     {
-                        res += $"import {{ {classOfArray}, init{classOfArray} }} from \"./{classOfArray}\";" + Environment.NewLine;
-                        existedImport.Add(classOfArray);
+                        res += $"import {{ {prop.TypeOfEnumerable}, init{prop.TypeOfEnumerable} }} from \"./{prop.TypeOfEnumerable}\";" + Environment.NewLine;
+                        existedImport.Add(prop.TypeOfEnumerable);
                     }
                 }
                 else if(prop.IsVirtual)
@@ -73,22 +72,21 @@ namespace CodeGenerator
         public static string GetInitPropText(PropMetadata propInfo)
         {
             string res =
-                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}: { GetTsInitValue(propInfo.Type)},";
+                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}: { GetTsInitValue(propInfo)},";
 
             return res;
         }
 
-        private static object GetTsType(string type)
+        private static object GetTsType(PropMetadata type)
         {
-            string res = type;
-            if(type.StartsWith("List"))
+            string res = type.Type;
+            if(type.IsEnumerable)
             {
-                string classOfArray = type.Substring(type.IndexOf("<")+1, type.IndexOf(">") - type.IndexOf("<") - 1);
-                res = $@"{classOfArray}[]";
+                res = $@"{type.TypeOfEnumerable}[]";
             }
             else
             {
-                switch (type)
+                switch (type.Type)
                 {
                     case "decimal":
                     case "int":
@@ -134,7 +132,7 @@ namespace CodeGenerator
       </div>";
                     break;                
                 case "Table":
-                    string props = string.Join(", ",component.Props.Where(p=>!p.Type.StartsWith("List")).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
+                    string props = string.Join(", ",component.Props.Where(p=>!p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
                     res = $@"      <div className=""m-3"">    
         <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
         <Table {addstring} props={{[{props}]}} />
@@ -182,16 +180,16 @@ namespace CodeGenerator
             return res;
         }
 
-        private static object GetTsInitValue(string type)
+        private static object GetTsInitValue(PropMetadata type)
         {
-            string res = type;
-            if (type.StartsWith("List"))
+            string res = type.Type;
+            if (type.IsEnumerable)
             {
                 res = "[]";
             }
             else
             {
-                switch (type)
+                switch (type.Type)
                 {
                     case "int":
                         res = "0";
@@ -212,7 +210,7 @@ namespace CodeGenerator
                         res = "false";
                         break;
                     default:
-                        res = $"init{type}";
+                        res = $"init{type.Type}";
                         break;
                 }
             }

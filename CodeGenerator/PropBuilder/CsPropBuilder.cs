@@ -18,11 +18,19 @@ namespace CodeGenerator
 
                 if (propInfo.IsVirtual)
                 {
-                    res += $@"
+                    if(propInfo.IsEnumerable)
+                    {
+                        res += $@"
+        public virtual {propInfo.Type} {propInfo.Name} {{ get; set; }}";
+                    }
+                    else
+                    {
+                        res += $@"
         public int? Id{propInfo.Name} {{ get; set; }}
 
-        [ForeignKey(""Id{ propInfo.Name}"")]
-        public virtual {propInfo.Type} { propInfo.Name} {{ get; set; }}";
+        [ForeignKey(""Id{propInfo.Name}"")]
+        public virtual {propInfo.Type} {propInfo.Name} {{ get; set; }}";
+                    }
                 } 
                 else
                 {

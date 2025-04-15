@@ -527,7 +527,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true },
                 new PropMetadata() { Name = "GPR", Caption="ГПР", Type = "GPR", IsVirtual = true },
-                new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "List<Indicator>", IsVirtual = true },
+                new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
 
             }
         };
@@ -581,6 +581,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PlanSumm", Caption = "Плановая стоимость", Type = "decimal" },
                 new PropMetadata() { Name = "FactSumm", Caption = "Фактическая стоимость", Type = "decimal" },
                 new PropMetadata() { Name = "NameIndicator", Caption = "Показатель", Type = "NameIndicator", IsVirtual= true },
+                new PropMetadata() { Name = "Obj", Caption = "Объект", Type = "Obj", IsVirtual= true },
             }
         };
 
