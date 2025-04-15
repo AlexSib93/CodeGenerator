@@ -316,7 +316,12 @@ namespace DataAccessLayer.Data
 
         public void Add(T entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+                throw new Exception("Объек для сохранения is null");
+
+            _db.Add(entity);
+
+            _db.SaveChanges();
         }
 
         public void Add(IEnumerable<T> entities)

@@ -46,7 +46,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetOperationText()
         {
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
-            string res = $@"        {ClassInfo.Name} Get(int id);";
+            string res = $@"        {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where);";
 
             return res;
         }
@@ -74,6 +74,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         public string UsingText => $@"using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using DataAccessLayer;
 using DataAccessLayer.Dto;";
 

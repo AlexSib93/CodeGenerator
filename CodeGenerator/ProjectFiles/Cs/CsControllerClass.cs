@@ -66,7 +66,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         {{
             try
             {{
-                {ClassInfo.Name} res = _{ParamName}Service.Get(id);
+                {ClassInfo.Name} res = _{ParamName}Service.Get(p => p.{ClassInfo.Props.FirstOrDefault(p => p.IsPrimaryKey)?.Name}==id);
 
                 return Ok(res);
             }}

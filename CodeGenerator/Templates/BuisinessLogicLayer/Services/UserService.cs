@@ -65,7 +65,8 @@ namespace BuisinessLogicLayer.Services
 
         public void Delete(int id)
         {
-            Unit.RepUser.Delete(id);
+            User t = Unit.RepUser.Get(p => p.Id == id);
+            Unit.RepUser.Delete(t);
         }
     }
 }

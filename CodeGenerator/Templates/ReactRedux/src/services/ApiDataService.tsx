@@ -30,6 +30,30 @@ class ApiDataService {
       });
   }
 
+  delete(controller: string, meth: string, id: any) {
+    return axios
+      .delete(`${API_URL}${controller}/${meth}?id=${id}`)
+      .catch((error: any) => {
+        let message = '';
+        if (error.response) {
+          if (error.response.data) {
+            message = error.response.data;
+          }
+
+          if (error.response.status == 401) {
+            message = 'Ошибка авторизации. Требуется повторный вход';
+            AuthService.logout();
+            window.location.replace(LOGIN_PAGE_URL);
+          }
+
+        } else {
+          message = error.message;
+        }
+        console.error(error);
+        return Promise.reject(message);
+      });
+  }
+
   get(controller: string, meth: string, params: string = "") {
     return axios
       .get(`${API_URL}${controller}/${meth}?${params}`)

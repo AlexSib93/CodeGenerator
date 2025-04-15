@@ -87,9 +87,9 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetOperationText()
         {
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
-            string res = $@"        public {ClassInfo.Name} Get(int id)
+            string res = $@"        public {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where)
         {{
-            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.GetById(id);
+            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.Get(where);
 
             return t;
         }}";
@@ -102,7 +102,8 @@ namespace CodeGenerator.ProjectFiles.Cs
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
             string res = $@"        public void Delete(int id)
         {{
-            Unit.Rep{ClassInfo.Name}.Delete(id);
+            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.Get(p => p.{ClassInfo.Props.FirstOrDefault(p => p.IsPrimaryKey)?.Name}==id);
+            Unit.Rep{ClassInfo.Name}.Delete(t);
         }}";
 
             return res;
@@ -132,6 +133,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         public string UsingText => $@"using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
 using DataAccessLayer.Dto;";

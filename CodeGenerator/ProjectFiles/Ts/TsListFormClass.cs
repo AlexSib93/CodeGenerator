@@ -70,15 +70,16 @@ namespace CodeGenerator.ProjectFiles.Ts
     const handleDelete = (model: {FormInfo.Model.Name}) => {{
         var newItems = items.filter(i => i !== model);
         setItems(newItems);
+        {FormInfo.Model.Name}Service.delete(model.{StringHelper.ToLowerFirstChar(FormInfo.Model.Props.FirstOrDefault(p => p.IsPrimaryKey).Name)});
     }};
 
     const submitEditForm = (model: {FormInfo.Model.Name}) => {{
-        if(items.some(m => m === item)) {{
-            handleEdit(model);
-        }} else {{
-            handleAdd(model);
-        }}
         setItem(null); 
+        {FormInfo.Model.Name}Service.post(model).then((item)=>
+        {{
+            handleAdd(item);
+        }});
+
     }}
 
     return <div className=""table-responsive"" >

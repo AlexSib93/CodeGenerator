@@ -47,5 +47,14 @@ namespace DataAccessLayer.Data
         {
             _entities.AddRange(entities);
         }
+        public int Delete(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T Get(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

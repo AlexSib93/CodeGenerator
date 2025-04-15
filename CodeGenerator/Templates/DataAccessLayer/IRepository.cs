@@ -10,11 +10,12 @@ namespace DataAccessLayer
     public interface IRepository<T>
     {
         IEnumerable<T> GetAll();
-	List<T> GetAll(Expression<Func<T, bool>> where, params Expression<Func<T, Object>>[] includes);        
+	List<T> GetAll(Expression<Func<T, bool>> where, params Expression<Func<T, Object>>[] includes);    
+	T Get(Expression<Func<T, bool>> where, params Expression<Func<T, Object>>[] includes);            
         T GetById(int id);
         void Add(T entity);
         void Add(IEnumerable<T> entities);
         void Update(T entity);
-        void Delete(int id);
+        int Delete(T entity);
     }
 }

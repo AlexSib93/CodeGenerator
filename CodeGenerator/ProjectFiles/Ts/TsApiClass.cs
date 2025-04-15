@@ -25,7 +25,21 @@ namespace CodeGenerator.ProjectFiles.Ts
 {GetOperationText()}
   
 {GetAllOperationText()}
+
+{DeleteOperationText()}
 }}";
+
+        private object DeleteOperationText()
+        {
+            return $@"
+  delete(id: any) {{
+    return ApiDataService.delete('{ClassInfo.Name.ToLower()}', 'delete', id)
+      .then((response: any) => {{
+        return Promise.resolve(response.data);
+      }},
+        (message) => Promise.reject(message));
+  }}";
+        }
 
         private object GetOperationText()
         {
