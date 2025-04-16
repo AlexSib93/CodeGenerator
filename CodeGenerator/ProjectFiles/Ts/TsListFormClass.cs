@@ -74,12 +74,16 @@ namespace CodeGenerator.ProjectFiles.Ts
     }};
 
     const submitEditForm = (model: {FormInfo.Model.Name}) => {{
-        setItem(null); 
-        {FormInfo.Model.Name}Service.post(model).then((item)=>
-        {{
-            handleAdd(item);
-        }});
-
+        setItem(null);
+        if (model && model.idTypeWork > 0) {{
+            {FormInfo.Model.Name}Service.put(model).then((item) => {{
+                handleEdit(item);
+            }});
+        }} else {{
+            {FormInfo.Model.Name}Service.post(model).then((item) => {{
+                handleAdd(item);
+            }});
+        }}
     }}
 
     return <div className=""table-responsive"" >

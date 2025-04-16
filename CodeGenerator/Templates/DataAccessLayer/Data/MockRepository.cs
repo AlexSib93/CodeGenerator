@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,9 +33,9 @@ namespace DataAccessLayer.Data
             _entities.Add(entity);
         }
 
-        public void Update(T entity)
+        public int Update(T entity)
         {
-            // Ваш код обновления элемента
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)

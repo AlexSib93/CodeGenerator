@@ -329,11 +329,6 @@ namespace DataAccessLayer.Data
             throw new NotImplementedException();
         }
 
-        void IRepository<T>.Update(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(int id)
         {
             throw new NotImplementedException();

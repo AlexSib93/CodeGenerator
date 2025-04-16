@@ -30,6 +30,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
 {CreateOperationText()}
 
+{UpdateOperationText()}
+
 {GetOperationText()}
 
 {GetAllOperationText()}
@@ -54,6 +56,24 @@ namespace CodeGenerator.ProjectFiles.Cs
             catch (Exception ex)
             {{
                 _logger.LogError(ex, ""Не удалось создать {ClassInfo.Caption}"");
+                return BadRequest(ex.Message + "" "" + ex.InnerException?.Message);
+            }}
+        }}";
+        }
+
+        private string UpdateOperationText()
+        {
+            return $@"        [HttpPut(""put"")]
+        public IActionResult Put([FromBody] {ClassInfo.Name} {ParamName})
+        {{
+            try
+            {{
+                {ClassInfo.Name} res = _{ParamName}Service.Update({ParamName});
+
+                return Ok(res);
+            }}
+            catch (Exception ex)
+            {{
                 return BadRequest(ex.Message + "" "" + ex.InnerException?.Message);
             }}
         }}";

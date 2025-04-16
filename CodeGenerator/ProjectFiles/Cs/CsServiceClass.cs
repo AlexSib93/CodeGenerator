@@ -27,6 +27,8 @@ namespace CodeGenerator.ProjectFiles.Cs
 
 {CreateOperationText()}
 
+{UpdateOperationText()}
+
 {CreateManyOperationText()}
 
 {GetOperationText()}
@@ -65,6 +67,18 @@ namespace CodeGenerator.ProjectFiles.Cs
             string res = $@"        public {ClassInfo.Name} Add({ClassInfo.Name} {ParamName})
         {{
             Unit.Rep{ClassInfo.Name}.Add({ParamName});
+
+            return {ParamName};
+        }}";
+
+            return res;
+        }
+
+        private string UpdateOperationText()
+        {
+            string res = $@"        public {ClassInfo.Name} Update({ClassInfo.Name} {ParamName})
+        {{
+            int res = Unit.Rep{ClassInfo.Name}.Update({ParamName});
 
             return {ParamName};
         }}";

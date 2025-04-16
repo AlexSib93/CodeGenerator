@@ -23,6 +23,8 @@ namespace CodeGenerator.ProjectFiles.Ts
 {CreateOperationText()}
 
 {GetOperationText()}
+
+{PutOperationText()}
   
 {GetAllOperationText()}
 
@@ -53,6 +55,20 @@ namespace CodeGenerator.ProjectFiles.Ts
       );
   }}";
         }
+
+        private object PutOperationText()
+        {
+            string param = "id" + ClassInfo.Name;
+
+            return $@"  put({param}: number): Promise<{ClassInfo.Name}> {{
+    return ApiDataService.put('{ClassInfo.Name.ToLower()}', `put?{param}=${{{param}}}`)
+      .then(
+        (response) => Promise.resolve(response.data),
+        (message) => Promise.reject(message)
+      );
+  }}";
+        }
+
         private object GetAllOperationText()
         {
             return $@"  getall(): Promise<{ClassInfo.Name}[]> {{
