@@ -60,8 +60,8 @@ namespace CodeGenerator.ProjectFiles.Ts
         {
             string param = "id" + ClassInfo.Name;
 
-            return $@"  put({param}: number): Promise<{ClassInfo.Name}> {{
-    return ApiDataService.put('{ClassInfo.Name.ToLower()}', `put?{param}=${{{param}}}`)
+            return $@"  put({ParamName}:{ClassInfo.Name}): Promise<{ClassInfo.Name}> {{
+    return ApiDataService.put('{ClassInfo.Name.ToLower()}', `put`,{ParamName} )
       .then(
         (response) => Promise.resolve(response.data),
         (message) => Promise.reject(message)
@@ -81,7 +81,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         }
         private object CreateOperationText()
         {
-            return $@"  post({ParamName}:{ClassInfo.Name}) {{
+            return $@"  post({ParamName}:{ClassInfo.Name}): Promise<{ClassInfo.Name}> {{
     return ApiDataService.post('{ClassInfo.Name.ToLower()}', 'create', {ParamName})
       .then((response: any) => {{
         return Promise.resolve(response.data);
