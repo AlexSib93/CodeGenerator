@@ -75,7 +75,7 @@ namespace CodeGenerator.ProjectFiles.Ts
 
     const submitEditForm = (model: {FormInfo.Model.Name}) => {{
         setItem(null);
-        if (model && model.idTypeWork > 0) {{
+        if (model && model.{StringHelper.ToLowerFirstChar(FormInfo.Model.PrimaryKeyProp.Name)} > 0) {{
             {FormInfo.Model.Name}Service.put(model).then((item) => {{
                 handleEdit(item);
             }});

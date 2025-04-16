@@ -123,6 +123,13 @@ namespace CodeGenerator
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
         {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>")}
       </div>";
+                    break;                    
+                case "NumericUpDown":
+                    res = $@"
+      <div className=""form-floating m-3"">                
+        <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" type=""number"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
+        {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>")}
+      </div>";
                     break;                     
                 case "CheckBox":
                     res = $@"
@@ -146,7 +153,7 @@ namespace CodeGenerator
                     res = $@"
       <div className=""form m-3"">   
             {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""{component.Name}"">{component.Caption}</label>")}
-            <input id=""{component.Name}"" className=""form-control"" type=""date"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}.toISOString().substring(0, 10)}} onChange={{(e) => set{component.Name}(new Date(e.target.value))}}  />
+            <input name=""{StringHelper.ToLowerFirstChar(component.Name)}""  id=""{component.Name}"" className=""form-control"" type=""date"" defaultValue={{ new Date({(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}+ 'Z').toISOString().substring(0, 10)}} onChange={{handleInputChange}}  />
       </div>";
                     break;
                 default:
