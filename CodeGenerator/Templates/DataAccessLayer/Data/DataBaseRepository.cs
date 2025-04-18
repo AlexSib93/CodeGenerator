@@ -326,7 +326,7 @@ namespace DataAccessLayer.Data
 
         public T GetById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Set<T>().Find(id);
         }
 
         public void Add(T entity)
@@ -337,11 +337,6 @@ namespace DataAccessLayer.Data
             _db.Add(entity);
 
             _db.SaveChanges();
-        }
-
-	public T GetById(int id)
-        {
-            return _db.Set<T>().Find(id);
         }
 
         public void Add(IEnumerable<T> entities)

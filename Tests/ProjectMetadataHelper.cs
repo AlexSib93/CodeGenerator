@@ -607,6 +607,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PlanGPR", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "FactGPR", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true },
+                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
             }
         };
 
