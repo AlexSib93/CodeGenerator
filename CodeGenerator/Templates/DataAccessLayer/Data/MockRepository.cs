@@ -56,5 +56,9 @@ namespace DataAccessLayer.Data
         {
             throw new NotImplementedException();
         }
+        public List<T> GetAll(Expression<Func<T, bool>> where, params string[] include)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

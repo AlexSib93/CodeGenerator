@@ -92,6 +92,21 @@ namespace DataAccessLayer.Data
             return q.ToList();
         }
 
+	    public List<T> GetAll(Expression<Func<T, bool>> where, params string[] include)
+        {
+            IQueryable<T> q = Set();
+
+            if (where != null)
+                q = q.Where(where);
+
+            foreach (string s in include)
+            {
+                q.Include(s).ToList(); 
+            }
+
+            return q.ToList();
+        }
+
         public async Task<T> GetAsync(Expression<Func<T, bool>> where)
         {
             return await Set().SingleOrDefaultAsync(where);
@@ -322,6 +337,11 @@ namespace DataAccessLayer.Data
             _db.Add(entity);
 
             _db.SaveChanges();
+        }
+
+	public T GetById(int id)
+        {
+            return _db.Set<T>().Find(id);
         }
 
         public void Add(IEnumerable<T> entities)
