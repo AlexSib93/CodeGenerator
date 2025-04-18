@@ -526,7 +526,8 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true },
-                new PropMetadata() { Name = "GPR", Caption="ГПР", Type = "GPR", IsVirtual = true },
+                new PropMetadata() { Name = "GPR", Caption="ГПР", Type = "ICollection<GPR>", IsVirtual = true },
+                new PropMetadata() { Name = "KC", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
 
             }
