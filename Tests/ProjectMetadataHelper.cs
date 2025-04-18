@@ -607,7 +607,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PlanGPR", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "FactGPR", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true },
-                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
+                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
             }
         };
 
@@ -635,7 +635,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
                 new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string" },
                 new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime" },
-                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
+                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
             }
         };
 
