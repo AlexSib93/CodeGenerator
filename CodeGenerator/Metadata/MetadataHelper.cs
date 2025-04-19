@@ -8,27 +8,58 @@ namespace CodeGenerator.Metadata
 {
     public class MetadataHelper
     {
-        public static FormMetadata GetFormMetadata(ModelMetadata mM)
+        public static List<FormMetadata> GetFormMetadata(ProjectMetadata pM)
+        {
+            List<FormMetadata> res = new List<FormMetadata>();
+            foreach (ModelMetadata mM in pM.Models)
+            {
+                res.Add(MetadataHelper.GetFormMetadata(pM, mM));
+            }
+
+            return res;
+        }
+
+        public static FormMetadata GetFormMetadata(ProjectMetadata pM, ModelMetadata mM)
         {
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
-            foreach (var component in mM.Props)
+            foreach (var propForComponent in mM.Props)
             {
-                if (!component.IsPrimaryKey && !component.IsVirtual)
+                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual)
                 {
                     components.Add(new ComponentMetadata()
                     {
-                        Name = component.Name,
-                        Caption = component.Caption,
-                        Type = component.Type == "DateTime"
+                        Name = propForComponent.Name,
+                        Caption = propForComponent.Caption,
+                        Type = propForComponent.Type == "DateTime"
                             ? "DateTime"
-                            : ((component.Type == "int" || component.Type == "decimal")
+                            : ((propForComponent.Type == "int" || propForComponent.Type == "decimal")
                                 ? "NumericUpDown"
                                 : "Input")
                     });
                 }
+
+                if (propForComponent.IsDetailsProp)
+                {
+                    var type = propForComponent.TypeOfEnumerable;
+                    var modelOfDetail = pM.Models.FirstOrDefault(m => m.Name == type);
+                    components.Add(new ComponentMetadata()
+                    {
+                        Name = propForComponent.Name,
+                        Caption = propForComponent.Caption,
+                        Type = ComponentTypeEnum.DetailTable.ToString(),
+                        Props = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList(),
+                        ModelPropMetadata = propForComponent
+
+                    });
+
+                }
+
             }
             if (components.Count > 0)
-                components.Add(new ComponentMetadata() { Type = "SubmitButton" });
+            {
+                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.CancelButton.ToString() });
+                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton.ToString() });
+            }
 
             return new FormMetadata()
             {
@@ -36,7 +67,15 @@ namespace CodeGenerator.Metadata
                 Caption = mM.Caption,
                 Model = mM,
                 AddToNavBar = true,
-                Components = new ComponentMetadata[] { AddTableComponent(mM)
+                Components = new ComponentMetadata[]
+                {
+                    new ComponentMetadata()
+                    {
+                        Name = mM.Name,
+                        Caption = mM.Caption,
+                        Type = "Table",
+                        Props = mM.Props.Where(x => !x.IsVirtual).ToList()
+                    }
                 },
                 EditForm = new FormMetadata()
                 {
@@ -48,9 +87,5 @@ namespace CodeGenerator.Metadata
             };
         }
 
-        private static ComponentMetadata AddTableComponent(ModelMetadata mM)
-        {
-            return new ComponentMetadata() { Name = mM.Name, Caption = mM.Caption, Type = "Table", Props = mM.Props.Where(x => !x.IsVirtual).ToList() };
-        }
     }
 }

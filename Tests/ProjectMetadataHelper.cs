@@ -459,7 +459,7 @@ internal static class ProjectMetadataHelper
         metadata.Path = @"..\..\..\..\Corp";
         metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
         metadata.UnitOfWork = "EfUnit";
-        ModelMetadata modelMetadata1 = new ModelMetadata()
+        ModelMetadata characteristicValueMetadata = new ModelMetadata()
         {
             Name = "CharacteristicValue",
             Caption = "Значение характеристики",
@@ -470,7 +470,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Characteristic", Caption = "ID Характеристики", Type = "Characteristic", IsVirtual=true },
             }
         };
-        ModelMetadata modelMetadata2 = new ModelMetadata()
+        ModelMetadata characteristicMetadata = new ModelMetadata()
         {
             Name = "Characteristic",
             Caption = "Характеристика",
@@ -480,7 +480,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
-        ModelMetadata modelMetadata3 = new ModelMetadata()
+        ModelMetadata characteristicObjMetadata = new ModelMetadata()
         {
             Name = "CharacteristicObj",
             Caption = "Характеристика объекта",
@@ -494,7 +494,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata4 = new ModelMetadata()
+        ModelMetadata agreementMetadata4 = new ModelMetadata()
         {
             Name = "Agreement",
             Caption = "Договор, Соглашение",
@@ -512,7 +512,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata5 = new ModelMetadata()
+        ModelMetadata objMetadata = new ModelMetadata()
         {
             Name = "Obj",
             Caption = "Объект",
@@ -533,7 +533,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata6 = new ModelMetadata()
+        ModelMetadata constructionObjMetadata = new ModelMetadata()
         {
             Name = "ConstructionObj",
             Caption = "Подрядчик",
@@ -544,7 +544,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata7 = new ModelMetadata()
+        ModelMetadata agentMetadata = new ModelMetadata()
         {
             Name = "Agent",
             Caption = "Контрагент",
@@ -557,7 +557,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata8 = new ModelMetadata()
+        ModelMetadata peopleMetadata = new ModelMetadata()
         {
             Name = "People",
             Caption = "Пользователь",
@@ -572,7 +572,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata9 = new ModelMetadata()
+        ModelMetadata indicatorMetadata = new ModelMetadata()
         {
             Name = "Indicator",
             Caption = "Показатели объекта",
@@ -586,7 +586,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata10 = new ModelMetadata()
+        ModelMetadata nameIndicatorMetadata = new ModelMetadata()
         {
             Name = "NameIndicator",
             Caption = "Наименование показателя",
@@ -597,7 +597,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata11 = new ModelMetadata()
+        ModelMetadata gprMetadata = new ModelMetadata()
         {
             Name = "GPR",
             Caption = "ГПР",
@@ -611,7 +611,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata12 = new ModelMetadata()
+        ModelMetadata typeWorkMetadata = new ModelMetadata()
         {
             Name = "TypeWork",
             Caption = "Виды работ",
@@ -622,7 +622,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata13 = new ModelMetadata()
+        ModelMetadata kcMetadata = new ModelMetadata()
         {
             Name = "KC",
             Caption = "KC",
@@ -639,7 +639,7 @@ internal static class ProjectMetadataHelper
             }
         };
 
-        ModelMetadata modelMetadata14 = new ModelMetadata()
+        ModelMetadata paymentMetadata = new ModelMetadata()
         {
             Name = "Payment",
             Caption = "Платежи",
@@ -655,214 +655,23 @@ internal static class ProjectMetadataHelper
         };
 
         metadata.Models = new List<ModelMetadata> {
-            modelMetadata1,
-            modelMetadata2,
-            modelMetadata3,
-            modelMetadata4,
-            modelMetadata5,
-            modelMetadata6,
-            modelMetadata7,
-            modelMetadata8,
-            modelMetadata9,
-            modelMetadata10,
-            modelMetadata11,
-            modelMetadata12,
-            modelMetadata13,
-            modelMetadata14
-        };
-        metadata.Forms = new List<FormMetadata>
-        {
-            MetadataHelper.GetFormMetadata(modelMetadata1),
-            MetadataHelper.GetFormMetadata(modelMetadata2),
-            
-            MetadataHelper.GetFormMetadata(modelMetadata3),
-            MetadataHelper.GetFormMetadata(modelMetadata4),
-            MetadataHelper.GetFormMetadata(modelMetadata5),
-            MetadataHelper.GetFormMetadata(modelMetadata6),
-            MetadataHelper.GetFormMetadata(modelMetadata7),
-            MetadataHelper.GetFormMetadata(modelMetadata8),
-            MetadataHelper.GetFormMetadata(modelMetadata9),
-            MetadataHelper.GetFormMetadata(modelMetadata10),
-            MetadataHelper.GetFormMetadata(modelMetadata11),
-            MetadataHelper.GetFormMetadata(modelMetadata12),
-            MetadataHelper.GetFormMetadata(modelMetadata13),
-            MetadataHelper.GetFormMetadata(modelMetadata14),
-            /*
-            new FormMetadata()
-            {
-                Name = "CharacteristicValues",
-                Caption = "Значение характеристики",
-                Model = modelMetadata1,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "Table", Props = modelMetadata1.Props }
-                }
-            },
-
-            new FormMetadata()
-            {
-                Name = "Characteristics",
-                Caption = "Характеристики",
-                Model = modelMetadata2,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Characteristic", Caption = "Характеристика", Type = "Table", Props = modelMetadata2.Props }
-                }
-            },
-            
-            new FormMetadata()
-            {
-                Name = "CharacteristicObjs",
-                Caption = "Характеристики объекта",
-                Model = modelMetadata3,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "CharacteristicObj", Caption = "Характеристика объекта", Type = "Table", Props = modelMetadata3.Props }
-                }
-            },
-            
-            new FormMetadata()
-            {
-                Name = "Agreements",
-                Caption = "Договоры, Соглашения",
-                Model = modelMetadata4,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Agreement", Caption = "Договор, Соглашения", Type = "Table", Props = modelMetadata4.Props }
-                },
-                EditForm = new FormMetadata()
-                {
-                    Name = "AgreementsEditForm",
-                    Caption = "Договор, Соглашение",
-                    Model = modelMetadata4,
-                    Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },       
-                        new ComponentMetadata() { Name = "Summ", Caption = "Сумма", Type = "Input"  },       
-                        new ComponentMetadata() { Name = "PrePayment", Caption = "Сумма аванса, руб", Type = "Input"  },       
-                        new ComponentMetadata() { Name = "TimePayKC2", Caption = "Срок оплаты по КС2, дней после подписания", Type = "DateTime"  },
-                        new ComponentMetadata() { Name = "WarrantyRetention", Caption = "Гарантийные удержания, %от суммы КС2", Type = "Input"  },
-                        new ComponentMetadata() { Name = "FinishObj", Caption = "Завершение объекта, документ", Type = "Input"  },
-                        new ComponentMetadata() { Type = "SubmitButton"  }
-                    }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Objects",
-                Caption = "Объекты",
-                Model = modelMetadata5,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Obj", Caption = "Объект", Type = "Table", Props = modelMetadata5.Props }
-                },
-                EditForm = new FormMetadata()
-                    {
-                    Name = "ObjectEditForm",
-                    Caption = "Объект",
-                    Model = modelMetadata5,
-                    Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Number", Caption = "Номер", Type = "Input"  },
-                        new ComponentMetadata() { Name = "Address", Caption = "Адрес", Type = "Input"  },
-                        new ComponentMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime"  },
-                        new ComponentMetadata() { Name = "FinishDate", Caption = "Дата окончания работ", Type = "DateTime"  },
-                        new ComponentMetadata() { Name = "ReturtDateWarranty", Caption = "Дата возврата гарантийных", Type = "DateTime"  },
-                        new ComponentMetadata() { Type = "SubmitButton"  }
-                    }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Сontractors",
-                Caption = "Подрядчик",
-                Model = modelMetadata6,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Nomenclature", Caption = "Номенклатура объекта", Type = "Table", Props = modelMetadata6.Props.Where(p => !p.IsVirtual).ToList() }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Agents",
-                Caption = "Контрагент",
-                Model = modelMetadata7,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Agents", Caption = "Контрагент", Type = "Table", Props = modelMetadata7.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Peoples",
-                Caption = "Пользователи",
-                Model = modelMetadata8,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Peoples", Caption = "Пользователи", Type = "Table", Props = modelMetadata8.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Indicators",
-                Caption = "Показатели объекта",
-                Model = modelMetadata9,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Indicators", Caption = "Показатели объекта", Type = "Table", Props = modelMetadata9.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "NameIndicators",
-                Caption = "Наименование показателя",
-                Model = modelMetadata10,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "NameIndicators", Caption = "Наименование показателя", Type = "Table", Props = modelMetadata10.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "GPRs",
-                Caption = "ГПР",
-                Model = modelMetadata11,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "GPRs", Caption = "ГПР", Type = "Table", Props = modelMetadata11.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "TypeWorks",
-                Caption = "Виды работ",
-                Model = modelMetadata12,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "TypeWorks", Caption = "Виды работ", Type = "Table", Props = modelMetadata12.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "KCs",
-                Caption = "KC",
-                Model = modelMetadata13,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "KCs", Caption = "KC", Type = "Table", Props = modelMetadata13.Props }
-                }
-            },
-            new FormMetadata()
-            {
-                Name = "Payments",
-                Caption = "Платежи",
-                Model = modelMetadata14,
-                AddToNavBar = true,
-                Components = new ComponentMetadata[] {
-                    new ComponentMetadata() { Name = "Payments", Caption = "Платежи", Type = "Table", Props = modelMetadata14.Props }
-                }
-            },
-            */
+            characteristicValueMetadata,
+            characteristicMetadata,
+            characteristicObjMetadata,
+            agreementMetadata4,
+            objMetadata,
+            constructionObjMetadata,
+            agentMetadata,
+            peopleMetadata,
+            indicatorMetadata,
+            nameIndicatorMetadata,
+            gprMetadata,
+            typeWorkMetadata,
+            kcMetadata,
+            paymentMetadata
         };
 
+        metadata.Forms = MetadataHelper.GetFormMetadata(metadata);
 
         return metadata;
     }

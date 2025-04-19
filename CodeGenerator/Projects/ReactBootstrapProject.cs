@@ -25,7 +25,7 @@ namespace CodeGenerator.Projects
             {
                 if(formMeta.EditForm != null)
                 {
-                    Items.Add(new ProjectItem(this, new TsEditForm(formMeta.EditForm), $"{formMeta.EditForm.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
+                    Items.Add(new ProjectItem(this, new TsEditForm(formMeta.EditForm, projectMetadata), $"{formMeta.EditForm.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
                 }
                 Items.Add(new ProjectItem(this, new TsListFormClass(formMeta, formMeta.EditForm), $"{formMeta.Name}", $"{Metadata.Path}\\{Name}\\src\\forms", "tsx"));
                 

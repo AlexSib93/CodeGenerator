@@ -14,7 +14,13 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                res += $"{GetPropText(propInfo)}\n";
+                if (propInfo.IsMasterProp)
+                {
+                    res += $"  id{propInfo.Name}:number;\n";
+                }
+
+                res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};\n";
+
             }
 
             return res;
@@ -25,16 +31,13 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
+                if (propInfo.IsMasterProp)
+                {
+                    res += $"  id{propInfo.Name}: 0,\n";
+                }
+
                 res += $"{GetInitPropText(propInfo)}\n";
             }
-
-            return res;
-        }
-
-        public static string GetPropText(PropMetadata propInfo)
-        {
-            string res =
-                $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};";
 
             return res;
         }
@@ -109,13 +112,16 @@ namespace CodeGenerator
             return res;
         }
 
-        public static object GetTsComponent(ComponentMetadata component, string addstring = "")
+        public static string GetTsComponent(ComponentMetadata component, string addstring = "")
         {
             string res = "";
             switch (component.Type)
             {
                 case "SubmitButton":
-                    res = "         <button className=\"w-100 btn btn-success\" type=\"submit\">Сохранить</button>";
+                    res = "         <button className=\"w-50 btn btn-success\" type=\"submit\">Сохранить</button>";
+                    break;
+                case "CancelButton":
+                    res = "         <button className=\"w-50 btn btn-danger\" >Отмена</button>";
                     break;
                 case "Input":
                     res = $@"
@@ -143,6 +149,19 @@ namespace CodeGenerator
                     res = $@"      <div className=""m-3"">    
         <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
         <Table {addstring} props={{[{props}]}} />
+      </div>";
+                    break;
+                case "DetailTable":
+                    string pr = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
+                    res = $@"      <div className=""m-3 card"">    
+        <div className=""card-body""> 
+            <div className=""card-title"">
+                <h1 className=""h4 fw-normal"">{component.Caption}</h1>
+            </div>
+            <div className=""card-text"">
+                <Table {addstring} props={{[{pr}]}} />
+            </div>
+        </div>
       </div>";
                     break;
                 case "AddButton":
