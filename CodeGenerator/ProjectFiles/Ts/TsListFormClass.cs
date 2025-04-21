@@ -86,6 +86,10 @@ namespace CodeGenerator.ProjectFiles.Ts
         }}
     }}
 
+    const cancelEdit = () => {{
+        setItem(null);
+    }}
+
     return <div className=""table-responsive"" >
         {$@"{{ !item && <div>
             {GetComponentsText()}
@@ -111,7 +115,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         private string EditFormComponent()
         {
             return (EditForm != null ? $@" {{item && <div>
-                <{EditForm.Name} model={{item}} onSave={{submitEditForm}} />
+                <{EditForm.Name} model={{item}} onSave={{submitEditForm}} onCancel={{cancelEdit}} />
             </div> }}" : "");
         }
 

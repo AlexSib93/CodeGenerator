@@ -62,7 +62,7 @@ namespace CodeGenerator.Metadata
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.LookUp.ToString(),
-                        Props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList(),
+                        Props = new List<PropMetadata>() { modelOfMaster.Props.FirstOrDefault(x => !x.IsVirtual) },
                         ModelPropMetadata = propForComponent
 
                     });
