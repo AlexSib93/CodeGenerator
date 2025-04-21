@@ -19,7 +19,7 @@
         /// </summary>
         public bool IsPrimaryKey { get; set; } = false;
         /// <summary>
-        /// Имя столбца внешней связи
+        /// Свойство внешней связи
         /// </summary>
         public bool IsVirtual { get; set; }
         /// <summary>
@@ -29,6 +29,7 @@
         public bool IsEnumerable => Type.StartsWith("List") || Type.StartsWith("ICollection");
         public bool IsMasterProp => IsVirtual && !IsEnumerable;
         public bool IsDetailsProp => IsVirtual && IsEnumerable;
+        public bool IsDictValueProp { get; set; } = false;
         public string TypeOfEnumerable => IsEnumerable ? Type.Substring(Type.IndexOf("<") + 1, Type.IndexOf(">") - Type.IndexOf("<") - 1) : "";
     }
 }

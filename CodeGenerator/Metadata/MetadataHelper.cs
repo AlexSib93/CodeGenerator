@@ -8,18 +8,18 @@ namespace CodeGenerator.Metadata
 {
     public class MetadataHelper
     {
-        public static List<FormMetadata> GetFormMetadata(ProjectMetadata pM)
+        public static List<FormMetadata> AutoCreateFormMetadata(ProjectMetadata pM)
         {
             List<FormMetadata> res = new List<FormMetadata>();
             foreach (ModelMetadata mM in pM.Models)
             {
-                res.Add(MetadataHelper.GetFormMetadata(pM, mM));
+                res.Add(AutoCreateFormMetadata(pM, mM));
             }
 
             return res;
         }
 
-        public static FormMetadata GetFormMetadata(ProjectMetadata pM, ModelMetadata mM)
+        public static FormMetadata AutoCreateFormMetadata(ProjectMetadata pM, ModelMetadata mM)
         {
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var propForComponent in mM.Props)
@@ -54,7 +54,7 @@ namespace CodeGenerator.Metadata
 
                 }
 
-                if (propForComponent.IsMasterProp)
+                if (propForComponent.IsDictValueProp)
                 {
                     var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.Type);
                     components.Add(new ComponentMetadata()
@@ -62,7 +62,7 @@ namespace CodeGenerator.Metadata
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.LookUp.ToString(),
-                        Props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList(),
+                        Props = new List<PropMetadata>() { modelOfMaster.Props.FirstOrDefault(x => !x.IsVirtual) },
                         ModelPropMetadata = propForComponent
 
                     });

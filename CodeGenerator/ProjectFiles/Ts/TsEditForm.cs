@@ -120,7 +120,7 @@ import {t}EditForm from './{t}EditForm';"));
     }});
   }}, [])
 
-  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{i}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{i.{StringHelper.ToLowerFirstChar(componentLookUp.Props.FirstOrDefault()?.Name ?? "")}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
 
 ";
             }
