@@ -23,27 +23,39 @@ namespace CodeGenerator.ProjectFiles.Ts
 
         public string Header => $@"{UsingText}";
         public string UsingText => $@"
-import React, {{ useState, ChangeEvent, FormEvent, useEffect }} from 'react';
+import React, {{ useState, ChangeEvent, FormEvent, useEffect, useMemo }} from 'react';
 import {{ {Form.Model.Name} }} from ""../models/{Form.Model.Name}"";
 import {Form.Model.Name}Service from ""../services/{Form.Model.Name}Service"";
 import {{Table}} from ""../components/Table"";
-{ImportDetailTypes()}";
+{ImportMasterDetailTypes()}";
 
-        private string ImportDetailTypes()
+        private string ImportMasterDetailTypes()
         {
-            List<string> types = new List<string>();
+            List<string> detailTypes = new List<string>();
             foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString()))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
                 ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == detailType);
-                if(!types.Contains(detailMetadata.Name))
+                if(!detailTypes.Contains(detailMetadata.Name))
                 {
-                    types.Add(detailMetadata.Name);
+                    detailTypes.Add(detailMetadata.Name);
                 };
             }
 
-            string res = string.Join(Environment.NewLine, types.Select(t => $@"import {{{t},init{t}}} from '../models/{t}';
+            string res = string.Join(Environment.NewLine, detailTypes.Select(t => $@"import {{{t},init{t}}} from '../models/{t}';
 import {t}EditForm from './{t}EditForm';"));
+
+            List<string> masterTypes = new List<string>();
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp.ToString()))
+            {
+                ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == componentDetailTable.ModelPropMetadata.Name);
+                if (!masterTypes.Contains(detailMetadata.Name))
+                {
+                    masterTypes.Add(detailMetadata.Name);
+                };
+            }
+            res += Environment.NewLine + string.Join(Environment.NewLine, masterTypes.Except(detailTypes).Select(t => $@"import {{{t},init{t}}} from '../models/{t}';"));
+            res += Environment.NewLine + string.Join(Environment.NewLine, masterTypes.Select(t => $@"import {t}Service from ""../services/{t}Service"";"));
 
             return res;
         }
@@ -58,6 +70,8 @@ import {t}EditForm from './{t}EditForm';"));
  const {Form.Name}: React.FC<{Form.Name}Props> = (props: {Form.Name}Props) => {{
    const [editedItem, setEditedItem] = useState<{Form.Model.Name}>(props.model);
 
+{MasterValuesInit()}
+
 {DetailsMethods()}
 
    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {{
@@ -68,6 +82,11 @@ import {t}EditForm from './{t}EditForm';"));
    const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {{
     const {{ name, checked }} = e.target;
     setEditedItem({{ ...editedItem, [name]: checked }});
+  }};
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {{
+    const {{ name, value }} = e.target;
+    setEditedItem({{ ...editedItem, [name]: parseInt(value) }});
   }};
 
    const handleSubmit = (e: FormEvent) => {{
@@ -86,6 +105,28 @@ import {t}EditForm from './{t}EditForm';"));
    );
  }};
 ";
+
+        private object MasterValuesInit()
+        {
+            string res = "";
+            foreach (ComponentMetadata componentLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp.ToString()))
+            {
+                res += $@"  
+  const [lookUpItems{componentLookUp.ModelPropMetadata.Type}, setLookUpItems{componentLookUp.ModelPropMetadata.Type}] = useState<{componentLookUp.ModelPropMetadata.Type}[]>();
+  
+  useEffect(() => {{
+    {componentLookUp.ModelPropMetadata.Type}Service.getall().then((item) => {{
+        setLookUpItems{componentLookUp.ModelPropMetadata.Type}(item);
+    }});
+  }}, [])
+
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{i}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+
+";
+            }
+
+            return res;
+        }
 
         private string MasterEditformShownCondition()
         {

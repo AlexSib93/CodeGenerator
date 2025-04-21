@@ -54,6 +54,21 @@ namespace CodeGenerator.Metadata
 
                 }
 
+                if (propForComponent.IsMasterProp)
+                {
+                    var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.Type);
+                    components.Add(new ComponentMetadata()
+                    {
+                        Name = propForComponent.Name,
+                        Caption = propForComponent.Caption,
+                        Type = ComponentTypeEnum.LookUp.ToString(),
+                        Props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList(),
+                        ModelPropMetadata = propForComponent
+
+                    });
+
+                }
+
             }
             if (components.Count > 0)
             {

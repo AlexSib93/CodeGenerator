@@ -16,6 +16,7 @@ namespace CodeGenerator.Metadata
         DateTime = 3,
         NumericUpDown = 4,
         CancelButton = 5,
-        SubmitButton = 6
+        SubmitButton = 6,
+        LookUp = 7
     }
 }

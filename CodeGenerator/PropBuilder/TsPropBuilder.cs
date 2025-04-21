@@ -112,6 +112,7 @@ namespace CodeGenerator
             return res;
         }
 
+        //todo: переделать всё на component.ModelPropMetadata
         public static string GetTsComponent(ComponentMetadata component, string addstring = "")
         {
             string res = "";
@@ -174,6 +175,16 @@ namespace CodeGenerator
             {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label htmlFor=""{component.Name}"">{component.Caption}</label>")}
             <input name=""{StringHelper.ToLowerFirstChar(component.Name)}""  id=""{component.Name}"" className=""form-control"" type=""date"" defaultValue={{ new Date({(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}+ 'Z').toISOString().substring(0, 10)}} onChange={{handleInputChange}}  />
       </div>";
+                    break;
+                case "LookUp":
+                    res = $@"
+      <div className=""form-floating m-3"">   
+          <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" onChange={{handleSelectChange}}>
+            {{selectLookUpItems{component.ModelPropMetadata.Type}}}
+          </select>
+          <label htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
+      </div> 
+";
                     break;
                 default:
                     break;
