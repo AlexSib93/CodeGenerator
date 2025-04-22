@@ -94,10 +94,15 @@ import {t}EditForm from './{t}EditForm';"));
     setEditedItem({{ ...editedItem, [name]: checked }});
   }};
 
+const toUpperFirstChar = str => {{
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }};
+
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {{
     const {{ name, value }} = e.target;
-    setEditedItem({{ ...editedItem, [name]: parseInt(value) }});
+    setEditedItem({{ ...editedItem, [""id"" + toUpperFirstChar(name)]: Number(value), [name]: null }});
   }};
+
 
    const handleSubmit = (e: FormEvent) => {{
      e.preventDefault();
