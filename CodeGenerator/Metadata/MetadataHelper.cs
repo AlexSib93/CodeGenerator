@@ -45,7 +45,7 @@ namespace CodeGenerator.Metadata
                     List<PropMetadata> datailPropsMetadatas = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList();
                     if (propForComponent.Name== "Indicators")
                     {
-                        datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Type = "string" });
+                        datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Caption="Показатель", Type = "string" });
                     }
                     components.Add(new ComponentMetadata()
                     {
@@ -81,7 +81,7 @@ namespace CodeGenerator.Metadata
                 components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton.ToString() });
             }
             List <string> excludeNovBar = new List<string>() {
-                "Agreement", "Indicator", "GPR", "KC",
+                "Agreement", "Indicator", "GPR", "KC", "Payment"
             };
             return new FormMetadata()
             {

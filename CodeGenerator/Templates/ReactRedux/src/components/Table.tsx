@@ -1,7 +1,7 @@
 
 const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDelete: (item: any) => void) => {
     return (<tr>
-        {props.map(p => <td>{item[p.Name]}</td>)}
+        {props.map(p => isIsoDateTimeString(item[p.Name])?<td>{new Date(item[p.Name]).toLocaleDateString()}</td>:<td>{item[p.Name]}</td>)}
         <td>
             {((onEdit) || (onDelete)) && <div className="btn-group" role="group" aria-label="Операции">
                 {onEdit && <button className="btn btn-secondary" onClick={() => onEdit(item)} >Редактировать</button>}
@@ -11,6 +11,19 @@ const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDe
         </td>
     </tr>);
 }
+
+const isIsoDateTimeString = (str: string): boolean => {
+    // Регулярное выражение для проверки формата YYYY-MM-DDTHH:MM:SS
+    const isoDateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?$/;
+
+    if (!isoDateTimeRegex.test(str)) {
+      return false;
+    }
+    
+    // Дополнительная проверка с помощью Date.parse
+    const date = new Date(str);
+    return !isNaN(date.getTime());
+  };
 
 export interface ITableProps {
     items: any[],
