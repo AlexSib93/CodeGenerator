@@ -1,7 +1,15 @@
-
 const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDelete: (item: any) => void) => {
+    let tdArray = props.map(p => {
+        let propArr = p.Name.split('.');
+        let resData = item;
+        propArr.forEach( prop => {
+            resData = isIsoDateTimeString(resData[prop])?(new Date(resData[prop]).toLocaleDateString()):resData[prop];
+        });
+
+        return <td>{resData}</td>
+    })
     return (<tr>
-        {props.map(p => isIsoDateTimeString(item[p.Name])?<td>{new Date(item[p.Name]).toLocaleDateString()}</td>:<td>{item[p.Name]}</td>)}
+        {tdArray}
         <td>
             {((onEdit) || (onDelete)) && <div className="btn-group" role="group" aria-label="Операции">
                 {onEdit && <button className="btn btn-secondary" onClick={() => onEdit(item)} >Редактировать</button>}
