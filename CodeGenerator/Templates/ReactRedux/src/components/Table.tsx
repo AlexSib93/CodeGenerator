@@ -3,7 +3,14 @@ const Row = (item: any, props: PropMetadata[], onEdit: (item: any) => void, onDe
         let propArr = p.Name.split('.');
         let resData = item;
         propArr.forEach( prop => {
-            resData = isIsoDateTimeString(resData[prop])?(new Date(resData[prop]).toLocaleDateString()):resData[prop];
+            if (resData != null)
+            {
+                resData = isIsoDateTimeString(resData[prop])?(new Date(resData[prop]).toLocaleDateString()):resData[prop];
+            }
+            else
+            {
+                resData=null;
+            }
         });
 
         return <td>{resData}</td>
