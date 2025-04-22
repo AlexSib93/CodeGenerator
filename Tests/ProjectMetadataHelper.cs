@@ -507,7 +507,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "TimePayKC2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
                 new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
                 new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
-                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true },
+                new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore=true },
                 new PropMetadata() { Name = "ConstructionObj", Caption = "Id подрядчика", Type = "ConstructionObj", IsVirtual = true, IsDictValueProp = true },
             }
         };
@@ -529,6 +529,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<GPR>", IsVirtual = true },
                 new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
+                new PropMetadata() { Name = "Agreement", Caption="Соглашения", Type = "ICollection<Agreement>", IsVirtual = true },
 
             }
         };
