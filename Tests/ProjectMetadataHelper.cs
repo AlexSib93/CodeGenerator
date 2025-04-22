@@ -465,7 +465,7 @@ internal static class ProjectMetadataHelper
             Caption = "Значение характеристики",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCV", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true},
+                new PropMetadata() { Name = "IdCv", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true},
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "ID Характеристики", Type = "Characteristic", IsVirtual=true },
             }
@@ -486,7 +486,7 @@ internal static class ProjectMetadataHelper
             Caption = "Характеристика объекта",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCO", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdCo", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
                 new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", IsVirtual= true, IsDictValueProp = true  },
@@ -526,8 +526,8 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true, IsDictValueProp = true  },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true, IsDictValueProp = true },
-                new PropMetadata() { Name = "GPR", Caption="ГПР", Type = "ICollection<GPR>", IsVirtual = true },
-                new PropMetadata() { Name = "KC", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
+                new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<GPR>", IsVirtual = true },
+                new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
 
             }
@@ -603,7 +603,7 @@ internal static class ProjectMetadataHelper
             Caption = "ГПР",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdGPR", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "PlanGPR", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "FactGPR", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true, IsDictValueProp = true },
@@ -628,7 +628,7 @@ internal static class ProjectMetadataHelper
             Caption = "KC",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdKC", Caption = "Id KC", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdKc", Caption = "Id KC", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "DateSubmission", Caption = "Дата Подачи", Type = "DateTime" },
                 new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
@@ -650,7 +650,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime" },
                 new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
                 new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
-                new PropMetadata() { Name = "KC", Caption = "KC", Type = "KC", IsVirtual=true },
+                new PropMetadata() { Name = "Kc", Caption = "KC", Type = "KC", IsVirtual=true },
             }
         };
 
