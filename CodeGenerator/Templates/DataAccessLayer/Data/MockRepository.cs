@@ -16,18 +16,6 @@ namespace DataAccessLayer.Data
             return _entities;
         }
 
-        public List<T> GetAll(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T GetById(int id)
-        {
-            // Ваш код получения элемента по id
-            //_entities.FirstOrDefault();
-            throw new NotImplementedException();
-        }
-
         public void Add(T entity)
         {
             _entities.Add(entity);
@@ -52,11 +40,17 @@ namespace DataAccessLayer.Data
             throw new NotImplementedException();
         }
 
-        public T Get(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] includes)
+        public List<T> GetAll(Expression<Func<T, bool>> where, params string[] include)
         {
             throw new NotImplementedException();
         }
-        public List<T> GetAll(Expression<Func<T, bool>> where, params string[] include)
+
+        public T Get(Expression<Func<T, bool>> where, params string[] includes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T GetById(object id, params string[] includes)
         {
             throw new NotImplementedException();
         }

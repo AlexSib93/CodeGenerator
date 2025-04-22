@@ -92,7 +92,7 @@ namespace DataAccessLayer.Data
             return q.ToList();
         }
 
-	    public List<T> GetAll(Expression<Func<T, bool>> where, params string[] include)
+	    public List<T> GetAll(Expression<Func<T, bool>> where = null, params string[] include)
         {
             IQueryable<T> q = Set();
 
@@ -105,6 +105,21 @@ namespace DataAccessLayer.Data
             }
 
             return q.ToList();
+        }
+
+        public T Get(Expression<Func<T, bool>> where = null, params string[] include)
+        {
+            IQueryable<T> q = Set();
+
+            if (where != null)
+                q = q.Where(where);
+
+            foreach (string s in include)
+            {
+                q.Include(s).ToList();
+            }
+
+            return q.FirstOrDefault();
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> where)
@@ -324,9 +339,18 @@ namespace DataAccessLayer.Data
 	        return Set();
         }
 
-        public T GetById(int id)
+        public T GetById(object id, params string[] includes)
         {
-            return _db.Set<T>().Find(id);
+            DbSet<T> set = _db.Set<T>();
+
+            foreach (var item in includes)
+            {
+                set.Include(item);
+            }
+
+            T? res = _db.Set<T>().Find(id);
+
+            return res;
         }
 
         public void Add(T entity)

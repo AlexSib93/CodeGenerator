@@ -14,7 +14,7 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                if (propInfo.IsMasterProp)
+                if (propInfo.IsMasterProp || propInfo.IsDictValueProp)
                 {
                     res += $"  id{propInfo.Name}:number;\n";
                 }
@@ -31,7 +31,7 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                if (propInfo.IsMasterProp)
+                if (propInfo.IsMasterProp || propInfo.IsDictValueProp)
                 {
                     res += $"  id{propInfo.Name}: 0,\n";
                 }

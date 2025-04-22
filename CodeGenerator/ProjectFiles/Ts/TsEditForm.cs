@@ -70,6 +70,16 @@ import {t}EditForm from './{t}EditForm';"));
  const {Form.Name}: React.FC<{Form.Name}Props> = (props: {Form.Name}Props) => {{
    const [editedItem, setEditedItem] = useState<{Form.Model.Name}>(props.model);
 
+  
+  useEffect(() => {{
+    if(editedItem.id{Form.Model.Name} > 0) {{
+      console.log('useEffect editedItem',editedItem);      
+      {Form.Model.Name}Service.get(editedItem.id{Form.Model.Name} ).then((item) => {{
+        setEditedItem(item);
+      }});
+    }}
+  }}, [editedItem.id{Form.Model.Name}])
+
 {MasterValuesInit()}
 
 {DetailsMethods()}
@@ -120,7 +130,7 @@ import {t}EditForm from './{t}EditForm';"));
     }});
   }}, [])
 
-  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{i.{StringHelper.ToLowerFirstChar(componentLookUp.Props.FirstOrDefault()?.Name ?? "")}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
 
 ";
             }

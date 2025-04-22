@@ -47,8 +47,8 @@ namespace CodeGenerator.ProjectFiles.Ts
         {
             string param = "id" + ClassInfo.Name;
 
-            return $@"  get({param}: number): Promise<{ClassInfo.Name}> {{
-    return ApiDataService.get('{ClassInfo.Name.ToLower()}', `get?{param}=${{{param}}}`)
+            return $@"  get(id: number): Promise<{ClassInfo.Name}> {{
+    return ApiDataService.get('{ClassInfo.Name.ToLower()}', `get`, `id=${{id}}`)
       .then(
         (response) => Promise.resolve(response.data),
         (message) => Promise.reject(message)

@@ -1,4 +1,5 @@
 ﻿using CodeGenerator.Interfaces;
+using CodeGenerator.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace CodeGenerator.ProjectFiles.Cs
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
-        public CsServiceClass(ModelMetadata classInfo)
+        public ProjectMetadata Project { get; set; }
+        public CsServiceClass(ModelMetadata classInfo, ProjectMetadata project)
         {
             ClassInfo = classInfo;
+            Project = project;
         }
 
         public ModelMetadata ClassInfo { get; set; }
@@ -101,12 +104,50 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetOperationText()
         {
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual);
+            string includesString = IncludesString(virtualProps);
             string res = $@"        public {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where)
         {{
-            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.Get(where);
+            {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.Get(where{includesString});
 
             return t;
         }}";
+
+            return res;
+        }
+
+        private string IncludesString(IEnumerable<PropMetadata> virtualProps)
+        {
+            //ModelMetadata metadata = new ModelMetadata();
+
+            List<string> includesPropsString = new List<string>();
+            foreach (PropMetadata virtProp in virtualProps)
+            {
+                includesPropsString.Add(virtProp.Name);
+                if (virtProp.IsDetailsProp)
+                {
+                    ModelMetadata virtType = Project.GetType(virtProp.TypeOfEnumerable);
+                    List<PropMetadata> virtPropsOfVirtProp = virtType.Props.Where(p => p.IsDictValueProp).ToList();
+                    foreach (PropMetadata virtPropsOfVirtPropMetadata in virtPropsOfVirtProp)
+                    {
+                        includesPropsString.Add(virtProp.Name + "." + virtPropsOfVirtPropMetadata.Name);
+                    }
+                    //if (virtType != null)
+                    //{
+                    //    foreach (PropMetadata pr in virtType.Props.Where(p => p.IsDictValueProp).ToList())
+                    //    {
+                    //        includesPropsString.Add(virtProp.Name + "." + pr.Name);
+                    //    }
+                    //}
+                }
+
+            }
+
+            string res = "";
+            if(virtualProps.Any())
+            {
+                res = ", " + string.Join(", ", includesPropsString.Select(s => $@"""{ s}""") ) ;
+            }
 
             return res;
         }
@@ -126,13 +167,14 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
-            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual);
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
+
+            string includesString = (virtualProps.Any())
+                ? "null," + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
+                : "";
             string res = $@"        public IEnumerable<{ClassInfo.Name}> Get()
         {{
-            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll({(
-                (ClassInfo.Props.Any(p => p.IsVirtual))
-                    ? "null," + string.Join(", ", virtualProps.Select(p => $"x => x.{p.Name}"))
-                    : "")});
+            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll({includesString});
 
             return {param};
         }}";

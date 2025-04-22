@@ -16,5 +16,11 @@ namespace CodeGenerator.Metadata
         public string UnitOfWork { get; set; } = "MockUnit";
         public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
         public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
+        public ModelMetadata GetType(string typeName)
+        {
+            ModelMetadata res = Models.FirstOrDefault(m => m.Name == typeName);
+
+            return res;
+        }
     }
 }

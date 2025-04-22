@@ -67,12 +67,13 @@ namespace CodeGenerator.Metadata
                 if (propForComponent.IsDictValueProp)
                 {
                     var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.Type);
+                    List<PropMetadata> props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList();
                     components.Add(new ComponentMetadata()
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.LookUp.ToString(),
-                        Props = new List<PropMetadata>() { modelOfMaster.Props.FirstOrDefault(x => !x.IsVirtual) },
+                        Props = new List<PropMetadata>() { new PropMetadata { Name = string.Join(" + ' ' + ",props.Select(p => "i." + StringHelper.ToLowerFirstChar(p.Name))) } },
                         ModelPropMetadata = propForComponent
 
                     });

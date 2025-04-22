@@ -18,7 +18,7 @@ namespace CodeGenerator.Projects
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsServiceClass(model), $"{model.Name}Service", $"{projectPath}\\Services", "cs"));
+                Items.Add(new ProjectItem(this, new CsServiceClass(model, projectMetadata), $"{model.Name}Service", $"{projectPath}\\Services", "cs"));
                 Items.Add(new ProjectItem(this, new CsServiceInterfaceClass(model), $"I{model.Name}Service", $"{projectPath}\\Services", "cs"));
             }
         }
