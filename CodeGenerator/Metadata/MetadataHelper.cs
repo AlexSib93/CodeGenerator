@@ -42,12 +42,17 @@ namespace CodeGenerator.Metadata
                 {
                     var type = propForComponent.TypeOfEnumerable;
                     var modelOfDetail = pM.Models.FirstOrDefault(m => m.Name == type);
+                    List<PropMetadata> datailPropsMetadatas = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList();
+                    if (propForComponent.Name== "Indicators")
+                    {
+                        datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Type = "string" });
+                    }
                     components.Add(new ComponentMetadata()
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.DetailTable.ToString(),
-                        Props = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList(),
+                        Props = datailPropsMetadatas,
                         ModelPropMetadata = propForComponent
 
                     });
@@ -75,13 +80,15 @@ namespace CodeGenerator.Metadata
                 components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.CancelButton.ToString() });
                 components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton.ToString() });
             }
-
+            List <string> excludeNovBar = new List<string>() {
+                "Agreement", "Indicator", "GPR", "KC",
+            };
             return new FormMetadata()
             {
                 Name = mM.Name + "s",
                 Caption = mM.Caption,
                 Model = mM,
-                AddToNavBar = true,
+                AddToNavBar = !excludeNovBar.Contains(mM.Name),
                 Components = new ComponentMetadata[]
                 {
                     new ComponentMetadata()
