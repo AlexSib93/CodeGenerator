@@ -43,6 +43,11 @@ namespace CodeGenerator.Metadata
                     var type = propForComponent.TypeOfEnumerable;
                     var modelOfDetail = pM.Models.FirstOrDefault(m => m.Name == type);
                     List<PropMetadata> datailPropsMetadatas = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList();
+                    if (propForComponent.Name.ToLower() == "gpr")
+                    {
+                        components.Add(new ComponentMetadata() { Name = "typeWork.name", Caption = "Наименование работ", Type = "string" });
+                    }
+
                     if (propForComponent.Name== "Indicators")
                     {
                         datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Caption="Показатель", Type = "string" });
