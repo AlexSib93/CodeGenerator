@@ -165,6 +165,19 @@ namespace CodeGenerator
         </div>
       </div>";
                     break;
+                case "Grid":
+                    string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
+                    res = $@"      <div className=""m-3 card"">    
+        <div className=""card-body""> 
+            <div className=""card-title"">
+                <h1 className=""h4 fw-normal"">{component.Caption}</h1>
+            </div>
+            <div className=""card-text"">
+                <Grid {addstring} props={{[{prGrid}]}} />
+            </div>
+        </div>
+      </div>";
+                    break;
                 case "AddButton":
                     res = $@"
             <button className=""w-100 btn btn-success"" onClick={{addItem}} >Добавить</button>";

@@ -27,12 +27,13 @@ import React, {{ useState, ChangeEvent, FormEvent, useEffect, useMemo }} from 'r
 import {{ {Form.Model.Name} }} from ""../models/{Form.Model.Name}"";
 import {Form.Model.Name}Service from ""../services/{Form.Model.Name}Service"";
 import {{Table}} from ""../components/Table"";
+import {{Grid}} from '../components/Grid';
 {ImportMasterDetailTypes()}";
 
         private string ImportMasterDetailTypes()
         {
             List<string> detailTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
                 ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == detailType);
@@ -146,7 +147,7 @@ const toUpperFirstChar = str => {{
         private string MasterEditformShownCondition()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
             {
                 res += $@"!edited{componentDetailTable.Name} && ";
             }
@@ -157,7 +158,7 @@ const toUpperFirstChar = str => {{
         private object DetailsEditForms()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
             {
                 res += $@"
         {{ edited{componentDetailTable.Name} && <{componentDetailTable.ModelPropMetadata.TypeOfEnumerable}EditForm model={{edited{componentDetailTable.Name}}} onSave={{submitEditForm{componentDetailTable.Name}}} onCancel={{handleCancelEdit{componentDetailTable.Name}}} />}}";
@@ -169,7 +170,7 @@ const toUpperFirstChar = str => {{
         private string DetailsMethods()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
                 ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == detailType);
@@ -214,7 +215,7 @@ const toUpperFirstChar = str => {{
             List<string> strings = new List<string>();
             foreach (ComponentMetadata component in Form.Components)
             {
-                if(component.Type == "DetailTable")
+                if(component.Type == ComponentTypeEnum.DetailTable.ToString() || component.Type == ComponentTypeEnum.Grid.ToString())
                 {
                     strings.Add(TsPropBuilder.GetTsComponent(component, $" onAdd={{add{component.Name}}} onEdit={{setEdited{component.Name}}} onDelete={{handleDelete{component.Name}}} items={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}}"));
                 } 

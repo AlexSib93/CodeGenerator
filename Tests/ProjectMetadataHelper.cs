@@ -527,7 +527,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true, IsDictValueProp = true  },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true, IsDictValueProp = true },
-                new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<GPR>", IsVirtual = true },
+                new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<Gpr>", IsVirtual = true },
                 new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
                 new PropMetadata() { Name = "Agreement", Caption="Соглашения", Type = "ICollection<Agreement>", IsVirtual = true },
@@ -601,13 +601,13 @@ internal static class ProjectMetadataHelper
 
         ModelMetadata gprMetadata = new ModelMetadata()
         {
-            Name = "GPR",
+            Name = "Gpr",
             Caption = "ГПР",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
-                new PropMetadata() { Name = "PlanGPR", Caption = "План", Type = "decimal" },
-                new PropMetadata() { Name = "FactGPR", Caption = "Факт", Type = "decimal" },
+                new PropMetadata() { Name = "PlanGpr", Caption = "План", Type = "decimal" },
+                new PropMetadata() { Name = "FactGpr", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true, IsDictValueProp = true },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
             }

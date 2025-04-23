@@ -5,8 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AxiosConfigure } from './common/axiosconfig';
 import 'bootstrap';
+import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community'; 
 
 AxiosConfigure();
+
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -17,6 +17,7 @@ namespace CodeGenerator.Metadata
         NumericUpDown = 4,
         CancelButton = 5,
         SubmitButton = 6,
-        LookUp = 7
+        LookUp = 7,
+        Grid = 8
     }
 }

@@ -103,7 +103,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         private string GetComponentsText()
         {
             return (FormInfo.Components!= null)
-                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem}")))
+                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} "+((c.Type == ComponentTypeEnum.Grid.ToString()) ? " enableFilters={true}" : ""))))
                 : "";
         }
         private string StateNotModelProps()
@@ -124,6 +124,7 @@ import {{ useEffect,useState }} from ""react"";
 import {{ {FormInfo.Model.Name},  init{FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
 import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";
 import {{ Table }} from ""../components/Table"";
+import {{Grid}} from '../components/Grid';
 {(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
 
         public string Footer => $@"";

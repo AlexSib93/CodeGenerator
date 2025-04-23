@@ -52,11 +52,20 @@ namespace CodeGenerator.Metadata
                     {
                         datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Caption="Показатель", Type = "string" });
                     }
+                    //components.Add(new ComponentMetadata()
+                    //{
+                    //    Name = propForComponent.Name,
+                    //    Caption = propForComponent.Caption,
+                    //    Type = ComponentTypeEnum.DetailTable.ToString(),
+                    //    Props = datailPropsMetadatas,
+                    //    ModelPropMetadata = propForComponent
+
+                    //});                    
                     components.Add(new ComponentMetadata()
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = ComponentTypeEnum.DetailTable.ToString(),
+                        Type = ComponentTypeEnum.Grid.ToString(),
                         Props = datailPropsMetadatas,
                         ModelPropMetadata = propForComponent
 
@@ -97,11 +106,18 @@ namespace CodeGenerator.Metadata
                 AddToNavBar = !excludeNovBar.Contains(mM.Name),
                 Components = new ComponentMetadata[]
                 {
+                    //new ComponentMetadata()
+                    //{
+                    //    Name = mM.Name,
+                    //    Caption = mM.Caption,
+                    //    Type = "Table",
+                    //    Props = mM.Props.Where(x => !x.IsVirtual).ToList()
+                    //},
                     new ComponentMetadata()
                     {
                         Name = mM.Name,
                         Caption = mM.Caption,
-                        Type = "Table",
+                        Type = ComponentTypeEnum.Grid.ToString(),
                         Props = mM.Props.Where(x => !x.IsVirtual).ToList()
                     }
                 },
