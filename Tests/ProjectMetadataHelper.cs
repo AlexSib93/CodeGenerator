@@ -504,7 +504,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
                 new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
-                new PropMetadata() { Name = "TimePayKC2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
+                new PropMetadata() { Name = "TimePayKc2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
                 new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
                 new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore=true },
@@ -528,7 +528,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true, IsDictValueProp = true  },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true, IsDictValueProp = true },
                 new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<Gpr>", IsVirtual = true },
-                new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<KC>", IsVirtual = true },
+                new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<Kc>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
                 new PropMetadata() { Name = "Agreement", Caption="Соглашения", Type = "ICollection<Agreement>", IsVirtual = true },
 
@@ -554,7 +554,7 @@ internal static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "INN", Caption="ИНН", Type = "string"},
+                new PropMetadata() { Name = "Inn", Caption="ИНН", Type = "string"},
                 new PropMetadata() { Name = "BankAccount", Caption="Счет", Type = "string"},
             }
         };
@@ -607,10 +607,10 @@ internal static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Name", Caption = "Название работ", Type = "string"},
-                new PropMetadata() { Name = "PlanGPRPercent", Caption = "План", Type = "decimal" },
-                new PropMetadata() { Name = "FactGPRPercent", Caption = "Факт", Type = "decimal" },
-                new PropMetadata() { Name = "PlanGpr", Caption = "План", Type = "decimal" },
-                new PropMetadata() { Name = "FactGpr", Caption = "Факт", Type = "decimal" },
+                new PropMetadata() { Name = "PlanPercent", Caption = "План", Type = "decimal" },
+                new PropMetadata() { Name = "FactPercent", Caption = "Факт", Type = "decimal" },
+                new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
+                new PropMetadata() { Name = "Fact", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "Lag", Caption = "Название работ", Type = "string"},
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true, IsDictValueProp = true },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
@@ -631,7 +631,7 @@ internal static class ProjectMetadataHelper
 
         ModelMetadata kcMetadata = new ModelMetadata()
         {
-            Name = "KC",
+            Name = "Kc",
             Caption = "KC",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
