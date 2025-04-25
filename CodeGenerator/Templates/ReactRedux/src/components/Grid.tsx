@@ -1,5 +1,6 @@
-import { AgGridReact } from "ag-grid-react";
+﻿import { AgGridReact } from "ag-grid-react";
 import { PropMetadata } from "./Table";
+import { FormEvent } from "react";
 
 
 export interface IGridProps {
@@ -46,7 +47,7 @@ export const Grid = (props: IGridProps) => {
         <div className='ag-theme-balham w-100 mb-3'>
             <AgGridReact
                 rowData={items}
-                columnDefs={[...getDefs(props.props, enableFilters), { field: "buttons", headerName: '', cellRenderer: CustomButtonComponent, flex: 1 }]}
+                columnDefs={[...getDefs(props.props, enableFilters), { field: "buttons", headerName: '', cellRenderer: CustomButtonComponent, width: 220 }]}
                 rowGroupPanelShow="always"
                 suppressAggFuncInHeader={true}
                 enableBrowserTooltips={true}
