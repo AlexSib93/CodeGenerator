@@ -106,7 +106,7 @@ namespace CodeGenerator.ProjectFiles.Cs
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
             IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual);
             string includesString = IncludesString(virtualProps);
-            string res = $@"        public {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where)
+            string res = $@"        public {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where = null)
         {{
             {ClassInfo.Name} t = Unit.Rep{ClassInfo.Name}.Get(where{includesString});
 
@@ -170,9 +170,9 @@ namespace CodeGenerator.ProjectFiles.Cs
             IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
 
             string includesString = (virtualProps.Any())
-                ? "null," + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
-                : "";
-            string res = $@"        public IEnumerable<{ClassInfo.Name}> Get()
+                ? "where," + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
+                : "where";
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> GetAll(Expression<Func<{ClassInfo.Name}, bool>> where = null)
         {{
             IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll({includesString});
 

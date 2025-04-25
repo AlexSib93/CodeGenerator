@@ -56,7 +56,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetOperationText()
         {
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
-            string res = $@"        {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where);";
+            string res = $@"        {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where = null);";
 
             return res;
         }
@@ -72,7 +72,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
-            string res = $@"        IEnumerable<{ClassInfo.Name}> Get();";
+            string res = $@"        IEnumerable<{ClassInfo.Name}> GetAll(Expression<Func<{ClassInfo.Name}, bool>> where = null);";
 
             return res;
         }

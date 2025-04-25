@@ -105,7 +105,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         {{
             try
             {{
-                IEnumerable<{ClassInfo.Name}> res = _{ParamName}Service.Get();
+                IEnumerable<{ClassInfo.Name}> res = _{ParamName}Service.GetAll();
 
                 return Ok(res);
             }}
