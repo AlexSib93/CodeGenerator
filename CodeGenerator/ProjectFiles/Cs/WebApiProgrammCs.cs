@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsWebApiProgramm : IGenerator
+    public class WebApiProgrammCs : IGenerator
     {
         public string Name { get; set; }
         public ProjectMetadata Project { get; set; }
-        public CsWebApiProgramm(ProjectMetadata proj)
+        public WebApiProgrammCs(ProjectMetadata proj)
         {
             Project = proj;
         }

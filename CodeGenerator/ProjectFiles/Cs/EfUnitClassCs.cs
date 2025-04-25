@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsEfUnitClass : IClass, IGenerator
+    public class EfUnitClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsEfUnitClass(List<ModelMetadata> models)
+        public EfUnitClassCs(List<ModelMetadata> models)
         {
             Models = models;
         }

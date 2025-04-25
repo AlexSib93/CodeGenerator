@@ -19,7 +19,7 @@ namespace CodeGenerator.Projects
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsClass(model), model.Name, $"{projectPath}\\Models", "cs"));
+                Items.Add(new ProjectItem(this, new ClassCs(model), model.Name, $"{projectPath}\\Models", "cs"));
             }
 
             //Auth
@@ -33,11 +33,11 @@ namespace CodeGenerator.Projects
                     new PropMetadata() { Name = "Name", Type = "string" }
                 }
             };
-            Items.Add(new ProjectItem(this, new CsClass(authModel), authModel.Name, $"{projectPath}\\Models", "cs"));
-            Items.Add(new ProjectItem(this, new CsInterfaceUnitOfWork(projectMetadata.Models), "IUnitOfWork", projectPath, "cs"));
-            Items.Add(new ProjectItem(this, new CsMockClass(projectMetadata.Models), "MockUnit", $"{projectPath}\\Data", "cs"));
-            Items.Add(new ProjectItem(this, new CsEfUnitClass(projectMetadata.Models), "EfUnit", $"{projectPath}\\Data", "cs"));
-            Items.Add(new ProjectItem(this, new CsDataBaseContextClass(projectMetadata.Models), "DataBaseContext", $"{projectPath}\\Data", "cs"));
+            Items.Add(new ProjectItem(this, new ClassCs(authModel), authModel.Name, $"{projectPath}\\Models", "cs"));
+            Items.Add(new ProjectItem(this, new InterfaceUnitOfWorkCs(projectMetadata.Models), "IUnitOfWork", projectPath, "cs"));
+            Items.Add(new ProjectItem(this, new MockClassCs(projectMetadata.Models), "MockUnit", $"{projectPath}\\Data", "cs"));
+            Items.Add(new ProjectItem(this, new EfUnitClassCs(projectMetadata.Models), "EfUnit", $"{projectPath}\\Data", "cs"));
+            Items.Add(new ProjectItem(this, new DataBaseContextClassCs(projectMetadata.Models), "DataBaseContext", $"{projectPath}\\Data", "cs"));
         }
 
     }

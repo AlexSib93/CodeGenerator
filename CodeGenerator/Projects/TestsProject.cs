@@ -19,7 +19,7 @@ namespace CodeGenerator.Projects
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsTestClass(model), $"{model.Name}Test", projectPath, "cs"));
+                Items.Add(new ProjectItem(this, new TestClassCs(model), $"{model.Name}Test", projectPath, "cs"));
             }
         }
 

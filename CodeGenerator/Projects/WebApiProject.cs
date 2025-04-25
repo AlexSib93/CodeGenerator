@@ -15,11 +15,11 @@ namespace CodeGenerator.Projects
         {
             Name = "WebApi";
 
-            Items.Add(new ProjectItem(this, new CsWebApiProgramm(projectMetadata), "Program", $"{Metadata.Path}\\{Name}", "cs"));
+            Items.Add(new ProjectItem(this, new WebApiProgrammCs(projectMetadata), "Program", $"{Metadata.Path}\\{Name}", "cs"));
 
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
-                Items.Add(new ProjectItem(this, new CsControllerClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
+                Items.Add(new ProjectItem(this, new ControllerClassCs(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\Controllers", "cs"));
             }
             
         }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsMockClass : IClass, IGenerator
+    public class MockClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsMockClass(List<ModelMetadata> models)
+        public MockClassCs(List<ModelMetadata> models)
         {
             Models = models;
         }

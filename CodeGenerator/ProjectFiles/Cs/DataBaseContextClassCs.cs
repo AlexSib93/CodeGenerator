@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsDataBaseContextClass : IClass, IGenerator
+    public class DataBaseContextClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsDataBaseContextClass(List<ModelMetadata> models)
+        public DataBaseContextClassCs(List<ModelMetadata> models)
         {
             Models = models;
         }

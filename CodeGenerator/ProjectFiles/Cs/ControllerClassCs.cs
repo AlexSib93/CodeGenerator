@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsControllerClass : IClass, IGenerator
+    public class ControllerClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
-        public CsControllerClass(ModelMetadata classInfo)
+        public ControllerClassCs(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }

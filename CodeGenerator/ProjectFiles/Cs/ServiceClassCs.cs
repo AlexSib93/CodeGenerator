@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsServiceClass : IClass, IGenerator
+    public class ServiceClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
         public ProjectMetadata Project { get; set; }
-        public CsServiceClass(ModelMetadata classInfo, ProjectMetadata project)
+        public ServiceClassCs(ModelMetadata classInfo, ProjectMetadata project)
         {
             ClassInfo = classInfo;
             Project = project;

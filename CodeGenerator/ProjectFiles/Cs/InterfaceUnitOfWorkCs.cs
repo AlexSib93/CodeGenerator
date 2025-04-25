@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsInterfaceUnitOfWork : IClass, IGenerator
+    public class InterfaceUnitOfWorkCs : IClass, IGenerator
     {
         public string Name { get; set; }
-        public CsInterfaceUnitOfWork(List<ModelMetadata> models)
+        public InterfaceUnitOfWorkCs(List<ModelMetadata> models)
         {
             Models = models;
         }

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
-    public class CsMockServiceClass : IClass, IGenerator
+    public class MockServiceClassCs : IClass, IGenerator
     {
         public string Name { get; set; }
         public string ParamName => StringHelper.ToLowerFirstChar(ClassInfo.Name);
-        public CsMockServiceClass(ModelMetadata classInfo)
+        public MockServiceClassCs(ModelMetadata classInfo)
         {
             ClassInfo = classInfo;
         }
