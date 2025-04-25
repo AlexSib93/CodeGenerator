@@ -44,7 +44,11 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string CreateOperationText()
         {
-            return $@"        [HttpPost(""create"")]
+            return $@"        /// <summary>
+        /// Создать '{ClassInfo.Caption}'
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost(""create"")]
         public IActionResult Create([FromBody] {ClassInfo.Name} {ParamName})
         {{
             try
@@ -63,7 +67,12 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string UpdateOperationText()
         {
-            return $@"        [HttpPut(""put"")]
+            return $@"        /// <summary>
+        /// Удалить сущность '{ClassInfo.Caption}' по ID
+        /// </summary>
+        /// <param name=""id"">ID сущности</param>
+        /// <returns></returns>
+        [HttpPut(""put"")]
         public IActionResult Put([FromBody] {ClassInfo.Name} {ParamName})
         {{
             try
@@ -81,7 +90,12 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string GetOperationText()
         {
-            return $@"        [HttpGet(""get"")]
+            return $@"        /// <summary>
+        /// Получить сущность '{ClassInfo.Caption}' по ID
+        /// </summary>
+        /// <param name=""id"">ID сущности</param>
+        /// <returns></returns>
+        [HttpGet(""get"")]
         public IActionResult Get(int id)
         {{
             try
@@ -100,7 +114,11 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string GetAllOperationText()
         {
-            return $@"        [HttpGet(""getall"")]
+            return $@"        /// <summary>
+        /// Получить все сущности '{ClassInfo.Caption}' 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet(""getall"")]
         public IActionResult GetAll()
         {{
             try
@@ -119,7 +137,12 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string DeleteOperationText()
         {
-            return $@"        [HttpDelete(""delete"")]
+            return $@"        /// <summary>
+        /// Удалить сущность '{ClassInfo.Caption}' по ID
+        /// </summary>
+        /// <param name=""id"">ID сущности</param>
+        /// <returns></returns>
+        [HttpDelete(""delete"")]
         public IActionResult Delete(int id)
         {{
             try
