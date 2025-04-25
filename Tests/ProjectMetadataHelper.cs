@@ -18,7 +18,7 @@ internal static class ProjectMetadataHelper
             Caption = "Модель",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                    new PropMetadata() { Name = "PrimaryKey", Caption = "ID", Type = "boolean"},
+                    new PropMetadata() { Name = "PrimaryKey", Caption = "ID", Type = "int"},
                     new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
                     new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
                     new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" },

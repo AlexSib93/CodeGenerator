@@ -8,7 +8,7 @@ namespace CodeGenerator.Projects
     {
         public SolutionProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "Solution";
+            Name = projectMetadata.Name;
         }
 
         /// <summary>
