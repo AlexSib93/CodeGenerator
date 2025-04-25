@@ -96,7 +96,7 @@ namespace CodeGenerator.Metadata
                 components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton.ToString() });
             }
             List <string> excludeNovBar = new List<string>() {
-                "Agreement", "Indicator", "GPR", "KC", "Payment"
+                "Agreement", "Indicator", "Gpr", "Kc", "Payment", "CharacteristicObj"
             };
             return new FormMetadata()
             {
