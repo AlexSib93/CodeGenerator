@@ -263,14 +263,6 @@ namespace DataAccessLayer.Data
             return _db.SaveChanges();
         }
 
-        public async Task<int> UpdateAsync(T item)
-        {
-            _db.Set<T>().Attach(item);
-            _db.Entry(item).State = EntityState.Modified;
-
-            return await _db.SaveChangesAsync();
-        }
-
         public int Update(IEnumerable<T> items)
         {
             foreach (T item in items)
@@ -280,6 +272,14 @@ namespace DataAccessLayer.Data
             }
 
             return _db.SaveChanges();
+        }
+
+        public async Task<int> UpdateAsync(T item)
+        {
+            _db.Set<T>().Attach(item);
+            _db.Entry(item).State = EntityState.Modified;
+
+            return await _db.SaveChangesAsync();
         }
 
         public int CreateOrUpdate(T item, Expression<Func<T, bool>> where)

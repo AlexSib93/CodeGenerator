@@ -26,11 +26,15 @@ namespace CodeGenerator.ProjectFiles.Cs
 {{
     public class {ClassInfo.Name}Service : BaseService, I{ClassInfo.Name}Service
     {{
+{ServiserForDetailsProps()}
+
 {GetConstructorText()}
 
 {CreateOperationText()}
 
 {UpdateOperationText()}
+
+{UpdateManyOperationText()}
 
 {CreateManyOperationText()}
 
@@ -43,14 +47,42 @@ namespace CodeGenerator.ProjectFiles.Cs
 }}
 ";
 
+        private object ServiserForDetailsProps()
+        {
+            string res = ""; 
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+
+            string servisesProps = String.Join(Environment.NewLine, detailsProps.Select(p => $"         public I{p.TypeOfEnumerable}Service {p.TypeOfEnumerable}Service {{ get; set; }}"));
+
+
+            return servisesProps;
+        }
+
         private string GetConstructorText()
         {
-            string res = $@"        public {ClassInfo.Name}Service(IUnitOfWork unit) : base(unit)
+            List<PropMetadata> detailsProps =  ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+
+            string servisesConstructorProps = String.Join(", ", detailsProps.Select(p => $"I{p.TypeOfEnumerable}Service {StringHelper.ToLowerFirstChar(p.TypeOfEnumerable)}Service"));
+            if (!string.IsNullOrEmpty(servisesConstructorProps))
+            {
+                servisesConstructorProps = ", " + servisesConstructorProps;
+            }
+            string res = $@"        public {ClassInfo.Name}Service(IUnitOfWork unit{servisesConstructorProps}) : base(unit)
         {{
+{InitDetaiilServicesProps()}
 {GetInitDataText()}
         }}";
 
             return res;
+        }
+
+        private string InitDetaiilServicesProps()
+        {
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+
+            string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"          {p.TypeOfEnumerable}Service = {StringHelper.ToLowerFirstChar(p.TypeOfEnumerable)}Service;"));
+
+            return initPropsStrings;
         }
 
         public string GetInitDataText()
@@ -81,12 +113,41 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             string res = $@"        public {ClassInfo.Name} Update({ClassInfo.Name} {ParamName})
         {{
+{DetailsUpdateText(ParamName)}
+
             int res = Unit.Rep{ClassInfo.Name}.Update({ParamName});
 
             return {ParamName};
         }}";
 
             return res;
+        }
+
+        private string UpdateManyOperationText()
+        {
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> Update(IEnumerable<{ClassInfo.Name}> {ParamName}s)
+        {{
+            foreach({ClassInfo.Name} item in {ParamName}s)
+            {{
+
+{DetailsUpdateText("item")}
+            }}
+
+            int res = Unit.Rep{ClassInfo.Name}.Update({ParamName}s);
+
+            return {ParamName}s;
+        }}";
+
+            return res;
+        }
+
+        private object DetailsUpdateText(string param)
+        {
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+
+            string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update({param}.{p.Name});"));
+
+            return initPropsStrings;
         }
 
         private string CreateManyOperationText()

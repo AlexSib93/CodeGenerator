@@ -26,7 +26,9 @@ namespace CodeGenerator.ProjectFiles.Cs
 
 {CreateOperationText()}
 
-{UpdateOperationText()}
+{UpdateOperationText()} 
+
+{UpdateManyOperationText()}
 
 {GetOperationText()}
 
@@ -49,6 +51,13 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string UpdateOperationText()
         {
             string res = $@"        {ClassInfo.Name} Update({ClassInfo.Name} {ParamName});";
+
+            return res;
+        }
+
+        private string UpdateManyOperationText()
+        {
+            string res = $@"        IEnumerable<{ClassInfo.Name}> Update(IEnumerable<{ClassInfo.Name}> {ParamName}s);";
 
             return res;
         }

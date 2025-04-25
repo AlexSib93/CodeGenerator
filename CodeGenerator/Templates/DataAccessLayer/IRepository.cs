@@ -13,9 +13,11 @@ namespace DataAccessLayer
         List<T> GetAll(Expression<Func<T, bool>> where = null, params string[] includes);
         T Get(Expression<Func<T, bool>> where = null, params string[] includes);
         T GetById(object id, params string[] includes);
-        void Add(T entity);
-        void Add(IEnumerable<T> entities);
+        void Add(T item);
+        void Add(IEnumerable<T> items);
         int Update(T entity);
+        int Update(IEnumerable<T> items);
         int Delete(T entity);
+        int Delete(IEnumerable<T> items);
     }
 }

@@ -54,5 +54,15 @@ namespace DataAccessLayer.Data
         {
             throw new NotImplementedException();
         }
+
+        public int Update(IEnumerable<T> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Delete(IEnumerable<T> items)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
