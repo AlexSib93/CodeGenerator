@@ -26,7 +26,10 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using TerminalApi;
 using BuisinessLogicLayer.Services;
-using DataAccessLayer.Data;";
+using DataAccessLayer.Data;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+";
         public string Body => $@"
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,8 +65,16 @@ builder.Services.AddSwaggerGen(options =>
         Name = ""Authorization"",
         Type = SecuritySchemeType.ApiKey
     }});
+    options.SwaggerDoc(""v1"", new OpenApiInfo
+    {{
+        Version = ""v1"",
+        Title = ""API"",
+        Description = ""API для взаимодействия с системой""
+    }});
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();
+    var xmlFileName = $""{{Assembly.GetExecutingAssembly().GetName().Name}}.xml"";
+    options.IncludeXmlComments( Path.Combine(AppContext.BaseDirectory, xmlFileName));
 }});
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
@@ -82,12 +93,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 MapsterConfig.AddMaps();
 
