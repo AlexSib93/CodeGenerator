@@ -23,11 +23,22 @@ export const getDefs = (props: PropMetadata[], enableFilters?: boolean) => {
 export const Grid = (props: IGridProps) => {
     let { items, onAdd, onEdit, onDelete, enableFilters } = props;
 
+    const onClickDelete = (e: FormEvent, item: any) => {
+        e.preventDefault();
+        onDelete(item)
+    
+    }
+
+    const onClickEdit = (e: FormEvent, item: any) => {
+        e.preventDefault();
+        onEdit(item)
+    
+    }
+
     const CustomButtonComponent = (props) => {
-        console.log('props', props.data);
-        return ((onEdit) || (onDelete)) && <div className="btn-group" role="group" aria-label="Операции">
-            {onEdit && <button className="btn btn-warning" onClick={() => onEdit(props.data)} >Изменить</button>}
-            {onDelete && <button className="btn btn-danger" onClick={() => onDelete(props.data)} >Удалить</button>}
+        return ((onEdit) || (onDelete)) && <div className="btn-group" aria-label="Операции">
+            {onEdit && <button className="btn btn-warning" onClick={(e) => onClickEdit(e, props.data) } >Изменить</button>}
+            {onDelete && <button className="btn btn-danger" onClick={(e) => onClickDelete(e, props.data)} >Удалить</button>}
         </div>
     }
 
