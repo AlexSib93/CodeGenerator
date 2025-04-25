@@ -465,7 +465,7 @@ internal static class ProjectMetadataHelper
             Caption = "Значение характеристики",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCv", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true},
+                new PropMetadata() { Name = "IdCharacteristicValue", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true},
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "ID Характеристики", Type = "Characteristic", IsVirtual=true,  },
             }
@@ -486,7 +486,7 @@ internal static class ProjectMetadataHelper
             Caption = "Характеристика объекта",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdCo", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdCharacteristicObj", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
                 new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", IsVirtual= true, IsDictValueProp = true  },
@@ -611,7 +611,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FactPercent", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "Fact", Caption = "Факт", Type = "decimal" },
-                new PropMetadata() { Name = "Lag", Caption = "Название работ", Type = "string"},
+                new PropMetadata() { Name = "Lag", Caption = "Отставание", Type = "string"},
                 new PropMetadata() { Name = "TypeWork", Caption = "Вид работ", Type = "TypeWork", IsVirtual=true, IsDictValueProp = true },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
             }
