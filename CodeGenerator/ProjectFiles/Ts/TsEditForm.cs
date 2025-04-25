@@ -87,7 +87,17 @@ import {t}EditForm from './{t}EditForm';"));
 
    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {{
      const {{ name, value }} = e.target;
-     setEditedItem({{ ...editedItem, [name]: value }});
+
+    let newVal: any = value;
+    if(e.target.type === 'number') {{
+        newVal = +value;
+    }}
+
+    if(e.target.type === 'date') {{
+        newVal = new Date(value);
+    }}
+
+     setEditedItem({{ ...editedItem, [name]: newVal }});
    }};
 
    const handleCheckBoxChange = (e: ChangeEvent<HTMLInputElement>) => {{
