@@ -606,7 +606,7 @@ internal static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true },
-                new PropMetadata() { Name = "Name", Caption = "Название работ", Type = "string"},
+                new PropMetadata() { Name = "Name", Caption = "Наименвоание", Type = "string"},
                 new PropMetadata() { Name = "PlanPercent", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "FactPercent", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
@@ -652,7 +652,7 @@ internal static class ProjectMetadataHelper
             Caption = "Платежи",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
-                new PropMetadata() { Name = "IdPayments", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true },
+                new PropMetadata() { Name = "IdPayment", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true },
                 new PropMetadata() { Name = "PlanDate", Caption = "Дата план", Type = "DateTime" },
                 new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime" },
                 new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
