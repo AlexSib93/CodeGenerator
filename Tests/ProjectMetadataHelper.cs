@@ -657,7 +657,7 @@ internal static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime" },
                 new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
                 new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
-                new PropMetadata() { Name = "Kc", Caption = "KC", Type = "KC", IsVirtual=true },
+                new PropMetadata() { Name = "Kc", Caption = "KC", Type = "Kc", IsVirtual=true },
             }
         };
 
