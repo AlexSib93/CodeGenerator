@@ -34,7 +34,9 @@ namespace CodeGenerator.Metadata
                             ? "DateTime"
                             : ((propForComponent.Type == "int" || propForComponent.Type == "decimal")
                                 ? "NumericUpDown"
-                                : "Input")
+                                : ((propForComponent.Type == "bool")
+                                    ? "CheckBox"
+                                    : "Input"))
                     });
                 }
 

@@ -20,9 +20,11 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdModelMetadata", Caption = "ID", Type = "int", IsPrimaryKey = true, Visible = false},
                 new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
+                new PropMetadata() { Name = "InitData", Caption = "Начальные данные", Type = "string" },
                 new PropMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "string" },
                 new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string" },
-                new PropMetadata { Name = "Props", Caption = "Свойства", Type = "ICollection<PropMetadata>", IsVirtual = true }
+                new PropMetadata { Name = "Props", Caption = "Свойства", Type = "ICollection<PropMetadata>", IsVirtual = true },
+                new PropMetadata() { Name = "ProjectMetadata", Caption = "Проект", Type = "ProjectMetadata", IsVirtual = true}
             },
             InitData = @"[
   {
@@ -71,6 +73,8 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string" },
                 new PropMetadata() { Name = "Path", Caption = "Путь", Type = "string"},
+                new PropMetadata() { Name = "DbConnectionString", Caption = "Строка подключения к БД", Type = "string"},
+                new PropMetadata() { Name = "UnitOfWork", Caption = "Объект работы с БД (MockUnit или EfUnit )", Type = "string"},
                 new PropMetadata { Name = "Models", Caption = "Модели", Type = "ICollection<ModelMetadata>", IsVirtual = true},
                 new PropMetadata { Name = "Forms", Caption = "Формы", Type = "ICollection<FormMetadata>", IsVirtual = true}
             }
@@ -87,8 +91,9 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string" },
                 new PropMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "bool"},
                 new PropMetadata() { Name = "Components", Caption = "Формы", Type = "ICollection<ComponentMetadata>", IsVirtual = true},
-                new PropMetadata() { Name = "Project", Caption = "Проект", Type = "ProjectMetadata", IsVirtual = true}
-                //public IEnumerable<ComponentMetadata> Components { get; set; }
+                new PropMetadata() { Name = "ProjectMetadata", Caption = "Проект", Type = "ProjectMetadata", IsVirtual = true},
+                new PropMetadata() { Name = "EditForm", Caption = "Форма редактирования", Type = "FormMetadata", IsVirtual = true},
+                new PropMetadata() { Name = "Model", Caption = "Модель", Type = "ModelMetadata", IsVirtual = true}
             }
         };
         ModelMetadata propMetadata = new ModelMetadata()
@@ -101,7 +106,16 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Type", Caption="Тип данных C#", Type = "string"},
                 new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string" },
-                new PropMetadata() { Name = "Model", Caption="Модель", Type = "ModelMetadata", IsVirtual = true  }
+                new PropMetadata() { Name = "Model", Caption="Модель", Type = "ModelMetadata", IsVirtual = true  },
+                new PropMetadata() { Name = "IsPrimaryKey", Caption="Первичный ключ", Type = "bool" },
+                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool" },
+                new PropMetadata() { Name = "Visible", Caption="Отображать свойство в интерфейсе", Type = "bool" },
+                new PropMetadata() { Name = "Editable", Caption="Доступ к редактированию поля", Type = "bool" },
+                new PropMetadata() { Name = "JsonIgnore", Caption="Не передавать на клиент", Type = "bool" },
+                new PropMetadata() { Name = "IsEnumerable", Caption="Перечисление", Type = "bool", Editable = false },
+                new PropMetadata() { Name = "IsMasterProp", Caption="Ссылка на мастера", Type = "bool", Editable = false },
+                new PropMetadata() { Name = "IsDetailsProp", Caption="Детейл", Type = "bool", Editable = false },
+                new PropMetadata() { Name = "IsDictValueProp", Caption="Значение из справочника", Type = "bool", Editable = false }
             }
         };
         ModelMetadata componentMetadata = new ModelMetadata()
@@ -117,7 +131,8 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Type", Caption="Тип данных C#", Type = "string"},
                 new PropMetadata() { Name = "ModelPropMetadata", Caption="Свойство Модели для которого используется компонент", Type = "PropMetadata", IsVirtual = true  },
                 new PropMetadata() { Name = "Props", Caption="Используется для табличных компонентов для передачи списка свойств и их подписей", Type = "ICollection<PropMetadata>", IsVirtual = true  },
-                new PropMetadata() { Name = "ModelProp", Caption="Компонент свойства модели", Type = "bool"}
+                new PropMetadata() { Name = "ModelProp", Caption="Компонент свойства модели", Type = "bool"},
+                new PropMetadata() { Name = "FormMetadata", Caption = "Форма", Type = "FormMetadata", IsVirtual = true}
             }
         };
 

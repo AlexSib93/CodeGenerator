@@ -55,7 +55,7 @@ namespace CodeGenerator.Projects
             {
                 foreach (ModelMetadata model in otherModels)
                 {
-                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && !p.IsEnumerable);
+                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && !p.IsEnumerable && p.Type != model.Name);
                     if (!virtualFields.Any(p => !res.Any(m=> m.Name == p.Type)))
                     {
                         res.Add(model);

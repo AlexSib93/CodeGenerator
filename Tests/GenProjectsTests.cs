@@ -23,6 +23,7 @@ namespace Tests
         {
             Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
+            generator.Settings.GenWdScriptProject = false;
             generator.GenCode(ProjectMetadataHelper.GeneratorProjectMetadata());
         }
 
@@ -45,6 +46,7 @@ namespace Tests
         {
             Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
+            generator.Settings.GenWdScriptProject = false;
             generator.GenCode(ProjectMetadataHelper.ProjectMetadataCorp());
         }
 
@@ -89,6 +91,7 @@ namespace Tests
         {
             Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
+            generator.Settings.GenWdScriptProject = false;
             generator.GenCode(ProjectMetadataHelper.RemakeArmProjectMetadata());
         }
 
