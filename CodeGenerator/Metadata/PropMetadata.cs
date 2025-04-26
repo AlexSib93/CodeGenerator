@@ -23,6 +23,14 @@
         /// </summary>
         public bool IsVirtual { get; set; }
         /// <summary>
+        /// Отображать свойство в интерфейсе
+        /// </summary>
+        public bool Visible { get; set; } = true;
+        /// <summary>
+        /// Доступ к редактированию поля
+        /// </summary>
+        public bool Editable { get; set; } = true;
+        /// <summary>
         /// Не передавать на клиент
         /// </summary>
         public bool JsonIgnore { get; set; } = false;

@@ -166,7 +166,7 @@ namespace CodeGenerator
       </div>";
                     break;
                 case "Grid":
-                    string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
+                    string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}, Type: '{p.Type}'}}")); ;
                     res = $@"      <div className=""m-3 card"">    
         <div className=""card-body""> 
             <div className=""card-title"">

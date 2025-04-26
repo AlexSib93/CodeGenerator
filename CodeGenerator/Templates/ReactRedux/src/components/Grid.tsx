@@ -1,5 +1,5 @@
-﻿import { AgGridReact } from "ag-grid-react";
-import { PropMetadata } from "./Table";
+import { AgGridReact } from "ag-grid-react";
+import { PropMetadata } from "./PropMetadata";
 import { FormEvent } from "react";
 
 
