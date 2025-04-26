@@ -607,8 +607,8 @@ internal static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименвоание", Type = "string"},
-                new PropMetadata() { Name = "PlanPercent", Caption = "План", Type = "decimal" },
-                new PropMetadata() { Name = "FactPercent", Caption = "Факт", Type = "decimal" },
+                new PropMetadata() { Name = "PlanPercent", Caption = "План процент", Type = "decimal" },
+                new PropMetadata() { Name = "FactPercent", Caption = "Факт процент", Type = "decimal" },
                 new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
                 new PropMetadata() { Name = "Fact", Caption = "Факт", Type = "decimal" },
                 new PropMetadata() { Name = "Lag", Caption = "Отставание", Type = "string"},
