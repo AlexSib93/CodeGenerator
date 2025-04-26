@@ -1,5 +1,5 @@
-﻿import { AgGridReact } from "ag-grid-react";
-import { PropMetadata } from "./PropMetadata";
+import { AgGridReact } from "ag-grid-react";
+import { DetailPropMetadata } from "./DetailPropMetadata";
 import { FormEvent } from "react";
 import { ColDef, ColGroupDef } from "ag-grid-community/dist/types/src/entities/colDef";
 import { ExcelStyle } from "ag-grid-community";
@@ -7,7 +7,7 @@ import { ExcelStyle } from "ag-grid-community";
 
 export interface IGridProps {
     items: any[],
-    props: PropMetadata[],
+    props: DetailPropMetadata[],
     onEdit?: (item: any) => void,
     onDelete?: (item: any) => void,
     onAdd?: (item: any) => void,
@@ -34,7 +34,7 @@ export const Grid = (props: IGridProps) => {
         // },
     };
 
-    const getDefs = (props: PropMetadata[], enableFilters?: boolean): (ColDef | ColGroupDef)[] | null => {
+    const getDefs = (props: DetailPropMetadata[], enableFilters?: boolean): (ColDef | ColGroupDef)[] | null => {
         return props.map(p => {
             return {
                 field: p.Name,

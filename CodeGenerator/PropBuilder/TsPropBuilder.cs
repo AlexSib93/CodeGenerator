@@ -49,9 +49,9 @@ namespace CodeGenerator
             var referencedTypes = props.Where(p => p.IsEnumerable || p.IsVirtual);
 
 
+            var existedImport = new List<string>();
             foreach (PropMetadata prop in referencedTypes)
             {
-                var existedImport = new List<string>();
                 if (prop.IsEnumerable)
                 {
                     if (!existedImport.Contains(prop.TypeOfEnumerable))

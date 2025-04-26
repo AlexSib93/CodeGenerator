@@ -19,10 +19,26 @@ namespace Tests
         }
 
         [TestMethod]
+        public void TestMigrateProjFromCode()
+        {
+            var mngr = new ProjectFileManager("./projects");
+            mngr.SaveProject("test", ProjectMetadataHelper.TestProjectMetadata());
+            mngr.SaveProject("corp", ProjectMetadataHelper.ProjectMetadataCorp());
+            mngr.SaveProject("generator-gui", ProjectMetadataHelper.GeneratorProjectMetadata());
+            mngr.SaveProject("remake-arm", ProjectMetadataHelper.RemakeArmProjectMetadata());
+            mngr.SaveProject("compl-arm", ProjectMetadataHelper.ComplectationArmProjectMetadata());
+
+            List<ProjectMetadata> list = mngr.GetProjects<ProjectMetadata>();
+            ProjectMetadata corpProject = mngr.LoadProject<ProjectMetadata>("corp");
+            ProjectMetadata generatorProject = mngr.LoadProject<ProjectMetadata>("generator-gui");
+
+        }
+
+        [TestMethod]
         public void TestLoadProj()
         {
             var mngr = new ProjectFileManager("./projects");
-            ProjectMetadata projMetadata = mngr.LoadProject("test-proj");
+            ProjectMetadata projMetadata = mngr.LoadProject<ProjectMetadata>("test-proj");
         }
 
         [TestMethod]

@@ -30,13 +30,13 @@ namespace CodeGenerator.Services
             return projectFiles;
         }
 
-        public List<ProjectMetadata> GetProjects()
+        public List<T> GetProjects<T>()
         {
-            List<ProjectMetadata> projects = new List<ProjectMetadata>();
+            List<T> projects = new List<T>();
             string[] projectFiles = GetProjectFiles();
             foreach (string filePath in projectFiles)
             {
-                projects.Add(LoadProjectByPath(filePath));
+                projects.Add(LoadProjectByPath<T>(filePath));
             }
 
             return projects;
@@ -51,7 +51,7 @@ namespace CodeGenerator.Services
             }
         }
 
-        public void SaveProject(string projectName, ProjectMetadata projMetadata)
+        public void SaveProject<T>(string projectName, T projMetadata)
         {
             string projectFilePath = Path.Combine(_projectDirectory, projectName + _projectFileExtension);
             if (!File.Exists(projectFilePath))
@@ -72,23 +72,23 @@ namespace CodeGenerator.Services
             }
         }
 
-        public ProjectMetadata LoadProject(string projectName)
+        public T LoadProject<T>(string projectName)
         {
             string projectFilePath = Path.Combine(_projectDirectory, projectName + _projectFileExtension);
-            ProjectMetadata projMetadata = LoadProjectByPath(projectFilePath);
+            T projMetadata = LoadProjectByPath<T>(projectFilePath);
 
             return projMetadata;
         }
 
-        private static ProjectMetadata LoadProjectByPath(string projectFilePath)
+        private static T LoadProjectByPath<T>(string projectFilePath)
         {
-            ProjectMetadata projMetadata = null;
+            T projMetadata = default(T);
             if (File.Exists(projectFilePath))
             {
                 using (StreamReader r = new StreamReader(projectFilePath))
                 {
                     string json = r.ReadToEnd();
-                    projMetadata = JsonConvert.DeserializeObject<ProjectMetadata>(json);
+                    projMetadata = JsonConvert.DeserializeObject<T> (json);
                 }
             }
 

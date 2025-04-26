@@ -42,6 +42,11 @@ namespace CodeGenerator.Metadata
                 {
                     var type = propForComponent.TypeOfEnumerable;
                     var modelOfDetail = pM.Models.FirstOrDefault(m => m.Name == type);
+                    if(modelOfDetail == null)
+                    {
+                        throw new Exception($"Модель, используемая в качестве типа для виртуального свойства не объявлена. Объявите модель с именем '{type}'");
+                    }
+
                     List<PropMetadata> datailPropsMetadatas = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList();
                     if (propForComponent.Name.ToLower() == "gpr")
                     {

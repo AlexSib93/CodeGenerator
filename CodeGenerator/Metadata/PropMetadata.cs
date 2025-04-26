@@ -34,7 +34,7 @@
         /// Не передавать на клиент
         /// </summary>
         public bool JsonIgnore { get; set; } = false;
-        public bool IsEnumerable => Type.StartsWith("List") || Type.StartsWith("ICollection");
+        public bool IsEnumerable => Type!=null && ( Type.StartsWith("List") || Type.StartsWith("ICollection"));
         public bool IsMasterProp => IsVirtual && !IsEnumerable && !IsDictValueProp;
         public bool IsDetailsProp => IsVirtual && IsEnumerable;
         public bool IsDictValueProp { get; set; } = false;
