@@ -16,7 +16,7 @@ namespace CodeGenerator.ProjectFiles.Ts
             ClassInfo = classInfo;
         }
 
-        public string Header => $@"{TsPropBuilder.UsingPropTypeText(ClassInfo.Props)}";
+        public string Header => $@"{TsPropBuilder.UsingPropTypeText(ClassInfo)}";
 
         public string Body => $@"export interface {ClassInfo.Name} {{
 {GetPropsText}}}

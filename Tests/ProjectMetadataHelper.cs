@@ -112,10 +112,10 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Visible", Caption="Отображать свойство в интерфейсе", Type = "bool" },
                 new PropMetadata() { Name = "Editable", Caption="Доступ к редактированию поля", Type = "bool" },
                 new PropMetadata() { Name = "JsonIgnore", Caption="Не передавать на клиент", Type = "bool" },
-                new PropMetadata() { Name = "IsEnumerable", Caption="Перечисление", Type = "bool", Editable = false },
-                new PropMetadata() { Name = "IsMasterProp", Caption="Ссылка на мастера", Type = "bool", Editable = false },
-                new PropMetadata() { Name = "IsDetailsProp", Caption="Детейл", Type = "bool", Editable = false },
-                new PropMetadata() { Name = "IsDictValueProp", Caption="Значение из справочника", Type = "bool", Editable = false }
+                new PropMetadata() { Name = "IsEnumerable", Caption="Перечисление", Type = "bool", Visible = false },
+                new PropMetadata() { Name = "IsMasterProp", Caption="Ссылка на мастера", Type = "bool", Visible = false },
+                new PropMetadata() { Name = "IsDetailsProp", Caption="Детейл", Type = "bool", Visible = false },
+                new PropMetadata() { Name = "IsDictValueProp", Caption="Значение из справочника", Type = "bool", Visible = false }
             }
         };
         ModelMetadata componentMetadata = new ModelMetadata()

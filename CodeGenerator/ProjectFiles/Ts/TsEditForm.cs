@@ -1,12 +1,5 @@
 ﻿using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
-using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Ts
 {
@@ -33,10 +26,10 @@ import {{Grid}} from '../components/Grid';
         private string ImportMasterDetailTypes()
         {
             List<string> detailTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => (c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()) && c.ModelPropMetadata.Type != Form.Model.Name ))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
-                ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == detailType);
+                ModelMetadata detailMetadata = ProjectMetadata.GetType(detailType);
                 if(!detailTypes.Contains(detailMetadata.Name))
                 {
                     detailTypes.Add(detailMetadata.Name);
@@ -47,9 +40,9 @@ import {{Grid}} from '../components/Grid';
 import {t}EditForm from './{t}EditForm';"));
 
             List<string> masterTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp.ToString() && c.ModelPropMetadata.Type != Form.Model.Name))
             {
-                ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == componentDetailTable.ModelPropMetadata.Name);
+                ModelMetadata detailMetadata = ProjectMetadata.GetType(componentDetailTable.ModelPropMetadata.Type);
                 if (!masterTypes.Contains(detailMetadata.Name))
                 {
                     masterTypes.Add(detailMetadata.Name);
@@ -183,7 +176,7 @@ const toUpperFirstChar = str => {{
             foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable.ToString() || c.Type == ComponentTypeEnum.Grid.ToString()))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
-                ModelMetadata detailMetadata = ProjectMetadata.Models.FirstOrDefault(m => m.Name == detailType);
+                ModelMetadata detailMetadata = ProjectMetadata.GetType(detailType);
                 ModelMetadata masterMetadata = Form.Model;
 
             res += $@"

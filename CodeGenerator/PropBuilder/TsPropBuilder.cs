@@ -17,9 +17,13 @@ namespace CodeGenerator
                 if (propInfo.IsMasterProp || propInfo.IsDictValueProp)
                 {
                     res += $"  id{propInfo.Name}:number;\n";
+                    res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}?:{GetTsType(propInfo)};\n";
+                }
+                else
+                {
+                    res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};\n";
                 }
 
-                res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};\n";
 
             }
 
@@ -35,19 +39,21 @@ namespace CodeGenerator
                 {
                     res += $"  id{propInfo.Name}: 0,\n";
                 }
+                else
+                {
+                    res += $"{GetInitPropText(propInfo)}\n";
+                }
 
-                res += $"{GetInitPropText(propInfo)}\n";
             }
 
             return res;
         }
 
-        public static string UsingPropTypeText(IEnumerable<PropMetadata> props)
+        public static string UsingPropTypeText(ModelMetadata modelMetadata)
         {
             string res = "";
 
-            var referencedTypes = props.Where(p => p.IsEnumerable || p.IsVirtual);
-
+            var referencedTypes = modelMetadata.Props.Where(p => (p.IsEnumerable && p.TypeOfEnumerable != modelMetadata.Name || p.IsVirtual && p.Type != modelMetadata.Name));
 
             var existedImport = new List<string>();
             foreach (PropMetadata prop in referencedTypes)
