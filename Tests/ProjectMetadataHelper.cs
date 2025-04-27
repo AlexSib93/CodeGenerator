@@ -90,10 +90,10 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "string"},
                 new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string" },
                 new PropMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "bool"},
-                new PropMetadata() { Name = "Components", Caption = "Формы", Type = "ICollection<ComponentMetadata>", IsVirtual = true},
+                new PropMetadata() { Name = "Components", Caption = "Компоненты формы", Type = "ICollection<ComponentMetadata>", IsVirtual = true},
                 new PropMetadata() { Name = "ProjectMetadata", Caption = "Проект", Type = "ProjectMetadata", IsVirtual = true},
-                new PropMetadata() { Name = "EditForm", Caption = "Форма редактирования", Type = "FormMetadata", IsVirtual = true},
-                new PropMetadata() { Name = "Model", Caption = "Модель", Type = "ModelMetadata", IsVirtual = true}
+                new PropMetadata() { Name = "EditForm", Caption = "Форма редактирования", Type = "FormMetadata", IsVirtual = true, IsDictValueProp = true},
+                new PropMetadata() { Name = "Model", Caption = "Модель", Type = "ModelMetadata", IsVirtual = true, IsDictValueProp = true}
             }
         };
         ModelMetadata propMetadata = new ModelMetadata()
@@ -106,7 +106,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Type", Caption="Тип данных C#", Type = "string"},
                 new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string" },
-                new PropMetadata() { Name = "Model", Caption="Модель", Type = "ModelMetadata", IsVirtual = true  },
+                new PropMetadata() { Name = "ModelMetadata", Caption="Модель", Type = "ModelMetadata", IsVirtual = true  },
                 new PropMetadata() { Name = "IsPrimaryKey", Caption="Первичный ключ", Type = "bool" },
                 new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool" },
                 new PropMetadata() { Name = "Visible", Caption="Отображать свойство в интерфейсе", Type = "bool" },
