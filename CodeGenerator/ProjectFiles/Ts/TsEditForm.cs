@@ -139,7 +139,7 @@ const toUpperFirstChar = str => {{
     }});
   }}, [])
 
-  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option  key={{i.id{componentLookUp.ModelPropMetadata.Type}}}  value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
 
 ";
             }

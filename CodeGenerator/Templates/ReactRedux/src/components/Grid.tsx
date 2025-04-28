@@ -17,17 +17,6 @@ export interface IGridProps {
 export const Grid = (props: IGridProps) => {
     let { items, onAdd, onEdit, onDelete, enableFilters } = props;
 
-    const onClickDelete = (e: FormEvent, item: any) => {
-        e.preventDefault();
-        onDelete(item)
-
-    }
-
-    const onClickEdit = (e: FormEvent, item: any) => {
-        e.preventDefault();
-        onEdit(item)
-
-    }
     const columnTypes = {
         // date: {
         //     valueFormatter: p => new Date(p).toLocaleDateString()
@@ -129,8 +118,8 @@ export const Grid = (props: IGridProps) => {
 
     const CustomButtonComponent = (props) => {
         return ((onEdit) || (onDelete)) && <div className="btn-group" aria-label="Операции">
-            {onEdit && <button className="btn btn-warning" onClick={(e) => onClickEdit(e, props.data)} >Изменить</button>}
-            {onDelete && <button className="btn btn-danger" onClick={(e) => onClickDelete(e, props.data)} >Удалить</button>}
+            {onEdit && <button className="btn btn-warning" type='button'  onClick={() => onEdit( props.data)} >Изменить</button>}
+            {onDelete && <button className="btn btn-danger" type='button'  onClick={() => onDelete( props.data)} >Удалить</button>}
         </div>
     }
 

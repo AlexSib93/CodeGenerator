@@ -127,8 +127,11 @@ namespace CodeGenerator
                 case "SubmitButton":
                     res = "         <button className=\"w-50 btn btn-success\" type=\"submit\">Сохранить</button>";
                     break;
+                case "SaveButton":
+                    res = "         <button className=\"w-50 btn btn-success\" type='button' onClick={() => props.onSave(editedItem)} >Сохранить</button>";
+                    break;
                 case "CancelButton":
-                    res = "         <button className=\"w-50 btn btn-danger\" >Отмена</button>";
+                    res = "         <button className=\"w-50 btn btn-danger\"  type='button' onClick={props.onCancel} >Отмена</button>";
                     break;
                 case "Input":
                     res = $@"

@@ -100,7 +100,7 @@ namespace CodeGenerator.Metadata
             if (components.Count > 0)
             {
                 components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.CancelButton.ToString() });
-                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton.ToString() });
+                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SaveButton.ToString() });
             }
             List <string> excludeNovBar = new List<string>() {
                 "Agreement", "Indicator", "Gpr", "Kc", "Payment", "CharacteristicObj"
