@@ -25,7 +25,7 @@ export const Grid = (props: IGridProps) => {
 
     const getDefs = (props: DetailPropMetadata[], enableFilters?: boolean): (ColDef | ColGroupDef)[] | null => {
         return props.map(p => {
-            return {
+            const baseColDef: ColDef = {
                 field: p.Name,
                 headerName: p.Caption,
                 filter: enableFilters ? getFilter(p.Type) : false,
@@ -33,10 +33,56 @@ export const Grid = (props: IGridProps) => {
                 hide: !p.Visible,
                 type: getType(p.Type),
                 filterParams: getFilterParams(p.Type),
-                cellClass: (p.Type==="DateTime") ? 'dateISO' : ''
+                cellClass: p.Type === "DateTime" ? 'dateISO' : ''
+            };
+    
+            // Добавляем форматирование в зависимости от типа данных
+            switch (p.Type) {
+                case "DateTime":
+                    return {
+                        ...baseColDef,
+                        valueFormatter: params => {
+                            if (!params.value) return '';
+                            try {
+                                const date = new Date(params.value);
+                                return isNaN(date.getTime()) 
+                                    ? params.value 
+                                    : date.toLocaleDateString('ru-RU');
+                            } catch {
+                                return params.value;
+                            }
+                        },
+                        filter: 'agDateColumnFilter',
+                        filterParams: {
+                            comparator: (filterLocalDate: Date, cellValue: string) => {
+                                const cellDate = new Date(cellValue);
+                                return cellDate.getTime() - filterLocalDate.getTime();
+                            }
+                        }
+                    };
+    
+                case "Integer":
+                case "Decimal":
+                case "Double":
+                    return {
+                        ...baseColDef,
+                        valueFormatter: params => {
+                            if (params.value === null || params.value === undefined) return '';
+                            return Number(params.value).toLocaleString('ru-RU');
+                        },
+                        filter: 'agNumberColumnFilter'
+                    };
+    
+                case "String":
+                default:
+                    return {
+                        ...baseColDef,
+                        valueFormatter: params => params.value ?? '',
+                        filter: 'agTextColumnFilter'
+                    };
             }
         });
-    }
+    };
     const excelStyles: ExcelStyle[] = [
         {
             id: 'dateISO',
