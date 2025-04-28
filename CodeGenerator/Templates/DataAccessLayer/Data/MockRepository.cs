@@ -64,5 +64,10 @@ namespace DataAccessLayer.Data
         {
             throw new NotImplementedException();
         }
+		
+        public IEnumerable<int> GetIds(Expression<Func<T, bool>> where, Expression<Func<T, int>> idExpression)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

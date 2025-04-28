@@ -372,5 +372,17 @@ namespace DataAccessLayer.Data
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<int> GetIds(Expression<Func<T, bool>> where, Expression<Func<T, int>> idExpression)
+        {
+            IQueryable<T> q = Set();
+
+            if (where != null)
+                q = q.Where(where);
+
+            IEnumerable<int> res = q.Select(idExpression).ToArray();
+
+            return res;
+        }
     }
 }

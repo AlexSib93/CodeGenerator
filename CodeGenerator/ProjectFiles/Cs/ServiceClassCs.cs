@@ -35,7 +35,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 {UpdateOperationText()}
 
 {UpdateManyOperationText()}
-
+{((ClassInfo.MasterProp!=null) ? Environment.NewLine + UpdateByMaster() + Environment.NewLine : "")}
 {CreateManyOperationText()}
 
 {GetOperationText()}
@@ -46,6 +46,39 @@ namespace CodeGenerator.ProjectFiles.Cs
     }}
 }}
 ";
+
+        private object UpdateByMaster()
+        {
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> Update(int idMaster, IEnumerable<{ClassInfo.Name}> {ParamName}s)
+        {{
+            IEnumerable<int> existedIds = Unit.Rep{ClassInfo.Name}.GetIds(i => i.Id{ClassInfo.MasterProp.Name} == idMaster, i => i.{ClassInfo.PrimaryKeyProp.Name});
+            
+            foreach ({ClassInfo.Name} item in {ParamName}s)
+            {{
+                if (existedIds.Any(c => c == item.{ClassInfo.PrimaryKeyProp.Name}))
+                {{
+                    Update(item);
+                }}
+                else
+                {{
+                    Add(item);
+                }}
+            }}
+
+            foreach (int existedId in existedIds)
+            {{
+                if (!{ParamName}s.Any(c => c.{ClassInfo.PrimaryKeyProp.Name} == existedId))
+                {{
+                    Delete(existedId);
+                }}
+            }}
+
+            return {ParamName}s;
+        }}";
+
+            return res;
+
+        }
 
         private object ServiserForDetailsProps()
         {
@@ -113,7 +146,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             string res = $@"        public {ClassInfo.Name} Update({ClassInfo.Name} {ParamName})
         {{
-{DetailsUpdateText(ParamName)}
+{DetailsUpdateText2(ParamName)}
 
             int res = Unit.Rep{ClassInfo.Name}.Update({ParamName});
 
@@ -145,7 +178,16 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
 
-            string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update({param}.{p.Name});"));
+            string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update( {param}.{p.Name});"));
+
+            return initPropsStrings;
+        }
+
+        private object DetailsUpdateText2(string param)
+        {
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+
+            string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update( {param}.{ClassInfo.PrimaryKeyProp.Name}, {param}.{p.Name});"));
 
             return initPropsStrings;
         }
@@ -253,7 +295,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Newtonsoft.Json;
 using DataAccessLayer;
-using DataAccessLayer.Dto;";
+using DataAccessLayer.Dto;
+using System.Linq;";
 
     }
 }

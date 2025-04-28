@@ -646,7 +646,7 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdGpr", Caption = "Id показателя", Type = "int", IsPrimaryKey = true, Visible = false },
-                new PropMetadata() { Name = "Name", Caption = "Наименвоание", Type = "string"},
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string"},
                 new PropMetadata() { Name = "PlanPercent", Caption = "План процент", Type = "decimal" },
                 new PropMetadata() { Name = "FactPercent", Caption = "Факт процент", Type = "decimal" },
                 new PropMetadata() { Name = "Plan", Caption = "План", Type = "decimal" },
