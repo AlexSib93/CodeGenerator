@@ -41,11 +41,31 @@ namespace CodeGenerator.ProjectFiles.Cs
 {GetOperationText()}
 
 {GetAllOperationText()}
+{((ClassInfo.MasterProp!=null) ? Environment.NewLine + GetByMaster() + Environment.NewLine : "")}
 
 {DeleteOperationText()}
     }}
 }}
 ";
+
+        private string GetByMaster()
+        {
+            string param = ParamName + "s";
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
+
+            string includesString = (virtualProps.Any())
+                ? ", " + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
+                : "";
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> GetByMaster(int idMaster)
+        {{
+            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll( x => x.Id{ClassInfo.MasterProp.Name} == idMaster{includesString});
+
+            return {param};
+        }}";
+
+            return res;
+        }
+
 
         private object UpdateByMaster()
         {

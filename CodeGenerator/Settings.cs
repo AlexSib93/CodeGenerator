@@ -35,6 +35,10 @@ namespace CodeGenerator
         /// Gen WinDraw DocumentScript project files
         /// </summary>
         public bool GenWdScriptProject { get; set; }
+        /// <summary>
+        /// Gen SqlCommand project files
+        /// </summary>
+        public bool GenSqlCommandProject { get; set; }
 
         public static string TemplatesPath { get; set; } = @"..\..\..\Templates";
 
@@ -50,7 +54,8 @@ namespace CodeGenerator
                 GenReactProject = true,
                 GenWdScriptProject = true,
                 GenWebApiProject = true,
-                GenTestsProject = true
+                GenTestsProject = true,
+                GenSqlCommandProject = true,
             };
         }
     }

@@ -39,6 +39,8 @@ namespace CodeGenerator.ProjectFiles.Ts
         private object CreateComponentText()
         {
             return $@"export const {FormInfo.Name} = (props: I{FormInfo.Name}Props) => {{
+
+    const {{state,dispatch}} = useContext(ContextApp);
     const [item, setItem] = useState<{FormInfo.Model.Name}>(null);
     const [items, setItems] = useState<{FormInfo.Model.Name}[]>(props.items);
 {StateNotModelProps()}
@@ -75,15 +77,29 @@ namespace CodeGenerator.ProjectFiles.Ts
 
     const submitEditForm = (model: {FormInfo.Model.Name}) => {{
         setItem(null);
+            dispatch(setLoading(true));
         if (model && model.{StringHelper.ToLowerFirstChar(FormInfo.Model.PrimaryKeyProp.Name)} > 0) {{
-            {FormInfo.Model.Name}Service.put(model).then((item) => {{
-                handleEdit(item);
-            }});
+            {FormInfo.Model.Name}Service.put(model)
+                .then((item) => {{
+                    dispatch(showSuccessSnackbar('Объект успешно сохранен'));
+                    handleEdit(item);
+                }}).catch((err) => {{
+                    dispatch(showErrorSnackbar(err));
+                }}).finally(() => {{
+                    dispatch(setLoading(false));
+                }});
         }} else {{
-            {FormInfo.Model.Name}Service.post(model).then((item) => {{
+            {FormInfo.Model.Name}Service
+            .post(model).then((item) => {{
                 handleAdd(item);
+                dispatch(showSuccessSnackbar('Объект успешно создан'));
+            }}).catch((err) => {{
+                dispatch(showErrorSnackbar(err));
+            }}).finally(() => {{
+                dispatch(setLoading(false));
             }});
         }}
+
     }}
 
     const cancelEdit = () => {{
@@ -120,11 +136,13 @@ namespace CodeGenerator.ProjectFiles.Ts
         }
 
         public string UsingText => $@"
-import {{ useEffect,useState }} from ""react"";
+import {{  useContext, useEffect, useState }} from ""react"";
 import {{ {FormInfo.Model.Name},  init{FormInfo.Model.Name} }} from ""../models/{FormInfo.Model.Name}"";
 import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Service"";
 import {{ Table }} from ""../components/Table"";
 import {{Grid}} from '../components/Grid';
+import {{ setLoading, showErrorSnackbar, showSuccessSnackbar }} from ""../state/ui-state"";
+import {{ ContextApp }} from ""../state/state"";
 {(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
 
         public string Footer => $@"";
