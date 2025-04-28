@@ -51,7 +51,7 @@ function App() {{
       <ContextApp.Provider value={{{{ dispatch, state }}}}>
         {{/* <BrowserRouter basename='/terminal'> */}}
         <HashRouter basename='/'>
-          <main className=""container-sm"">
+          <main className=""container-xl"">
             <Header />
             <Routes >
               <Route path=""/"" element={{<Home />}} />

@@ -102,9 +102,9 @@ const toUpperFirstChar = str => {{
     return str.charAt(0).toUpperCase() + str.slice(1);
   }};
 
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {{
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, getItemFunc: (id: number) => any ) => {{
     const {{ name, value }} = e.target;
-    setEditedItem({{ ...editedItem, [""id"" + toUpperFirstChar(name)]: Number(value), [name]: null }});
+    setEditedItem({{ ...editedItem, [""id"" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) }});
   }};
 
 
@@ -139,7 +139,7 @@ const toUpperFirstChar = str => {{
     }});
   }}, [])
 
-  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option  key={{i.id{componentLookUp.ModelPropMetadata.Type}}}  value={{i.id{componentLookUp.ModelPropMetadata.Type}}} selected={{i.id{componentLookUp.ModelPropMetadata.Type}===editedItem.id{componentLookUp.ModelPropMetadata.Name}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option  key={{i.id{componentLookUp.ModelPropMetadata.Type}}}  value={{i.id{componentLookUp.ModelPropMetadata.Type}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
 
 ";
             }
