@@ -154,6 +154,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             string res = $@"        public {ClassInfo.Name} Add({ClassInfo.Name} {ParamName})
         {{
+            {ClearDictProps(ClassInfo.DictValueProps, ParamName)}
             Unit.Rep{ClassInfo.Name}.Add({ParamName});
 
             return {ParamName};
