@@ -47,8 +47,13 @@ namespace CodeGenerator.ProjectFiles.Ts
 
     useEffect(() => {{
         if (props.autoFetch) {{
+            dispatch(setLoading(true));
             {FormInfo.Model.Name}Service.getall().then((item) => {{
                 setItems(item);
+            }}).catch((err) => {{
+                dispatch(showErrorSnackbar(err));
+            }}).finally(() => {{
+                dispatch(setLoading(false));
             }});
         }}
     }}, [])
