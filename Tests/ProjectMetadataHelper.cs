@@ -496,7 +496,7 @@ public static class ProjectMetadataHelper
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "Corp";
         metadata.Description = "GUI for Corp";
-        metadata.Path = @"..\..\..\..\Corp";
+        metadata.Path = @"..\..\..\..\..\std.gencode\Corp";
         metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
         metadata.UnitOfWork = "EfUnit";
         ModelMetadata characteristicValueMetadata = new ModelMetadata()
