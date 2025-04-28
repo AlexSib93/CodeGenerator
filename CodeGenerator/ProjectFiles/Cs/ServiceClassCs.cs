@@ -147,11 +147,23 @@ namespace CodeGenerator.ProjectFiles.Cs
             string res = $@"        public {ClassInfo.Name} Update({ClassInfo.Name} {ParamName})
         {{
 {DetailsUpdateText2(ParamName)}
-
+{ClearDictProps(ClassInfo.DictValueProps, ParamName)}
             int res = Unit.Rep{ClassInfo.Name}.Update({ParamName});
 
             return {ParamName};
         }}";
+
+            return res;
+        }
+
+        private object ClearDictProps(List<PropMetadata> dictValueProps, string paramName)
+        {
+            string res = $@"";
+            foreach (PropMetadata prop in dictValueProps)
+            {
+                res += Environment.NewLine + $"         {ParamName}.{prop.Name} = null;";
+
+            }
 
             return res;
         }
