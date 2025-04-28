@@ -47,6 +47,7 @@ namespace Tests
             Settings.TemplatesPath = @"..\..\..\..\CodeGenerator\Templates";
             Generator generator = new Generator();
             generator.Settings.GenWdScriptProject = false;
+            generator.Settings.GenSolution = false;
             generator.GenCode(ProjectMetadataHelper.ProjectMetadataCorp());
         }
 

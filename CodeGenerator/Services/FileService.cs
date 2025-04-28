@@ -18,6 +18,10 @@ namespace CodeGenerator
                 Directory.CreateDirectory(outDir);
             }
             string fullPath = outDir + "\\"+ fileName;
+
+
+            content = content.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n");
+
             File.WriteAllText(fullPath, content, Encoding.UTF8);
         }
 
