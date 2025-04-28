@@ -52,10 +52,10 @@ namespace CodeGenerator.Metadata
                     List<PropMetadata> datailPropsMetadatas = modelOfDetail.Props.Where(x => !x.IsVirtual).ToList();
                     if (propForComponent.Name.ToLower() == "gpr")
                     {
-                        components.Add(new ComponentMetadata() { Name = "typeWork.name", Caption = "Наименование работ", Type = "string" });
+                        datailPropsMetadatas.Add(new PropMetadata() { Name = "typeWork.name", Caption = "Наименование работ", Type = "string" });
                     }
 
-                    if (propForComponent.Name== "Indicators")
+                    if (propForComponent.Name == "Indicators")
                     {
                         datailPropsMetadatas.Add(new PropMetadata() { Name = "nameIndicator.name", Caption="Показатель", Type = "string" });
                     }
@@ -89,7 +89,7 @@ namespace CodeGenerator.Metadata
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.LookUp.ToString(),
-                        Props = new List<PropMetadata>() { new PropMetadata { Name = string.Join(" + ' ' + ",props.Select(p => "i." + StringHelper.ToLowerFirstChar(p.Name))) } },
+                        Props = new List<PropMetadata>() { new PropMetadata { Name = string.Join(" + ' ' + ",props.Where(p => !p.IsPrimaryKey).Select(p => "i." + StringHelper.ToLowerFirstChar(p.Name))) } },
                         ModelPropMetadata = propForComponent
 
                     });
@@ -113,18 +113,11 @@ namespace CodeGenerator.Metadata
                 AddToNavBar = !excludeNovBar.Contains(mM.Name),
                 Components = new ComponentMetadata[]
                 {
-                    //new ComponentMetadata()
-                    //{
-                    //    Name = mM.Name,
-                    //    Caption = mM.Caption,
-                    //    Type = "Table",
-                    //    Props = mM.Props.Where(x => !x.IsVirtual).ToList()
-                    //},
                     new ComponentMetadata()
                     {
                         Name = mM.Name,
                         Caption = mM.Caption,
-                        Type = ComponentTypeEnum.Grid.ToString(),
+                        Type = ComponentTypeEnum.Grid.ToString(), //"Table"
                         Props = mM.Props.Where(x => !x.IsVirtual).ToList()
                     }
                 },
