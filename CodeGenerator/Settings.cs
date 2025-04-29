@@ -40,7 +40,7 @@ namespace CodeGenerator
         /// </summary>
         public bool GenSqlCommandProject { get; set; }
 
-        public static string TemplatesPath { get; set; } = @"..\..\..\Templates";
+        public static string TemplatesPath { get; set; } = @"..\..\..\..\CodeGenerator\Templates";
 
         public static Settings DefaultDevSettings => GetDefaultDevSettings();
         private static Settings GetDefaultDevSettings()
