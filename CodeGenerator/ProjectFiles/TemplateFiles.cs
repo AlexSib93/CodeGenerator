@@ -77,7 +77,11 @@ namespace CodeGenerator.Classes
             if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.DbConnectionString))
                 content = ReplaceContent(content, "DefaultConnectionString", ProjectMetadata.DbConnectionString);
 
+
             content = ReplaceContent(content, "TemplateProjectNamespace", "ProjectNamespace");
+
+            content = ReplaceContent(content, "TemplateProjectWebApiPort", ProjectMetadata.WebApiHttpsPort.ToString());
+            content = ReplaceContent(content, "TemplateProjectDevServerPort", ProjectMetadata.DevServerPort.ToString());
 
             StreamWriter writer = new StreamWriter(filePathOut);
             writer.Write(content);

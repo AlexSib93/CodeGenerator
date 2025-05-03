@@ -14,6 +14,8 @@ namespace CodeGenerator.Metadata
         public string DbConnectionString { get; set; }
         // Todo: переделать на enum
         public string UnitOfWork { get; set; } = "MockUnit";
+        public int WebApiHttpsPort { get; set; } = 7112;
+        public int DevServerPort { get; set; } = 3000;
         public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
         public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
         public ModelMetadata GetType(string typeName)

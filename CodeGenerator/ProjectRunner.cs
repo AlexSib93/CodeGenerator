@@ -50,9 +50,20 @@ namespace CodeGenerator
         {
             string webApiPath = $@"{project.Path}\WebApi\";
             bool useCmdWindow = true;
-            Process process = ProjectRunner.RunCommand("dotnet", "run", webApiPath, useCmdWindow, false);
+            Process process = ProjectRunner.RunCommand("dotnet", "run" + GetWebApiPortsArgs(project), webApiPath, useCmdWindow, false);
 
             return process;
+        }
+
+        private static string GetWebApiPortsArgs(ProjectMetadata project)
+        {
+            string res = "";
+            if (project != null)
+            {
+                res = $@" --urls=https://localhost:{project.WebApiHttpsPort}/";
+            }
+
+            return res;
         }
 
         public static Process BuildAndRunClient(ProjectMetadata project, bool useCmdWindow = true)

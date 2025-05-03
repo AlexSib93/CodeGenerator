@@ -11,7 +11,7 @@ public static class ProjectMetadataHelper
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "CodeGeneratorGUI";
         metadata.Description = "GUI for manage projects to gen";
-        metadata.Path = @"..\..\..\..\CodeGeneratorGui";
+        metadata.Path = @"..\..\..\..\Projects\CodeGeneratorGui";
         ModelMetadata modelMetadata = new ModelMetadata()
         {
             Name = "ModelMetadata",
