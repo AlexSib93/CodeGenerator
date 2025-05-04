@@ -29,7 +29,9 @@ namespace CodeGenerator
             process.StartInfo.CreateNoWindow = !useCmdWindow; // Скрываем окно командной строки
 
             // Запускаем процесс
-            process.Start();
+            bool isStarted = process.Start();
+            if (!isStarted)
+                throw new Exception("Не удалось запустить проект WebApi");
 
             if (!useCmdWindow)
             {

@@ -9,6 +9,7 @@ namespace CodeGenerator.Metadata
     public class ProjectMetadata
     {
         public string Name { get; set; }
+        public string Caption { get; set; }
         public string Description { get; set; }
         public string Path { get; set; }
         public string DbConnectionString { get; set; }

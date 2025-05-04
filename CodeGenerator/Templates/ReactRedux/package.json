@@ -1,5 +1,5 @@
 {
-  "name": "TeplateProjectName",
+  "name": "TemplateProjectName",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": " set PUBLIC_URL=https://localhost/TeplateProjectName/&&set PORT=TemplateProjectDevServerPort&&react-scripts start",
+    "start": " set PUBLIC_URL=https://localhost/TemplateProjectName/&&set PORT=TemplateProjectDevServerPort&&set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     
