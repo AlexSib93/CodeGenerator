@@ -43,15 +43,7 @@ namespace Tests
         [TestMethod]
         public void TestCorp()
         {
-            Process hostApiProcess = ProjectRunner.BuildAndRunWebApi(ProjectMetadataHelper.ProjectMetadataCorp());
-            Process hostClientProcess = ProjectRunner.BuildAndRunClient(ProjectMetadataHelper.ProjectMetadataCorp(), true);
-
-            hostClientProcess.WaitForExit();
-            hostApiProcess.WaitForExit();
-
-            hostClientProcess.Kill();
-            hostApiProcess.Kill();
-
+            ProjectRunner.RunProject(ProjectMetadataHelper.ProjectMetadataCorp());
         }
 
         [TestMethod("ComplectationArm")]
@@ -64,15 +56,7 @@ namespace Tests
         [TestMethod]
         public void TestComplectationArm()
         {
-            Process hostApiProcess = ProjectRunner.BuildAndRunWebApi(ProjectMetadataHelper.ComplectationArmProjectMetadata());
-            Process hostClientProcess = ProjectRunner.BuildAndRunClient(ProjectMetadataHelper.ComplectationArmProjectMetadata(), true);
-
-            hostClientProcess.WaitForExit();
-            hostApiProcess.WaitForExit();
-
-            hostClientProcess.Kill();
-            hostApiProcess.Kill();
-
+            ProjectRunner.RunProject(ProjectMetadataHelper.ComplectationArmProjectMetadata());
         }
 
         [TestMethod("RemakeArm")]
@@ -87,14 +71,7 @@ namespace Tests
         [TestMethod]
         public void TestRemakeArm()
         {
-            Process hostApiProcess = ProjectRunner.BuildAndRunWebApi(ProjectMetadataHelper.RemakeArmProjectMetadata());
-            Process hostClientProcess = ProjectRunner.BuildAndRunClient(ProjectMetadataHelper.RemakeArmProjectMetadata(), true);
-
-            hostClientProcess.WaitForExit();
-            hostApiProcess.WaitForExit();
-
-            hostClientProcess.Kill();
-            hostApiProcess.Kill();
+            ProjectRunner.RunProject(ProjectMetadataHelper.RemakeArmProjectMetadata());
 
         }
     }
