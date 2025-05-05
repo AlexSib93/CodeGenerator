@@ -71,13 +71,21 @@ namespace CodeGenerator.Classes
             reader.Close();
 
             //ToDo: вынести в настройку 
-            if(ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.Name))
+            if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.Name))
                 content = ReplaceContent(content, "TemplateProjectName", ProjectMetadata.Name);
 
             if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.DbConnectionString))
                 content = ReplaceContent(content, "DefaultConnectionString", ProjectMetadata.DbConnectionString);
 
+
             content = ReplaceContent(content, "TemplateProjectNamespace", "ProjectNamespace");
+
+            if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.Caption))
+                content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Caption);
+
+            content = ReplaceContent(content, "TemplateProjectWebApiPort", ProjectMetadata.WebApiHttpsPort.ToString());
+
+            content = ReplaceContent(content, "TemplateProjectDevServerPort", ProjectMetadata.DevServerPort.ToString());
 
             StreamWriter writer = new StreamWriter(filePathOut);
             writer.Write(content);

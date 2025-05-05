@@ -41,11 +41,31 @@ namespace CodeGenerator.ProjectFiles.Cs
 {GetOperationText()}
 
 {GetAllOperationText()}
+{((ClassInfo.MasterProp!=null) ? Environment.NewLine + GetByMaster() + Environment.NewLine : "")}
 
 {DeleteOperationText()}
     }}
 }}
 ";
+
+        private string GetByMaster()
+        {
+            string param = ParamName + "s";
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
+
+            string includesString = (virtualProps.Any())
+                ? ", " + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
+                : "";
+            string res = $@"        public IEnumerable<{ClassInfo.Name}> GetByMaster(int idMaster)
+        {{
+            IEnumerable<{ClassInfo.Name}> {param} = Unit.Rep{ClassInfo.Name}.GetAll( x => x.Id{ClassInfo.MasterProp.Name} == idMaster{includesString});
+
+            return {param};
+        }}";
+
+            return res;
+        }
+
 
         private object UpdateByMaster()
         {
@@ -133,7 +153,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string CreateOperationText()
         {
             string res = $@"        public {ClassInfo.Name} Add({ClassInfo.Name} {ParamName})
-        {{
+        {{{ClearDictProps(ClassInfo.DictValueProps, ParamName)}
             Unit.Rep{ClassInfo.Name}.Add({ParamName});
 
             return {ParamName};
@@ -146,8 +166,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         {
             string res = $@"        public {ClassInfo.Name} Update({ClassInfo.Name} {ParamName})
         {{
-{DetailsUpdateText2(ParamName)}
-{ClearDictProps(ClassInfo.DictValueProps, ParamName)}
+{DetailsUpdateText2(ParamName)}{ClearDictProps(ClassInfo.DictValueProps, ParamName)}
             int res = Unit.Rep{ClassInfo.Name}.Update({ParamName});
 
             return {ParamName};
@@ -161,7 +180,7 @@ namespace CodeGenerator.ProjectFiles.Cs
             string res = $@"";
             foreach (PropMetadata prop in dictValueProps)
             {
-                res += Environment.NewLine + $"         {ParamName}.{prop.Name} = null;";
+                res += Environment.NewLine + $"             {paramName}.{prop.Name} = null;";
 
             }
 
@@ -173,9 +192,8 @@ namespace CodeGenerator.ProjectFiles.Cs
             string res = $@"        public IEnumerable<{ClassInfo.Name}> Update(IEnumerable<{ClassInfo.Name}> {ParamName}s)
         {{
             foreach({ClassInfo.Name} item in {ParamName}s)
-            {{
-
-{DetailsUpdateText("item")}
+            {{{DetailsUpdateText("item")}
+{ClearDictProps(ClassInfo.DictValueProps, "item")}
             }}
 
             int res = Unit.Rep{ClassInfo.Name}.Update({ParamName}s);

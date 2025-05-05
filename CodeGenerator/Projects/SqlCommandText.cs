@@ -16,7 +16,7 @@ namespace CodeGenerator.Projects
     {
         public SqlCommandText(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            string Name = "SqlCommandCreateTable";
+            Name = "SqlCommand";
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             string code = "";
 

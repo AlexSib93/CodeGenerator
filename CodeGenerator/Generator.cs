@@ -47,7 +47,7 @@ namespace CodeGenerator
                 {
                     projectGenerators.Add(new DataAccessLayerProject(projectMetadata));
                 }
-                if (Settings.GenDalProject)
+                if (Settings.GenSqlCommandProject)
                 {
                     projectGenerators.Add(new SqlCommandText(projectMetadata));
                 }

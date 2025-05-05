@@ -33,6 +33,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 {GetOperationText()}
 
 {GetAllOperationText()}
+{((ClassInfo.MasterProp != null) ? Environment.NewLine + GetByMaster() + Environment.NewLine : "")}
 
 {DeleteOperationText()}
     }}
@@ -42,6 +43,13 @@ namespace CodeGenerator.ProjectFiles.Cs
         private object UpdateByMaster()
         {
             string res = $@"        IEnumerable<{ClassInfo.Name}> Update(int idMaster, IEnumerable<{ClassInfo.Name}> {ParamName}s);";
+
+            return res;
+        }
+
+        private object GetByMaster()
+        {
+            string res = $@"        IEnumerable<{ClassInfo.Name}> GetByMaster(int idMaster);";
 
             return res;
         }

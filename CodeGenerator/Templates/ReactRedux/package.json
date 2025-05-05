@@ -1,5 +1,5 @@
 {
-  "name": "TeplateProjectName",
+  "name": "TemplateProjectName",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,9 +24,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": " set PUBLIC_URL=https://localhost/terminal/&&set HTTPS=true&&react-scripts start",
+    "start": " set PUBLIC_URL=https://localhost/TemplateProjectName/&&set PORT=TemplateProjectDevServerPort&&set HTTPS=true&&react-scripts start",
     "build": "react-scripts build",
-    "build-test": " set PUBLIC_URL=http://plast-plus.org:55111/terminaltest/&&react-scripts build",
     "test": "react-scripts test",
     
     "deploy-test": "deploy_test.bat",

@@ -11,7 +11,7 @@ public static class ProjectMetadataHelper
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "CodeGeneratorGUI";
         metadata.Description = "GUI for manage projects to gen";
-        metadata.Path = @"..\..\..\..\CodeGeneratorGui";
+        metadata.Path = @"..\..\..\..\Projects\CodeGeneratorGui";
         ModelMetadata modelMetadata = new ModelMetadata()
         {
             Name = "ModelMetadata",
@@ -496,7 +496,7 @@ public static class ProjectMetadataHelper
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "Corp";
         metadata.Description = "GUI for Corp";
-        metadata.Path = @"..\..\..\..\..\std.gencode\Corp";
+        metadata.Path = @"..\..\..\..\Projects\std.gencode\Corp";
         metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
         metadata.UnitOfWork = "EfUnit";
         ModelMetadata characteristicValueMetadata = new ModelMetadata()
@@ -668,7 +668,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdTypeWork", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "Measure", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Measure", Caption = "Единица измерения", Type = "string" },
             }
         };
 
