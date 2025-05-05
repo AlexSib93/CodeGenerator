@@ -542,11 +542,16 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
+                new PropMetadata() { Name = "Type", Caption="Тип", Type = "string"},
                 new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
                 new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
                 new PropMetadata() { Name = "TimePayKc2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
                 new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
+                new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
+                new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
+                new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
+                new PropMetadata() { Name = "PriceUp", Caption="Наценка", Type = "decimal" },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore=true },
                 new PropMetadata() { Name = "ConstructionObj", Caption = "Id подрядчика", Type = "ConstructionObj", IsVirtual = true, IsDictValueProp = true },
                 new PropMetadata() { Name = "Characteristics", Caption="Характеристики", Type = "ICollection<CharacteristicObj>", IsVirtual = true }
@@ -562,11 +567,9 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string" },
-                new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
-                new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
-                new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", IsVirtual = true, IsDictValueProp = true  },
                 new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", IsVirtual = true, IsDictValueProp = true },
+                new PropMetadata() { Name = "Status", Caption="Статус Сделки", Type = "string" },
                 new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<Gpr>", IsVirtual = true },
                 new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<Kc>", IsVirtual = true },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", IsVirtual = true },
@@ -683,6 +686,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string" },
                 new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime" },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", IsVirtual = true, JsonIgnore = true },
+                new PropMetadata() { Name = "Payment", Caption="Платежи", Type = "ICollection<Payment>", IsVirtual = true },
             }
         };
 
