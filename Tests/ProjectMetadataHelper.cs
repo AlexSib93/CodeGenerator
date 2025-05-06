@@ -530,6 +530,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
                 new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
                 new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", IsVirtual= true, IsDictValueProp = true  },
+                new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue", IsVirtual= true, IsDictValueProp = true  },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", IsVirtual=true, JsonIgnore = true  },
             }
         };
@@ -543,6 +544,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "Type", Caption="Тип", Type = "string"},
+                new PropMetadata() { Name = "Link", Caption="Ссылка", Type = "string"},
                 new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
                 new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
                 new PropMetadata() { Name = "TimePayKc2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
@@ -610,11 +612,7 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdPeople", Caption = "Id Пользователя", Type = "int", IsPrimaryKey = true, Visible = false },
-                new PropMetadata() { Name = "FirstName", Caption = "Фамилия", Type = "string" },
-                new PropMetadata() { Name = "Name", Caption = "Имя", Type = "string" },
-                new PropMetadata() { Name = "LastName", Caption = "Отчество", Type = "string" },
-                new PropMetadata() { Name = "Role", Caption = "Роль", Type = "string" },
-
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
             }
         };
 
