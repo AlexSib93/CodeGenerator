@@ -599,6 +599,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Code1c", Caption = "Код контрагента из 1с", Type = "string" },
             }
         };
 
