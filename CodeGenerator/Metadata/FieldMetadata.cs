@@ -9,12 +9,4 @@ namespace CodeGenerator.Metadata
     internal class FieldMetadata
     {
     }
-    public enum DataType
-    {
-        Integer,
-        String,
-        DateTime,
-        Boolean,
-        Double
-    }
 }

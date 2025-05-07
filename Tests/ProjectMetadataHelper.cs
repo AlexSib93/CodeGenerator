@@ -634,13 +634,13 @@ public static class ProjectMetadataHelper
         ModelMetadata nameIndicatorMetadata = new ModelMetadata()
         {
             Name = "NameIndicator",
-            Caption = "Наименование показателя",
+            Caption = "Показатель",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdNameIndicator", Caption = "Id показателя", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "TypeUpdateData", Caption = "Тип обновления данных", Type = "bool" },
-                new PropMetadata() { Name = "TypeIndicator", Caption = "Тип показателя", Type = "bool" },
+                new PropMetadata() { Name = "TypeUpdateData", Caption = "Тип обновления данных", Type = "UpdateDataTypeEnum", IsEnum = true },
+                new PropMetadata() { Name = "TypeIndicator", Caption = "Тип показателя", Type = "IndicatorTypeEnum", IsEnum = true },
             }
         };
 
@@ -723,6 +723,46 @@ public static class ProjectMetadataHelper
             kcMetadata,
             paymentMetadata
         };
+
+        EnumMetadata indicatorTypeEnum = new EnumMetadata()
+        {
+            Name = "IndicatorTypeEnum",
+            Caption = "Тип индикатора",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    Id = 1,
+                    Name = "CostPrice",
+                    Caption = "Себестоимость"
+                },
+                new EnumValueMetadata() {
+                    Id = 2,
+                    Name = "Earnings",
+                    Caption = "Выручка"
+                }
+            }
+        };
+
+        EnumMetadata updateDataTypeEnum = new EnumMetadata()
+        {
+            Name = "UpdateDataTypeEnum",
+            Caption = "Тип обновления данных",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    Id = 1,
+                    Name = "Overwriting",
+                    Caption = "Перезапись"
+                },
+                new EnumValueMetadata() {
+                    Id = 2,
+                    Name = "ManualInput",
+                    Caption = "Ручной ввод"
+                }
+            }
+        };
+
+        metadata.EnumTypes = new List<EnumMetadata>() { indicatorTypeEnum, updateDataTypeEnum };
 
         metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
 

@@ -53,7 +53,7 @@ namespace CodeGenerator
         {
             string res = "";
 
-            var referencedTypes = modelMetadata.Props.Where(p => (p.IsEnumerable && p.TypeOfEnumerable != modelMetadata.Name || p.IsVirtual && p.Type != modelMetadata.Name));
+            var referencedTypes = modelMetadata.Props.Where(p => p.IsEnumerable && p.TypeOfEnumerable != modelMetadata.Name || p.IsVirtual && p.Type != modelMetadata.Name || p.IsEnum);
 
             var existedImport = new List<string>();
             foreach (PropMetadata prop in referencedTypes)
@@ -71,6 +71,14 @@ namespace CodeGenerator
                     if (!existedImport.Contains(prop.Type))
                     {
                         res += $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
+                        existedImport.Add(prop.Type);
+                    }
+                }
+                else if (prop.IsEnum)
+                {
+                    if (!existedImport.Contains(prop.Type))
+                    {
+                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"../enums/{prop.Type}\";" + Environment.NewLine;
                         existedImport.Add(prop.Type);
                     }
                 }

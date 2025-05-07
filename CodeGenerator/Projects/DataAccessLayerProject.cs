@@ -21,6 +21,11 @@ namespace CodeGenerator.Projects
             {
                 Items.Add(new ProjectItem(this, new ClassCs(model), model.Name, $"{projectPath}\\Models", "cs"));
             }
+            
+            foreach (EnumMetadata enumMetadata in projectMetadata.EnumTypes)
+            {
+                Items.Add(new ProjectItem(this, new EnumCs(enumMetadata), enumMetadata.Name, $"{projectPath}\\Enums", "cs"));
+            }
 
             //Auth
             ModelMetadata authModel = new ModelMetadata() { 

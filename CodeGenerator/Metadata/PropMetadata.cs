@@ -23,6 +23,10 @@
         /// </summary>
         public bool IsVirtual { get; set; }
         /// <summary>
+        /// Свойство перечисления
+        /// </summary>
+        public bool IsEnum { get; set; } = false;
+        /// <summary>
         /// Отображать свойство в интерфейсе
         /// </summary>
         public bool Visible { get; set; } = true;

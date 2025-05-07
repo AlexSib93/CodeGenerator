@@ -19,6 +19,8 @@ namespace CodeGenerator.Metadata
         public int DevServerPort { get; set; } = 3000;
         public List<ModelMetadata> Models { get; set; } = new List<ModelMetadata>();
         public List<FormMetadata> Forms { get; set; } = new List<FormMetadata>();
+        public List<EnumMetadata> EnumTypes { get; set; } = new List<EnumMetadata> { };
+
         public ModelMetadata GetType(string typeName)
         {
             ModelMetadata res = Models.FirstOrDefault(m => m.Name == typeName);

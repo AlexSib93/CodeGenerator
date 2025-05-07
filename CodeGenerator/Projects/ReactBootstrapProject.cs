@@ -20,6 +20,11 @@ namespace CodeGenerator.Projects
                 Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\src\\models", "ts"));
                 Items.Add(new ProjectItem(this, new TsApiClass(classMeta), $"{classMeta.Name}Service", $"{Metadata.Path}\\{Name}\\src\\services", "ts"));
             }
+                        
+            foreach (EnumMetadata enumMeta in Metadata.EnumTypes)
+            {
+                Items.Add(new ProjectItem(this, new TsEnum(enumMeta), enumMeta.Name, $"{Metadata.Path}\\{Name}\\src\\enums", "ts"));
+            }
 
             foreach (FormMetadata formMeta in Metadata.Forms)
             {

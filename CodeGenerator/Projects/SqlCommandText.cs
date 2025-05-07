@@ -130,7 +130,7 @@ namespace CodeGenerator.Projects
         private static object GetSqlType(PropMetadata prop)
         {
             string res = prop.Type;
-            if(prop.IsVirtual)
+            if(prop.IsVirtual || prop.IsEnum)
             {
                 //TODO: выйти на ключевое свойства
                 res = "INT";
