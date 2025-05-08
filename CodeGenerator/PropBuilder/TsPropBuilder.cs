@@ -1,9 +1,13 @@
 ﻿using CodeGenerator.Metadata;
+using Microsoft.VisualBasic.FileIO;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace CodeGenerator
 {
@@ -127,7 +131,7 @@ namespace CodeGenerator
         }
 
         //todo: переделать всё на component.ModelPropMetadata
-        public static string GetTsComponent(ComponentMetadata component, string addstring = "")
+        public static string GetTsComponent(ComponentMetadata component, string addstring = "", ProjectMetadata proj = null)
         {
             string res = "";
             switch (component.Type)
@@ -183,7 +187,8 @@ namespace CodeGenerator
       </div>";
                     break;
                 case "Grid":
-                    string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}, Type: '{p.Type}'}}")); ;
+                    string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable)
+                        .Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}{((p.IsEnum) ? $", Type: 'Set', ToString: {StringHelper.ToLowerFirstChar(p.Type)}ToString, Values: {StringHelper.ToLowerFirstChar(p.Type)}Array " : $", Type: '{p.Type}'")}}}")); ;
                     res = $@"      <div className=""m-3 card"">    
         <div className=""card-body""> 
             <div className=""card-title"">
@@ -212,6 +217,23 @@ namespace CodeGenerator
         <label className=""form-label"" htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
         <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}""  value={{editedItem.id{component.ModelPropMetadata.Name}}}  onChange={{(e) =>  handleSelectChange(e, (id:number) => lookUpItems{component.ModelPropMetadata.Type}.find(p => p.id{component.ModelPropMetadata.Type} === id))}}>
             {{selectLookUpItems{component.ModelPropMetadata.Type}}}
+        </select>
+      </div> 
+";
+                    break;
+                case "EnumLookUp":
+                    string options = "";
+                    if(proj != null)
+                    {
+                        EnumMetadata enumMetadata = proj.GetEnumType(component.ModelPropMetadata.Type);
+                        options = string.Join(",\n", enumMetadata.Values.Select(v => $@"         <option  key={{{component.ModelPropMetadata.Type}.{v.Name}}} value={{{component.ModelPropMetadata.Type}.{v.Name}}}> {v.Caption} </option>"));
+                    }
+                    res = $@"
+      <div className=""m-3"">   
+        <label className=""form-label"" htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
+        <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}""  value={{editedItem.{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}}}  onChange={{handleEnumSelectChange}}>
+            <option  key={{{component.ModelPropMetadata.Type}.Unknown}} value={{{component.ModelPropMetadata.Type}.Unknown}}> Unknown </option>            
+{options}
         </select>
       </div> 
 ";

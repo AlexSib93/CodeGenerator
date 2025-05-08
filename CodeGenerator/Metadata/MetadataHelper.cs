@@ -24,7 +24,7 @@ namespace CodeGenerator.Metadata
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var propForComponent in mM.Props)
             {
-                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual)
+                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual && !propForComponent.IsEnum)
                 {
                     components.Add(new ComponentMetadata()
                     {
@@ -90,6 +90,19 @@ namespace CodeGenerator.Metadata
                         Caption = propForComponent.Caption,
                         Type = ComponentTypeEnum.LookUp.ToString(),
                         Props = new List<PropMetadata>() { new PropMetadata { Name = string.Join(" + ' ' + ",props.Where(p => !p.IsPrimaryKey).Select(p => "i." + StringHelper.ToLowerFirstChar(p.Name))) } },
+                        ModelPropMetadata = propForComponent
+
+                    });
+
+                }
+
+                if (propForComponent.IsEnum)
+                {
+                    components.Add(new ComponentMetadata()
+                    {
+                        Name = propForComponent.Name,
+                        Caption = propForComponent.Caption,
+                        Type = ComponentTypeEnum.EnumLookUp.ToString(),
                         ModelPropMetadata = propForComponent
 
                     });

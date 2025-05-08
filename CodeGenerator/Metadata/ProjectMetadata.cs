@@ -27,5 +27,12 @@ namespace CodeGenerator.Metadata
 
             return res;
         }
+
+        public EnumMetadata GetEnumType(string typeName)
+        {
+            EnumMetadata res = EnumTypes.FirstOrDefault(m => m.Name == typeName);
+
+            return res;
+        }
     }
 }

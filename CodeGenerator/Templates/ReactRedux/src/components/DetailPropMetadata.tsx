@@ -4,4 +4,6 @@ export interface DetailPropMetadata {
     Type?: string;
     Caption: string;
     Visible?: boolean;
+    ToString?: (item: any) => string;
+    Values?:any[];
 }

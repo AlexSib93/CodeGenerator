@@ -1,9 +1,8 @@
 import { AgGridReact } from "ag-grid-react";
 import { DetailPropMetadata } from "./DetailPropMetadata";
-import { FormEvent } from "react";
 import { ColDef, ColGroupDef } from "ag-grid-community/dist/types/src/entities/colDef";
 import { ExcelStyle } from "ag-grid-community";
-
+import EnumFilter from "./EnumFilter";
 
 export interface IGridProps {
     items: any[],
@@ -18,9 +17,7 @@ export const Grid = (props: IGridProps) => {
     let { items, onAdd, onEdit, onDelete, enableFilters } = props;
 
     const columnTypes = {
-        // date: {
-        //     valueFormatter: p => new Date(p).toLocaleDateString()
-        // },
+        // date: {valueFormatter: p => new Date(p).toLocaleDateString()},
     };
 
     const getDefs = (props: DetailPropMetadata[], enableFilters?: boolean): (ColDef | ColGroupDef)[] | null => {
@@ -35,23 +32,13 @@ export const Grid = (props: IGridProps) => {
                 filterParams: getFilterParams(p.Type),
                 cellClass: p.Type === "DateTime" ? 'dateISO' : ''
             };
-    
+
             // Добавляем форматирование в зависимости от типа данных
             switch (p.Type) {
                 case "DateTime":
                     return {
                         ...baseColDef,
-                        valueFormatter: params => {
-                            if (!params.value) return '';
-                            try {
-                                const date = new Date(params.value);
-                                return isNaN(date.getTime()) 
-                                    ? params.value 
-                                    : date.toLocaleDateString('ru-RU');
-                            } catch {
-                                return params.value;
-                            }
-                        },
+                        valueFormatter: dateTimeValueFormatter,
                         filter: 'agDateColumnFilter',
                         filterParams: {
                             comparator: (filterLocalDate: Date, cellValue: string) => {
@@ -60,7 +47,7 @@ export const Grid = (props: IGridProps) => {
                             }
                         }
                     };
-    
+
                 case "Integer":
                 case "Decimal":
                 case "Double":
@@ -72,7 +59,17 @@ export const Grid = (props: IGridProps) => {
                         },
                         filter: 'agNumberColumnFilter'
                     };
-    
+
+                case "Set":
+                    return {
+                        ...baseColDef,
+                        filter: EnumFilter,
+                        filterParams: {
+                            values: p.Values,
+                        },
+                        width: 150,
+                        valueFormatter: (pp) => enumValueFormatter(pp, p.ToString )
+                    };
                 case "String":
                 default:
                     return {
@@ -83,6 +80,7 @@ export const Grid = (props: IGridProps) => {
             }
         });
     };
+    
     const excelStyles: ExcelStyle[] = [
         {
             id: 'dateISO',
@@ -164,8 +162,8 @@ export const Grid = (props: IGridProps) => {
 
     const CustomButtonComponent = (props) => {
         return ((onEdit) || (onDelete)) && <div className="btn-group" aria-label="Операции">
-            {onEdit && <button className="btn btn-warning" type='button'  onClick={() => onEdit( props.data)} >Изменить</button>}
-            {onDelete && <button className="btn btn-danger" type='button'  onClick={() => onDelete( props.data)} >Удалить</button>}
+            {onEdit && <button className="btn btn-warning" type='button' onClick={() => onEdit(props.data)} >Изменить</button>}
+            {onDelete && <button className="btn btn-danger" type='button' onClick={() => onDelete(props.data)} >Удалить</button>}
         </div>
     }
 
@@ -185,3 +183,26 @@ export const Grid = (props: IGridProps) => {
         {onAdd && <button className="w-100 btn btn-success" onClick={onAdd} >Добавить</button>}
     </div>;
 }
+
+const dateTimeValueFormatter = params => {
+    if (!params.value) return '';
+    try {
+        const date = new Date(params.value);
+        return isNaN(date.getTime())
+            ? params.value
+            : date.toLocaleDateString('ru-RU');
+    } catch {
+        return params.value;
+    }
+};
+
+const enumValueFormatter = (params, enumToStringFunc: (t: any)=>string) => {
+    if (!params.value) return '';
+
+    try {
+        const valueString = enumToStringFunc(params.value);
+        return valueString;
+    } catch {
+        return params.value;
+    }
+};

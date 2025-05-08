@@ -48,8 +48,21 @@ import {t}EditForm from './{t}EditForm';"));
                     masterTypes.Add(detailMetadata.Name);
                 };
             }
+
+
+            List<string> enumTypes = new List<string>();
+            foreach (ComponentMetadata enumLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.EnumLookUp.ToString()))
+            {
+                EnumMetadata enumMetadata = ProjectMetadata.GetEnumType(enumLookUp.ModelPropMetadata.Type);
+                if (!enumTypes.Contains(enumMetadata.Name))
+                {
+                    enumTypes.Add(enumMetadata.Name);
+                };
+            }
+
             res += Environment.NewLine + string.Join(Environment.NewLine, masterTypes.Except(detailTypes).Select(t => $@"import {{{t},init{t}}} from '../models/{t}';"));
             res += Environment.NewLine + string.Join(Environment.NewLine, masterTypes.Select(t => $@"import {t}Service from ""../services/{t}Service"";"));
+            res += Environment.NewLine + string.Join(Environment.NewLine, enumTypes.Select(t => $@"import {{{t}}} from ""../enums/{t}"";"));
 
             return res;
         }
@@ -107,6 +120,11 @@ const toUpperFirstChar = str => {{
     setEditedItem({{ ...editedItem, [""id"" + toUpperFirstChar(name)]: Number(value), [name]: getItemFunc(Number(value)) }});
   }};
 
+
+  const handleEnumSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {{
+    const {{ name, value }} = e.target;
+    setEditedItem({{ ...editedItem, [name]: Number(value) }});
+  }};
 
    const handleSubmit = (e: FormEvent) => {{
      e.preventDefault();
@@ -224,7 +242,7 @@ const toUpperFirstChar = str => {{
                 } 
                 else
                 {
-                    strings.Add(TsPropBuilder.GetTsComponent(component));
+                    strings.Add(TsPropBuilder.GetTsComponent(component, "", ProjectMetadata));
                 }
                 
             }

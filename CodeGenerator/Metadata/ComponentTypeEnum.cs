@@ -19,6 +19,7 @@ namespace CodeGenerator.Metadata
         SubmitButton = 6,
         SaveButton = 7,
         LookUp = 8,
-        Grid = 9
+        Grid = 9,
+        EnumLookUp = 10
     }
 }

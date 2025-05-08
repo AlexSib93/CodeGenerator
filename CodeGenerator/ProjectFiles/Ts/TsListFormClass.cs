@@ -147,8 +147,24 @@ import {FormInfo.Model.Name}Service from ""../services/{FormInfo.Model.Name}Serv
 import {{ Table }} from ""../components/Table"";
 import {{Grid}} from '../components/Grid';
 import {{ setLoading, showErrorSnackbar, showSuccessSnackbar }} from ""../state/ui-state"";
-import {{ ContextApp }} from ""../state/state"";
+import {{ ContextApp }} from ""../state/state"";{ImportEnumTypes()}
 {(EditForm != null ? $@"import {EditForm.Name} from ""./{EditForm.Name}"";" : "")}";
+
+        private string ImportEnumTypes()
+        {
+            var enumLookUpTypes = FormInfo.Components
+                .Where(c => c.Type == ComponentTypeEnum.Grid.ToString())
+                .SelectMany(c => c.Props.Where(p => p.IsEnum))
+                .Select(p => p.Type)
+                .Distinct();
+
+            string res = string.Join(Environment.NewLine, enumLookUpTypes.Select(t => $"import {{ {StringHelper.ToLowerFirstChar(t)}Array, {StringHelper.ToLowerFirstChar(t)}ToString }} from \"../enums/{t}\";"));
+
+            if (!string.IsNullOrEmpty(res))
+                res = Environment.NewLine + res;
+
+            return res;
+        }
 
         public string Footer => $@"";
 

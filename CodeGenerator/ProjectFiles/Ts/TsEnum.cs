@@ -16,7 +16,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         }
         public string Gen()
         {
-            return $@"{Header}{Environment.NewLine}{Body}";
+            return $@"{Header}{Body}";
         }
 
         public string Header => $@"";
@@ -27,7 +27,44 @@ namespace CodeGenerator.ProjectFiles.Ts
 {GetEnumItemsText()}
 }}
 
+export const {StringHelper.ToLowerFirstChar(EnumMetadata.Name)}ToString = (value: {EnumMetadata.Name}): string => {{
+    let res: string = '';
+
+    switch (value) {{{GetValues()}
+
+        default:
+            break;
+    }}
+
+    return res;
+}}
+
+export const {StringHelper.ToLowerFirstChar(EnumMetadata.Name)}Array: string[] = [{ValuesArray()}];
+
 export const init{EnumMetadata.Name} = {EnumMetadata.Name}.Unknown";
+
+        private string ValuesArray()
+        {
+            string res = string.Join(", ", EnumMetadata.Values.Select(v => $@"""{v.Caption}""")) ;
+
+
+            return res;
+        }
+
+        private string GetValues()
+        {
+            string res = "";
+
+            foreach (EnumValueMetadata val in EnumMetadata.Values)
+            {
+                res += Environment.NewLine + $@"                case {EnumMetadata.Name}.{val.Name}:
+                    res = ""{val.Caption}"";
+                    break;";
+
+            }
+
+            return res;
+        }
 
         private string GetEnumItemsText()
         {
