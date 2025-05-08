@@ -68,7 +68,7 @@ export const init{EnumMetadata.Name} = {EnumMetadata.Name}.Unknown";
 
         private string GetEnumItemsText()
         {
-            string res = string.Join(",\n", EnumMetadata.Values.Select(v => $@"    {v.Name} = {v.Id}"));
+            string res = string.Join(",\n", EnumMetadata.Values.Select(v => $@"    {v.Name} = {v.IdEnumValueMetadata}"));
 
             return res;
         }

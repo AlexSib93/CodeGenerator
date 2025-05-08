@@ -4,6 +4,6 @@
     {
         public string Name { get; set; }
         public string Caption { get; set; }
-        public int Id { get; set; }
+        public int IdEnumValueMetadata { get; set; }
     }
 }

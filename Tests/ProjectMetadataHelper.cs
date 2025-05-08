@@ -75,8 +75,11 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Path", Caption = "Путь", Type = "string"},
                 new PropMetadata() { Name = "DbConnectionString", Caption = "Строка подключения к БД", Type = "string"},
                 new PropMetadata() { Name = "UnitOfWork", Caption = "Объект работы с БД (MockUnit или EfUnit )", Type = "string"},
+                new PropMetadata() { Name = "WebApiHttpsPort", Caption = "Порт для запуска WebApi", Type = "int"},
+                new PropMetadata() { Name = "DevServerPort", Caption = "Порт для запуска WebPackDevServer", Type = "int"},
                 new PropMetadata { Name = "Models", Caption = "Модели", Type = "ICollection<ModelMetadata>", IsVirtual = true},
-                new PropMetadata { Name = "Forms", Caption = "Формы", Type = "ICollection<FormMetadata>", IsVirtual = true}
+                new PropMetadata { Name = "Forms", Caption = "Формы", Type = "ICollection<FormMetadata>", IsVirtual = true},
+                new PropMetadata { Name = "EnumTypes", Caption = "Типы-перечисления", Type = "ICollection<EnumMetadata>", IsVirtual = true}
             }
         };
         ModelMetadata formMetadata = new ModelMetadata()
@@ -108,6 +111,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string" },
                 new PropMetadata() { Name = "ModelMetadata", Caption="Модель", Type = "ModelMetadata", IsVirtual = true  },
                 new PropMetadata() { Name = "IsPrimaryKey", Caption="Первичный ключ", Type = "bool" },
+                new PropMetadata() { Name = "IsEnum", Caption="Свойство перечисления", Type = "bool" },
                 new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool" },
                 new PropMetadata() { Name = "Visible", Caption="Отображать свойство в интерфейсе", Type = "bool" },
                 new PropMetadata() { Name = "Editable", Caption="Доступ к редактированию поля", Type = "bool" },
@@ -135,76 +139,44 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FormMetadata", Caption = "Форма", Type = "FormMetadata", IsVirtual = true}
             }
         };
+        ModelMetadata enumMetadata = new ModelMetadata()
+        {
+            Name = "EnumMetadata",
+            Caption = "Тип-перечисление",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdEnumMetadata", Caption = "ID типа-перечисления", Type = "int", IsPrimaryKey = true, Visible = false },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string" },
+                new PropMetadata() { Name = "Values", Caption="Значения типа-перечисления", Type = "ICollection<EnumValueMetadata>", IsVirtual = true  },
+                new PropMetadata() { Name = "ProjectMetadata", Caption = "Проект", Type = "ProjectMetadata", IsVirtual = true}
+            }
+        };
 
+        ModelMetadata enumValueMetadata = new ModelMetadata()
+        {
+            Name = "EnumValueMetadata",
+            Caption = "Значение типа-перечисления",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdEnumValueMetadata", Caption = "ID значения типа-перечисления", Type = "int", IsPrimaryKey = true, Visible = false },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string" },
+                new PropMetadata() { Name = "EnumMetadata", Caption = "Тип-перечисление", Type = "EnumMetadata", IsVirtual = true}
+
+            }
+        };
         metadata.Models = new List<ModelMetadata> {
             modelMetadata,
             projectMetadata,
             formMetadata,
             propMetadata,
-            componentMetadata
+            componentMetadata,
+            enumMetadata,
+            enumValueMetadata
         };
 
         metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
-        //metadata.Forms =  new List<FormMetadata>
-        //    {
-        //        new FormMetadata()
-        //        {
-        //            Name = "Projects",
-        //            Caption = "Проекты",
-        //            Model = modelMetadata2,
-        //            AddToNavBar = true,
-        //            Components = new ComponentMetadata[] {
-        //                new ComponentMetadata() { Name = "Projects", Caption = "Проекты", Type = "Table", Props = modelMetadata2.Props }
-        //            }
-        //        },
-        //        new FormMetadata()
-        //        {
-        //            Name = "Models",
-        //            Caption = "Модели",
-        //            Model = modelMetadata1,
-        //            AddToNavBar = true,
-        //            Components = new ComponentMetadata[] {
-        //                new ComponentMetadata() { Name = "Models", Caption = "Модели", Type = "Table", Props = modelMetadata1.Props }
-        //            },
-        //            EditForm = new FormMetadata()
-        //            {
-        //                Name = "Model",
-        //                Caption = "Модель",
-        //                Model = modelMetadata1,
-        //                Components = new ComponentMetadata[] {
-        //                    new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "NameSpace", Caption = "Пространство имен", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "Props", Caption = "Свойства", Type = "Table", Props = modelMetadata4.Props },
-        //                    new ComponentMetadata() { Type = "SubmitButton" }
-        //                }
-        //            }
-        //        },
-        //        new FormMetadata()
-        //        {
-        //            Name = "Forms",
-        //            Caption = "Формы",
-        //            Model = modelMetadata3,
-        //            AddToNavBar = true,
-        //            Components = new ComponentMetadata[] {
-        //                new ComponentMetadata() { Name = "Forms", Caption = "Формы", Type = "Table", Props = modelMetadata3.Props }
-        //            },
-        //            EditForm = new FormMetadata()
-        //            {
-        //                Name = "Form",
-        //                Caption = "Форма",
-        //                Model = modelMetadata3,
-        //                Components = new ComponentMetadata[] {
-        //                    new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "Caption", Caption = "Отображаемое имя", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "Description", Caption = "Описание", Type = "Input" },
-        //                    new ComponentMetadata() { Name = "AddToNavBar", Caption = "Добавить в панель навигации", Type = "CheckBox" },
-        //                    new ComponentMetadata() { Type = "SubmitButton"  }
-        //                }
-        //            }
-        //        }
-        //    };
-
 
         return metadata;
     }
@@ -731,12 +703,12 @@ public static class ProjectMetadataHelper
             Values = new List<EnumValueMetadata>()
             {
                 new EnumValueMetadata() {
-                    Id = 1,
+                    IdEnumValueMetadata = 1,
                     Name = "CostPrice",
                     Caption = "Себестоимость"
                 },
                 new EnumValueMetadata() {
-                    Id = 2,
+                    IdEnumValueMetadata = 2,
                     Name = "Earnings",
                     Caption = "Выручка"
                 }
@@ -750,12 +722,12 @@ public static class ProjectMetadataHelper
             Values = new List<EnumValueMetadata>()
             {
                 new EnumValueMetadata() {
-                    Id = 1,
+                    IdEnumValueMetadata = 1,
                     Name = "Overwriting",
                     Caption = "Перезапись"
                 },
                 new EnumValueMetadata() {
-                    Id = 2,
+                    IdEnumValueMetadata = 2,
                     Name = "ManualInput",
                     Caption = "Ручной ввод"
                 }

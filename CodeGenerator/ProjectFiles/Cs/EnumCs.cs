@@ -39,7 +39,7 @@ namespace CodeGenerator.ProjectFiles.Cs
             string res = string.Join(",\n", EnumMetadata.Values.Select(v => $@"        /// <summary>
         /// {v.Caption}
         /// </summary>
-        {v.Name} = {v.Id}"));
+        {v.Name} = {v.IdEnumValueMetadata}"));
 
             return res;
         }
