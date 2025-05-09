@@ -80,8 +80,12 @@ namespace CodeGenerator.Classes
 
             content = ReplaceContent(content, "TemplateProjectNamespace", "ProjectNamespace");
 
-            if (ProjectMetadata != null && !string.IsNullOrEmpty(ProjectMetadata.Caption))
+            if (!string.IsNullOrEmpty(ProjectMetadata.Caption))
                 content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Caption);
+            else
+            {
+                content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Name);
+            }
 
             content = ReplaceContent(content, "TemplateProjectWebApiPort", ProjectMetadata.WebApiHttpsPort.ToString());
 
