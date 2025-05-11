@@ -1,28 +1,24 @@
-﻿using CodeGenerator.Interfaces;
+﻿using CodeGenerator.Enum;
+using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
-using CodeGenerator.ProjectFiles.Cs;
-using CodeGenerator.ProjectFiles.Sql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace CodeGenerator.Projects
+namespace CodeGenerator.ProjectFiles.Sql
 {
-    public class SqlCommandText : Project, IProject
+    public class CreateDataBaseScript: IGenerator
     {
-        public SqlCommandText(ProjectMetadata projectMetadata) : base(projectMetadata)
+        public ProjectMetadata Project { get; set; }
+        public CreateDataBaseScript(ProjectMetadata project)
         {
-            Name = "SqlCommand";
-            string projectPath = $@"{projectMetadata.Path}\{Name}";
+            Project = project;
+        }
+
+        public string Gen()
+        {
             string code = "";
 
-            List<ModelMetadata> sortedByDependencyModels = SortModelsByDependency(projectMetadata.Models);
+            List<ModelMetadata> sortedByDependencyModels = SortModelsByDependency(Project.Models);
             List<ModelMetadata> descSortedByDependencyModels = new List<ModelMetadata>();
-            descSortedByDependencyModels.AddRange( sortedByDependencyModels);
+            descSortedByDependencyModels.AddRange(sortedByDependencyModels);
             descSortedByDependencyModels.Reverse();
 
             foreach (ModelMetadata model in descSortedByDependencyModels)
@@ -42,8 +38,10 @@ namespace CodeGenerator.Projects
 
                 }
             }
-            Items.Add(new ProjectItem(this, new SqlClass(code), "Create Data Base", $"{projectPath}", "sql"));
+
+            return code;
         }
+
 
         private List<ModelMetadata> SortModelsByDependency(List<ModelMetadata> models)
         {
@@ -55,8 +53,8 @@ namespace CodeGenerator.Projects
             {
                 foreach (ModelMetadata model in otherModels)
                 {
-                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && !p.IsEnumerable && p.Type != model.Name);
-                    if (!virtualFields.Any(p => !res.Any(m=> m.Name == p.Type)))
+                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && p.PropType != PropTypeEnum.Enum && !p.IsEnumerable && p.Type != model.Name);
+                    if (!virtualFields.Any(p => !res.Any(m => m.Name == p.Type)))
                     {
                         res.Add(model);
                     }
@@ -72,23 +70,13 @@ namespace CodeGenerator.Projects
         {
             string sqlCommand = $"CREATE TABLE {name} " +
                         $"\n(";
-            foreach (PropMetadata pM in propMD.Where(p=>!p.IsEnumerable))
+            foreach (PropMetadata pM in propMD.Where(p => !p.IsEnumerable))
             {
-                sqlCommand += $"\n  [{((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)}] {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {GetNullOrNotNull(pM.Type)},";
+                sqlCommand += $"\n  [{((pM.IsVirtual) ? "Id" + pM.Name : pM.Name)}] {GetSqlType(pM)} {GetPrimatyKey(pM.IsPrimaryKey)} {GetForeignKey(pM)} {((pM.IsNullable) ? "NULL" : "NOT NULL")},";
             }
             sqlCommand = sqlCommand.TrimEnd(',') + "\n)";
 
             return sqlCommand;
-        }
-
-        private static string GetNullOrNotNull(string type)
-        {
-            string res = "";
-            if (!type.Contains("?"))
-            {
-                res = "NOT NULL";
-            }
-            return res;
         }
 
         private static string GetPrimatyKey(bool primaryKey)
@@ -113,11 +101,11 @@ namespace CodeGenerator.Projects
             string res = "";
             if (pM.IsVirtual)
             {
-                ModelMetadata type = Metadata.Models.FirstOrDefault(m => m.Name == pM.Type);
-                if(type != null)
+                ModelMetadata type = Project.GetType( pM.Type);
+                if (type != null)
                 {
                     PropMetadata pkPropReferenced = type.Props.FirstOrDefault(p => p.IsPrimaryKey);
-                    if(pkPropReferenced != null)
+                    if (pkPropReferenced != null)
                     {
                         res = $"REFERENCES {pM.Type} ({pkPropReferenced.Name})";
                     }
@@ -130,7 +118,7 @@ namespace CodeGenerator.Projects
         private static object GetSqlType(PropMetadata prop)
         {
             string res = prop.Type;
-            if(prop.IsVirtual || prop.IsEnum)
+            if (prop.IsVirtual)
             {
                 //TODO: выйти на ключевое свойства
                 res = "INT";
@@ -139,12 +127,16 @@ namespace CodeGenerator.Projects
             {
                 if (prop.IsEnumerable)
                 {
-                    string classOfArray = prop.Type.Substring(prop.Type.IndexOf("<") + 1, prop.Type.IndexOf(">") - prop.Type.IndexOf("<") - 1);
+                    string classOfArray = prop.TypeOfEnumerable;
                     res = "none"; // Вопрос с классами, в sql фиг сделаешь
                 }
                 else
                 {
-                    switch (prop.Type)
+                    string type = (prop.IsNullable)
+                        ? prop.TypeOfNullable
+                        : prop.Type;
+
+                    switch (type)
                     {
                         case "decimal":
                             res = "DECIMAL";
@@ -172,7 +164,7 @@ namespace CodeGenerator.Projects
                     }
                 }
             }
-            
+
 
             return res;
         }

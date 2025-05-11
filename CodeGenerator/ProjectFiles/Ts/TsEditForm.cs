@@ -1,4 +1,5 @@
-﻿using CodeGenerator.Interfaces;
+﻿using CodeGenerator.Enum;
+using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
 
 namespace CodeGenerator.ProjectFiles.Ts

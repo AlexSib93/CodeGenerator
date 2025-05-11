@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeGenerator.Enum;
 
 namespace CodeGenerator.Metadata
 {
@@ -24,23 +20,23 @@ namespace CodeGenerator.Metadata
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var propForComponent in mM.Props)
             {
-                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual && !propForComponent.IsEnum)
+                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual)
                 {
                     components.Add(new ComponentMetadata()
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = propForComponent.Type == "DateTime"
+                        Type = propForComponent.TypeOfNullable == "DateTime"
                             ? "DateTime"
-                            : ((propForComponent.Type == "int" || propForComponent.Type == "decimal")
+                            : ((propForComponent.TypeOfNullable == "int" || propForComponent.TypeOfNullable == "decimal")
                                 ? "NumericUpDown"
-                                : ((propForComponent.Type == "bool")
+                                : ((propForComponent.TypeOfNullable == "bool")
                                     ? "CheckBox"
                                     : "Input"))
                     });
                 }
 
-                if (propForComponent.IsDetailsProp)
+                if (propForComponent.PropType == PropTypeEnum.Detail)
                 {
                     var type = propForComponent.TypeOfEnumerable;
                     var modelOfDetail = pM.Models.FirstOrDefault(m => m.Name == type);
@@ -80,7 +76,7 @@ namespace CodeGenerator.Metadata
 
                 }
 
-                if (propForComponent.IsDictValueProp)
+                if (propForComponent.PropType == PropTypeEnum.DictValue)
                 {
                     var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.Type);
                     List<PropMetadata> props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList();
@@ -96,7 +92,7 @@ namespace CodeGenerator.Metadata
 
                 }
 
-                if (propForComponent.IsEnum)
+                if (propForComponent.PropType == PropTypeEnum.Enum)
                 {
                     components.Add(new ComponentMetadata()
                     {

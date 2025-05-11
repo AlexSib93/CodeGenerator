@@ -1,4 +1,5 @@
-﻿using CodeGenerator.Metadata;
+﻿using CodeGenerator.Enum;
+using CodeGenerator.Metadata;
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json.Linq;
 using System;
@@ -18,14 +19,14 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                if (propInfo.IsMasterProp || propInfo.IsDictValueProp)
+                if (propInfo.PropType == PropTypeEnum.Master || propInfo.PropType == PropTypeEnum.DictValue)
                 {
                     res += $"  id{propInfo.Name}:number;\n";
                     res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}?:{GetTsType(propInfo)};\n";
                 }
                 else
                 {
-                    res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}:{GetTsType(propInfo)};\n";
+                    res += $"  {StringHelper.ToLowerFirstChar(propInfo.Name)}{((propInfo.IsNullable) ? "?" : "")}:{GetTsType(propInfo)};\n";
                 }
 
 
@@ -39,11 +40,11 @@ namespace CodeGenerator
             string res = "";
             foreach (PropMetadata propInfo in classInfo.Props)
             {
-                if (propInfo.IsMasterProp || propInfo.IsDictValueProp)
+                if (propInfo.PropType == PropTypeEnum.Master || propInfo.PropType == PropTypeEnum.DictValue)
                 {
                     res += $"  id{propInfo.Name}: 0,\n";
                 }
-                else
+                else if (!propInfo.IsNullable)
                 {
                     res += $"{GetInitPropText(propInfo)}\n";
                 }
@@ -57,7 +58,7 @@ namespace CodeGenerator
         {
             string res = "";
 
-            var referencedTypes = modelMetadata.Props.Where(p => p.IsEnumerable && p.TypeOfEnumerable != modelMetadata.Name || p.IsVirtual && p.Type != modelMetadata.Name || p.IsEnum);
+            var referencedTypes = modelMetadata.Props.Where(p => p.IsEnumerable && p.TypeOfEnumerable != modelMetadata.Name || p.IsVirtual && p.Type != modelMetadata.Name || p.PropType == PropTypeEnum.Enum);
 
             var existedImport = new List<string>();
             foreach (PropMetadata prop in referencedTypes)
@@ -70,19 +71,13 @@ namespace CodeGenerator
                         existedImport.Add(prop.TypeOfEnumerable);
                     }
                 }
-                else if(prop.IsVirtual)
+                else if (prop.IsVirtual)
                 {
                     if (!existedImport.Contains(prop.Type))
                     {
-                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
-                        existedImport.Add(prop.Type);
-                    }
-                }
-                else if (prop.IsEnum)
-                {
-                    if (!existedImport.Contains(prop.Type))
-                    {
-                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"../enums/{prop.Type}\";" + Environment.NewLine;
+                        res += (prop.PropType == PropTypeEnum.Enum)
+                            ? $"import {{ {prop.Type}, init{prop.Type} }} from \"../enums/{prop.Type}\";" + Environment.NewLine
+                            : $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
                         existedImport.Add(prop.Type);
                     }
                 }
@@ -100,21 +95,18 @@ namespace CodeGenerator
 
         private static object GetTsType(PropMetadata type)
         {
-            string res = type.Type;
+            string res = type.TypeOfNullable;
             if(type.IsEnumerable)
             {
                 res = $@"{type.TypeOfEnumerable}[]";
             }
             else
             {
-                switch (type.Type)
+                switch (type.TypeOfNullable)
                 {
                     case "decimal":
                     case "int":
                         res = "number";
-                        break;
-                    case "int?":
-                        res = "number | null";
                         break;
                     case "DateTime":
                         res = "Date";
@@ -188,7 +180,7 @@ namespace CodeGenerator
                     break;
                 case "Grid":
                     string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable)
-                        .Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}{((p.IsEnum) ? $", Type: 'Set', ToString: {StringHelper.ToLowerFirstChar(p.Type)}ToString, Values: {StringHelper.ToLowerFirstChar(p.Type)}Array " : $", Type: '{p.Type}'")}}}")); ;
+                        .Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}{((p.PropType == PropTypeEnum.Enum) ? $", Type: 'Set', ToString: {StringHelper.ToLowerFirstChar(p.Type)}ToString, Values: {StringHelper.ToLowerFirstChar(p.Type)}Array " : $", Type: '{p.TypeOfNullable}'")}}}")); ;
                     res = $@"      <div className=""m-3 card"">    
         <div className=""card-body""> 
             <div className=""card-title"">
@@ -285,9 +277,6 @@ namespace CodeGenerator
                         break;
                     case "decimal":
                         res = "0";
-                        break;
-                    case "int?":
-                        res = "null";
                         break;
                     case "DateTime":
                         res = "new Date()";

@@ -1,11 +1,6 @@
-﻿using CodeGenerator.Interfaces;
+﻿using CodeGenerator.Enum;
+using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Ts
 {
@@ -154,7 +149,7 @@ import {{ ContextApp }} from ""../state/state"";{ImportEnumTypes()}
         {
             var enumLookUpTypes = FormInfo.Components
                 .Where(c => c.Type == ComponentTypeEnum.Grid.ToString())
-                .SelectMany(c => c.Props.Where(p => p.IsEnum))
+                .SelectMany(c => c.Props.Where(p => p.PropType == PropTypeEnum.Enum))
                 .Select(p => p.Type)
                 .Distinct();
 

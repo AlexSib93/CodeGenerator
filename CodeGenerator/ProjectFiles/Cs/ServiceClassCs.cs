@@ -1,10 +1,6 @@
-﻿using CodeGenerator.Interfaces;
+﻿using CodeGenerator.Enum;
+using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeGenerator.ProjectFiles.Cs
 {
@@ -51,7 +47,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetByMaster()
         {
             string param = ParamName + "s";
-            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Master);
 
             string includesString = (virtualProps.Any())
                 ? ", " + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))
@@ -103,7 +99,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private object ServiserForDetailsProps()
         {
             string res = ""; 
-            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Detail).ToList();
 
             string servisesProps = String.Join(Environment.NewLine, detailsProps.Select(p => $"         public I{p.TypeOfEnumerable}Service {p.TypeOfEnumerable}Service {{ get; set; }}"));
 
@@ -113,7 +109,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string GetConstructorText()
         {
-            List<PropMetadata> detailsProps =  ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+            List<PropMetadata> detailsProps =  ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Detail).ToList();
 
             string servisesConstructorProps = String.Join(", ", detailsProps.Select(p => $"I{p.TypeOfEnumerable}Service {StringHelper.ToLowerFirstChar(p.TypeOfEnumerable)}Service"));
             if (!string.IsNullOrEmpty(servisesConstructorProps))
@@ -131,7 +127,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private string InitDetaiilServicesProps()
         {
-            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Detail).ToList();
 
             string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"          {p.TypeOfEnumerable}Service = {StringHelper.ToLowerFirstChar(p.TypeOfEnumerable)}Service;"));
 
@@ -206,7 +202,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private object DetailsUpdateText(string param)
         {
-            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Detail).ToList();
 
             string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update( {param}.{p.Name});"));
 
@@ -215,7 +211,7 @@ namespace CodeGenerator.ProjectFiles.Cs
 
         private object DetailsUpdateText2(string param)
         {
-            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.IsDetailsProp).ToList();
+            List<PropMetadata> detailsProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Detail).ToList();
 
             string initPropsStrings = String.Join(Environment.NewLine, detailsProps.Select(p => $"              {p.TypeOfEnumerable}Service.Update( {param}.{ClassInfo.PrimaryKeyProp.Name}, {param}.{p.Name});"));
 
@@ -257,10 +253,10 @@ namespace CodeGenerator.ProjectFiles.Cs
             foreach (PropMetadata virtProp in virtualProps)
             {
                 includesPropsString.Add(virtProp.Name);
-                if (virtProp.IsDetailsProp)
+                if (virtProp.PropType == PropTypeEnum.Detail)
                 {
                     ModelMetadata virtType = Project.GetType(virtProp.TypeOfEnumerable);
-                    List<PropMetadata> virtPropsOfVirtProp = virtType.Props.Where(p => p.IsDictValueProp).ToList();
+                    List<PropMetadata> virtPropsOfVirtProp = virtType.Props.Where(p => p.PropType == PropTypeEnum.DictValue).ToList();
                     foreach (PropMetadata virtPropsOfVirtPropMetadata in virtPropsOfVirtProp)
                     {
                         includesPropsString.Add(virtProp.Name + "." + virtPropsOfVirtPropMetadata.Name);
@@ -300,7 +296,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetAllOperationText()
         {
             string param = ParamName + "s";
-            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsMasterProp);
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.PropType == PropTypeEnum.Master);
 
             string includesString = (virtualProps.Any())
                 ? "where," + string.Join(", ", virtualProps.Select(p => $"\"{p.Name}\""))

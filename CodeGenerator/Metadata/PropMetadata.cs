@@ -1,4 +1,6 @@
-﻿namespace CodeGenerator
+﻿using CodeGenerator.Enum;
+
+namespace CodeGenerator
 {
     public class PropMetadata
     { 
@@ -21,11 +23,7 @@
         /// <summary>
         /// Свойство внешней связи
         /// </summary>
-        public bool IsVirtual { get; set; }
-        /// <summary>
-        /// Свойство перечисления
-        /// </summary>
-        public bool IsEnum { get; set; } = false;
+        public bool IsVirtual => PropType != PropTypeEnum.Single;// && PropType != PropTypeEnum.EnumValue;
         /// <summary>
         /// Отображать свойство в интерфейсе
         /// </summary>
@@ -39,9 +37,10 @@
         /// </summary>
         public bool JsonIgnore { get; set; } = false;
         public bool IsEnumerable => Type!=null && ( Type.StartsWith("List") || Type.StartsWith("ICollection"));
-        public bool IsMasterProp => IsVirtual && !IsEnumerable && !IsDictValueProp;
-        public bool IsDetailsProp => IsVirtual && IsEnumerable;
-        public bool IsDictValueProp { get; set; } = false;
+        public bool IsNullable => Type.EndsWith("?");
         public string TypeOfEnumerable => IsEnumerable ? Type.Substring(Type.IndexOf("<") + 1, Type.IndexOf(">") - Type.IndexOf("<") - 1) : "";
+        public string TypeOfNullable => Type.TrimEnd('?');
+
+        public PropTypeEnum PropType { get; set; } = PropTypeEnum.Single;
     }
 }

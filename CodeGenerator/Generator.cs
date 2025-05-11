@@ -49,7 +49,7 @@ namespace CodeGenerator
                 }
                 if (Settings.GenSqlCommandProject)
                 {
-                    projectGenerators.Add(new SqlCommandText(projectMetadata));
+                    projectGenerators.Add(new SqlScriptsProject(projectMetadata));
                 }
                 if (Settings.GenReactProject)
                 {
