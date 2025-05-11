@@ -124,7 +124,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "IsNullable", Caption="Возможны пустые значения", Type = "bool", Editable = false, Expression = "Type.EndsWith(\"?\")" },
                 new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))" },
                 new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"" },
-                new PropMetadata() { Name = "TypeOfNullable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "Type.TrimEnd('?')" },
+                new PropMetadata() { Name = "TypeOfNullable", Caption="Тип Nullable", Type = "string", Editable = false, Expression = "Type.TrimEnd('?')" },
             }
         };
         ModelMetadata componentMetadata = new ModelMetadata()

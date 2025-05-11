@@ -20,7 +20,7 @@ namespace CodeGenerator.Metadata
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
             foreach (var propForComponent in mM.Props)
             {
-                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual)
+                if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual && propForComponent.PropType != PropTypeEnum.Enum)
                 {
                     components.Add(new ComponentMetadata()
                     {
