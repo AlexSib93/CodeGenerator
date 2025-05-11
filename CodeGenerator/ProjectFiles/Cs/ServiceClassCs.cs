@@ -233,7 +233,7 @@ namespace CodeGenerator.ProjectFiles.Cs
         private string GetOperationText()
         {
             string param = ClassInfo.Name.Substring(0, 1).ToLower();
-            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual);
+            IEnumerable<PropMetadata> virtualProps = ClassInfo.Props.Where(p => p.IsVirtual && p.PropType!=PropTypeEnum.Enum);
             string includesString = IncludesString(virtualProps);
             string res = $@"        public {ClassInfo.Name} Get(Expression<Func<{ClassInfo.Name}, bool>> where = null)
         {{

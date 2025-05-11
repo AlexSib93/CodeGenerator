@@ -119,7 +119,7 @@ namespace CodeGenerator.ProjectFiles.Ts
         private string GetComponentsText()
         {
             return (FormInfo.Components!= null)
-                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} "+((c.Type == ComponentTypeEnum.Grid.ToString()) ? " enableFilters={true}" : ""))))
+                ? string.Join(Environment.NewLine, FormInfo.Components.Select(c => TsPropBuilder.GetTsComponent(c, "items={items} onEdit={setItem} onDelete={handleDelete} onAdd={addItem} "+((c.TypeString == ComponentTypeEnum.Grid.ToString()) ? " enableFilters={true}" : ""))))
                 : "";
         }
         private string StateNotModelProps()
@@ -148,7 +148,7 @@ import {{ ContextApp }} from ""../state/state"";{ImportEnumTypes()}
         private string ImportEnumTypes()
         {
             var enumLookUpTypes = FormInfo.Components
-                .Where(c => c.Type == ComponentTypeEnum.Grid.ToString())
+                .Where(c => c.TypeString == ComponentTypeEnum.Grid.ToString())
                 .SelectMany(c => c.Props.Where(p => p.PropType == PropTypeEnum.Enum))
                 .Select(p => p.Type)
                 .Distinct();

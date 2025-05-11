@@ -1,5 +1,8 @@
 ﻿namespace CodeGenerator.Enum
 {
+    /// <summary>
+    /// Тип свойства модели
+    /// </summary>
     public enum PropTypeEnum
     {
         /// <summary>
@@ -21,6 +24,10 @@
         /// <summary>
         /// Свойство перечисления
         /// </summary>
-        Enum = 4
+        Enum = 4,
+        /// <summary>
+        /// Вычислимое свойство
+        /// </summary>
+        CalcValue = 5
     }
 }

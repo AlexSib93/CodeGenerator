@@ -26,7 +26,7 @@ namespace CodeGenerator.Metadata
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = propForComponent.TypeOfNullable == "DateTime"
+                        TypeString = propForComponent.TypeOfNullable == "DateTime"
                             ? "DateTime"
                             : ((propForComponent.TypeOfNullable == "int" || propForComponent.TypeOfNullable == "decimal")
                                 ? "NumericUpDown"
@@ -68,7 +68,7 @@ namespace CodeGenerator.Metadata
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = ComponentTypeEnum.Grid.ToString(),
+                        TypeString = ComponentTypeEnum.Grid.ToString(),
                         Props = datailPropsMetadatas,
                         ModelPropMetadata = propForComponent
 
@@ -84,7 +84,7 @@ namespace CodeGenerator.Metadata
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = ComponentTypeEnum.LookUp.ToString(),
+                        TypeString = ComponentTypeEnum.LookUp.ToString(),
                         Props = new List<PropMetadata>() { new PropMetadata { Name = string.Join(" + ' ' + ",props.Where(p => !p.IsPrimaryKey).Select(p => "i." + StringHelper.ToLowerFirstChar(p.Name))) } },
                         ModelPropMetadata = propForComponent
 
@@ -98,7 +98,7 @@ namespace CodeGenerator.Metadata
                     {
                         Name = propForComponent.Name,
                         Caption = propForComponent.Caption,
-                        Type = ComponentTypeEnum.EnumLookUp.ToString(),
+                        TypeString = ComponentTypeEnum.EnumLookUp.ToString(),
                         ModelPropMetadata = propForComponent
 
                     });
@@ -108,8 +108,8 @@ namespace CodeGenerator.Metadata
             }
             if (components.Count > 0)
             {
-                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.CancelButton.ToString() });
-                components.Add(new ComponentMetadata() { Type = ComponentTypeEnum.SaveButton.ToString() });
+                components.Add(new ComponentMetadata() { TypeString = ComponentTypeEnum.CancelButton.ToString() });
+                components.Add(new ComponentMetadata() { TypeString = ComponentTypeEnum.SaveButton.ToString() });
             }
             List <string> excludeNovBar = new List<string>() {
                 "Agreement", "Indicator", "Gpr", "Kc", "Payment", "CharacteristicObj"
@@ -126,7 +126,7 @@ namespace CodeGenerator.Metadata
                     {
                         Name = mM.Name,
                         Caption = mM.Caption,
-                        Type = ComponentTypeEnum.Grid.ToString(), //"Table"
+                        TypeString = ComponentTypeEnum.Grid.ToString(), //"Table"
                         Props = mM.Props.Where(x => !x.IsVirtual).ToList()
                     }
                 },

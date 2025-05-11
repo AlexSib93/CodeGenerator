@@ -3,6 +3,7 @@ using CodeGenerator.Enum;
 using CodeGenerator.Metadata;
 using CodeGenerator.Projects;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 public static class ProjectMetadataHelper
 {
@@ -75,7 +76,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Description", Caption = "Описание", Type = "string?" },
                 new PropMetadata() { Name = "Path", Caption = "Путь", Type = "string?"},
                 new PropMetadata() { Name = "DbConnectionString", Caption = "Строка подключения к БД", Type = "string?"},
-                new PropMetadata() { Name = "UnitOfWork", Caption = "Объект работы с БД (MockUnit или EfUnit )", Type = "string?"},
+                new PropMetadata() { Name = "UnitOfWork", Caption = "Объект работы с БД (MockUnit или EfUnit )", Type = "UnitOfWorkEnum", PropType=PropTypeEnum.Enum},
                 new PropMetadata() { Name = "WebApiHttpsPort", Caption = "Порт для запуска WebApi", Type = "int?"},
                 new PropMetadata() { Name = "DevServerPort", Caption = "Порт для запуска WebPackDevServer", Type = "int?"},
                 new PropMetadata { Name = "Models", Caption = "Модели", Type = "ICollection<ModelMetadata>", PropType = PropTypeEnum.Detail},
@@ -110,17 +111,20 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Type", Caption="Тип данных C#", Type = "string?"},
                 new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string?" },
+                new PropMetadata() { Name = "Expression", Caption="Выражение для вычислимого свойства", Type = "string?" },
                 new PropMetadata() { Name = "ModelMetadata", Caption="Модель", Type = "ModelMetadata", PropType = PropTypeEnum.Master  },
                 new PropMetadata() { Name = "IsPrimaryKey", Caption="Первичный ключ", Type = "bool" },
-                new PropMetadata() { Name = "IsEnum", Caption="Свойство перечисления", Type = "bool" },
-                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool" },
                 new PropMetadata() { Name = "Visible", Caption="Отображать свойство в интерфейсе", Type = "bool" },
                 new PropMetadata() { Name = "Editable", Caption="Доступ к редактированию поля", Type = "bool" },
                 new PropMetadata() { Name = "JsonIgnore", Caption="Не передавать на клиент", Type = "bool" },
-                new PropMetadata() { Name = "IsEnumerable", Caption="Перечисление", Type = "bool", Visible = false },
-                new PropMetadata() { Name = "IsMasterProp", Caption="Ссылка на мастера", Type = "bool", Visible = false },
-                new PropMetadata() { Name = "IsDetailsProp", Caption="Детейл", Type = "bool", Visible = false },
-                new PropMetadata() { Name = "IsDictValueProp", Caption="Значение из справочника", Type = "bool", Visible = false }
+                new PropMetadata() { Name = "PropType", Caption="Тип свойства", Type = "PropTypeEnum", PropType = PropTypeEnum.Enum  },
+
+                //вычислимые поля
+                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool", Editable = false, Expression = "PropType != PropTypeEnum.Single" },
+                new PropMetadata() { Name = "IsNullable", Caption="Возможны пустые значения", Type = "bool", Editable = false, Expression = "Type.EndsWith(\"?\")" },
+                new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))" },
+                new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"" },
+                new PropMetadata() { Name = "TypeOfNullable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "Type.TrimEnd('?')" },
             }
         };
         ModelMetadata componentMetadata = new ModelMetadata()
@@ -133,7 +137,8 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string?" },
                 new PropMetadata() { Name = "Caption", Caption="Отображаемое имя", Type = "string?" },
                 new PropMetadata() { Name = "Description", Caption="Описание", Type = "string?" },
-                new PropMetadata() { Name = "Type", Caption="Тип данных C#", Type = "string"},
+                new PropMetadata() { Name = "Type", Caption="Тип компонента", Type = "ComponentTypeEnum", PropType = PropTypeEnum.Enum},
+                new PropMetadata() { Name = "TypeString", Caption="Тип компонента", Type = "string"},
                 new PropMetadata() { Name = "ModelPropMetadata", Caption="Свойство Модели для которого используется компонент", Type = "PropMetadata", PropType = PropTypeEnum.DictValue },
                 new PropMetadata() { Name = "Props", Caption="Используется для табличных компонентов для передачи списка свойств и их подписей", Type = "ICollection<PropMetadata>", PropType = PropTypeEnum.Detail },
                 new PropMetadata() { Name = "ModelProp", Caption="Компонент свойства модели", Type = "bool"},
@@ -175,6 +180,52 @@ public static class ProjectMetadataHelper
             componentMetadata,
             enumMetadata,
             enumValueMetadata
+        };
+        metadata.EnumTypes = new List<EnumMetadata>
+        {
+            new EnumMetadata()
+            {
+                Name = "UnitOfWorkEnum",
+                Caption="Тип хранилища данных (Релизация IUnitOfWork)",
+                Values = new List<EnumValueMetadata>()
+                {
+                    new EnumValueMetadata() { Name = "MockUnit", Caption = "Хранилище в оперативной памяти Хоста", IdEnumValueMetadata = 0},
+                    new EnumValueMetadata() { Name = "EfUnit", Caption = "База данных с доступом через Entity FrameWork Core", IdEnumValueMetadata = 1 }
+                }
+            },            
+            new EnumMetadata()
+            {
+                Name = "PropTypeEnum",
+                Caption="Тип свойства модели",
+                Values = new List<EnumValueMetadata>()
+                {
+                    new EnumValueMetadata() { Name = "Single", Caption = "Свойство примитивного типа", IdEnumValueMetadata = 0 },
+                    new EnumValueMetadata() { Name = "Master", Caption = "Свойство ссылка на Матера (объект-родитель)", IdEnumValueMetadata = 1 },
+                    new EnumValueMetadata() { Name = "Detail", Caption = "Свойство детейлов", IdEnumValueMetadata = 2 },
+                    new EnumValueMetadata() { Name = "DictValue", Caption = "Свойство - значение выбираемое из справочника", IdEnumValueMetadata = 3 },
+                    new EnumValueMetadata() { Name = "Enum", Caption = "Свойство перечисления", IdEnumValueMetadata = 4 },
+                    new EnumValueMetadata() { Name = "CalcValue", Caption = "Вычислимое свойство", IdEnumValueMetadata = 5 },
+                }
+            },
+            new EnumMetadata()
+            {
+                Name = "ComponentTypeEnum",
+                Caption="Тип компонента формы",
+                Values = new List<EnumValueMetadata>()
+                {
+                    new EnumValueMetadata() { Name = "DetailTable", Caption = "Таблица детейлов", IdEnumValueMetadata = 1 },
+                    new EnumValueMetadata() { Name = "Input", Caption = "Текстовое поле ввода", IdEnumValueMetadata = 2 },
+                    new EnumValueMetadata() { Name = "DateTime", Caption = "Поле выбора даты", IdEnumValueMetadata = 3 },
+                    new EnumValueMetadata() { Name = "NumericUpDown", Caption = "Поле ввода числа", IdEnumValueMetadata = 4 },
+                    new EnumValueMetadata() { Name = "CancelButton", Caption = "Кнопка отмены", IdEnumValueMetadata = 5 },
+                    new EnumValueMetadata() { Name = "SubmitButton", Caption = "Кнопка отправки формы", IdEnumValueMetadata = 6 },
+                    new EnumValueMetadata() { Name = "SaveButton", Caption = "Кнопка сохранения", IdEnumValueMetadata = 7 },
+                    new EnumValueMetadata() { Name = "LookUp", Caption = "Выпадающий список для выбора из справочника", IdEnumValueMetadata = 8 },
+                    new EnumValueMetadata() { Name = "Grid", Caption = "Таблица с фильтрами и сортировкой", IdEnumValueMetadata = 9 },
+                    new EnumValueMetadata() { Name = "EnumLookUp", Caption = "Выпадающий список для выбора из типа-перечисления", IdEnumValueMetadata = 10 },
+                }
+            },
+
         };
 
         metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
@@ -243,7 +294,7 @@ public static class ProjectMetadataHelper
                     Model = complectationModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Complectations", Caption = "Комплектации", Type = "Table", Props = complectationModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Complectations", Caption = "Комплектации", TypeString = "Table", Props = complectationModelMetadata.Props  }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -251,9 +302,9 @@ public static class ProjectMetadataHelper
                         Caption = "Комплектация",
                         Model = complectationModelMetadata,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", TypeString = "Input"  },
                             //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
-                            new ComponentMetadata() { Type = "SubmitButton"  }
+                            new ComponentMetadata() { TypeString = "SubmitButton"  }
                         }
                     }
 
@@ -265,8 +316,8 @@ public static class ProjectMetadataHelper
                     Model = delivDocModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Date", Caption = "", Type = "DateTime", ModelProp = false },
-                        new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", Type = "Table", Props = delivDocModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Date", Caption = "", TypeString = "DateTime", ModelProp = false },
+                        new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", TypeString = "Table", Props = delivDocModelMetadata.Props  }
                     }
                 },
                 new FormMetadata()
@@ -276,7 +327,7 @@ public static class ProjectMetadataHelper
                     Model = orderModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Orders", Caption = "Заказы", Type = "Table", Props = orderModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Orders", Caption = "Заказы", TypeString = "Table", Props = orderModelMetadata.Props  }
                     }
                 }
             };
@@ -361,7 +412,7 @@ public static class ProjectMetadataHelper
                     Model = orderModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "RemakeOrders", Caption = "Переделки", Type = "Table", Props = orderModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "RemakeOrders", Caption = "Переделки", TypeString = "Table", Props = orderModelMetadata.Props  }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -369,10 +420,10 @@ public static class ProjectMetadataHelper
                         Caption = "Переделкa",
                         Model = orderModelMetadata,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = "Input"  },
-                            new ComponentMetadata() { Name = "Comment", Caption = "Комментарий", Type = "Input" },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", TypeString = "Input"  },
+                            new ComponentMetadata() { Name = "Comment", Caption = "Комментарий", TypeString = "Input" },
                             //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
-                            new ComponentMetadata() { Type = "SubmitButton"  }
+                            new ComponentMetadata() { TypeString = "SubmitButton"  }
                         }
                     }
 

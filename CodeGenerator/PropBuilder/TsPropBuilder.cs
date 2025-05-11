@@ -75,9 +75,15 @@ namespace CodeGenerator
                 {
                     if (!existedImport.Contains(prop.Type))
                     {
-                        res += (prop.PropType == PropTypeEnum.Enum)
-                            ? $"import {{ {prop.Type}, init{prop.Type} }} from \"../enums/{prop.Type}\";" + Environment.NewLine
-                            : $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
+                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
+                        existedImport.Add(prop.Type);
+                    }
+                }
+                else if (prop.PropType == PropTypeEnum.Enum)
+                {
+                    if (!existedImport.Contains(prop.Type))
+                    {
+                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"../enums/{prop.Type}\";" + Environment.NewLine;
                         existedImport.Add(prop.Type);
                     }
                 }
@@ -126,7 +132,7 @@ namespace CodeGenerator
         public static string GetTsComponent(ComponentMetadata component, string addstring = "", ProjectMetadata proj = null)
         {
             string res = "";
-            switch (component.Type)
+            switch (component.TypeString)
             {
                 case "SubmitButton":
                     res = "         <button className=\"w-50 btn btn-success\" type=\"submit\">Сохранить</button>";
@@ -218,13 +224,17 @@ namespace CodeGenerator
                     if(proj != null)
                     {
                         EnumMetadata enumMetadata = proj.GetEnumType(component.ModelPropMetadata.Type);
+                        if (!enumMetadata?.Values?.Any(e => e.IdEnumValueMetadata == 0) ?? false)
+                        {
+                            options += $@"<option  key={{{component.ModelPropMetadata.Type}.Unknown}} value={{{component.ModelPropMetadata.Type}.Unknown}}> Unknown </option>";
+                        }
                         options = string.Join(",\n", enumMetadata.Values.Select(v => $@"         <option  key={{{component.ModelPropMetadata.Type}.{v.Name}}} value={{{component.ModelPropMetadata.Type}.{v.Name}}}> {v.Caption} </option>"));
                     }
                     res = $@"
       <div className=""m-3"">   
         <label className=""form-label"" htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
         <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}""  value={{editedItem.{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}}}  onChange={{handleEnumSelectChange}}>
-            <option  key={{{component.ModelPropMetadata.Type}.Unknown}} value={{{component.ModelPropMetadata.Type}.Unknown}}> Unknown </option>            
+                        
 {options}
         </select>
       </div> 
@@ -240,7 +250,7 @@ namespace CodeGenerator
         public static object GetTsStateProp(ComponentMetadata component)
         {
             string res = "";
-            switch (component.Type)
+            switch (component.TypeString)
             {
                 case "Input":
                     res = $@"

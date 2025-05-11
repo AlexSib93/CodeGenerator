@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CodeGenerator.Enum;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +16,8 @@ namespace CodeGenerator.Metadata
         public string Name { get; set; }
         public string Caption { get; set; }
         public string Description { get; set; }
-        public string Type { get; set; }
+        public string TypeString { get; set; }
+        public ComponentTypeEnum Type { get; set; }
         public bool ModelProp { get; set; } = true;
         /// <summary>
         /// Свойство Модели для которого используется компонент

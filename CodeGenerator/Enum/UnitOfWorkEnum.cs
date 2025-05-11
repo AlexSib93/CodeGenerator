@@ -6,7 +6,7 @@
     public enum UnitOfWorkEnum
     {
         /// <summary>
-        /// Хранилище в Памяти Хоста
+        /// Хранилище в оперативной памяти Хоста
         /// </summary>
         MockUnit = 0,
         /// <summary>

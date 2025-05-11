@@ -23,7 +23,6 @@ namespace CodeGenerator.ProjectFiles.Ts
 
 
         public string Body => $@"export enum {EnumMetadata.Name} {{
-    Unknown = 0,
 {GetEnumItemsText()}
 }}
 
@@ -41,7 +40,7 @@ export const {StringHelper.ToLowerFirstChar(EnumMetadata.Name)}ToString = (value
 
 export const {StringHelper.ToLowerFirstChar(EnumMetadata.Name)}Array: string[] = [{ValuesArray()}];
 
-export const init{EnumMetadata.Name} = {EnumMetadata.Name}.Unknown";
+export const init{EnumMetadata.Name} = {EnumMetadata.Name}.{EnumMetadata.Values.FirstOrDefault(v=>v.IdEnumValueMetadata == 0)?.Name ?? "Unknown"}";
 
         private string ValuesArray()
         {
@@ -68,7 +67,9 @@ export const init{EnumMetadata.Name} = {EnumMetadata.Name}.Unknown";
 
         private string GetEnumItemsText()
         {
-            string res = string.Join(",\n", EnumMetadata.Values.Select(v => $@"    {v.Name} = {v.IdEnumValueMetadata}"));
+            string res = (EnumMetadata.Values.Any(v => v.IdEnumValueMetadata == 0)) ? "" : "     Unknown = 0,\n";
+
+            res += string.Join(",\n", EnumMetadata.Values.Select(v => $@"    {v.Name} = {v.IdEnumValueMetadata}"));
 
             return res;
         }

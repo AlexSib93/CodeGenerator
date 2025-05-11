@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CodeGenerator.Enum
 {
+    /// <summary>
+    /// Тип компонента формы
+    /// </summary>
     public enum ComponentTypeEnum
     {
         /// <summary>
