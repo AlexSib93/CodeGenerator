@@ -50,6 +50,18 @@ namespace CodeGenerator.Enum
         /// <summary>
         /// Выпадающий список для выбора из типа-перечисления
         /// </summary>
-        EnumLookUp = 10
+        EnumLookUp = 10,
+        /// <summary>
+        /// Галочка
+        /// </summary>
+        CheckBox = 11,
+        /// <summary>
+        /// Кнопка "Добавить"
+        /// </summary>
+        AddButton = 12,
+        /// <summary>
+        /// Таблица
+        /// </summary>
+        Table = 13
     }
 }

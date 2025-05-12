@@ -132,46 +132,46 @@ namespace CodeGenerator
         public static string GetTsComponent(ComponentMetadata component, string addstring = "", ProjectMetadata proj = null)
         {
             string res = "";
-            switch (component.TypeString)
+            switch (component.Type)
             {
-                case "SubmitButton":
+                case ComponentTypeEnum.SubmitButton:
                     res = "         <button className=\"w-50 btn btn-success\" type=\"submit\">Сохранить</button>";
                     break;
-                case "SaveButton":
+                case ComponentTypeEnum.SaveButton:
                     res = "         <button className=\"w-50 btn btn-success\" type='button' onClick={() => props.onSave(editedItem)} >Сохранить</button>";
                     break;
-                case "CancelButton":
+                case ComponentTypeEnum.CancelButton:
                     res = "         <button className=\"w-50 btn btn-danger\"  type='button' onClick={props.onCancel} >Отмена</button>";
                     break;
-                case "Input":
+                case ComponentTypeEnum.Input:
                     res = $@"
       <div className=""m-3"">                
         {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-label"" htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>")}
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
       </div>";
                     break;                    
-                case "NumericUpDown":
+                case ComponentTypeEnum.NumericUpDown:
                     res = $@"
       <div className=""m-3"">            
         {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-label"" htmlFor=""floatingInput{component.Name}"">{component.Caption}</label>")}
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" type=""number"" className=""form-control"" id=""floatingInput{component.Name}"" placeholder=""{component.Caption}"" autoComplete=""off"" value={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} onChange={{ handleInputChange }} />
       </div>";
                     break;                     
-                case "CheckBox":
+                case ComponentTypeEnum.CheckBox:
                     res = $@"
       <div className=""form-check m-3"">
         {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-check-label"" htmlFor=""flexCheck{component.Name}"">{component.Caption}</label>")}
         <input name=""{StringHelper.ToLowerFirstChar(component.Name)}"" className=""form-check-input"" type=""checkbox"" checked={{{(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}}} id=""flexCheck{component.Name}"" onChange={{ handleCheckBoxChange }} />
       </div>";
                     break;                
-                case "Table":
+                case ComponentTypeEnum.Table:
                     string props = string.Join(", ",component.Props.Where(p=>!p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
                     res = $@"      <div className=""m-3"">    
         <h1 className=""h4 mt-4 fw-normal"">{component.Caption}</h1>
         <Table {addstring} props={{[{props}]}} />
       </div>";
                     break;
-                case "DetailTable":
+                case ComponentTypeEnum.DetailTable:
                     string pr = string.Join(", ", component.Props.Where(p => !p.IsEnumerable).Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}'}}")); ;
                     res = $@"      <div className=""m-3 card"">    
         <div className=""card-body""> 
@@ -184,7 +184,7 @@ namespace CodeGenerator
         </div>
       </div>";
                     break;
-                case "Grid":
+                case ComponentTypeEnum.Grid:
                     string prGrid = string.Join(", ", component.Props.Where(p => !p.IsEnumerable)
                         .Select(p => $@"{{Name:'{StringHelper.ToLowerFirstChar(p.Name)}', Caption: '{p.Caption}', Visible: {p.Visible.ToString().ToLower()}{((p.PropType == PropTypeEnum.Enum) ? $", Type: 'Set', ToString: {StringHelper.ToLowerFirstChar(p.Type)}ToString, Values: {StringHelper.ToLowerFirstChar(p.Type)}Array " : $", Type: '{p.TypeOfNullable}'")}}}")); ;
                     res = $@"      <div className=""m-3 card"">    
@@ -198,18 +198,18 @@ namespace CodeGenerator
         </div>
       </div>";
                     break;
-                case "AddButton":
+                case ComponentTypeEnum.AddButton:
                     res = $@"
             <button className=""w-100 btn btn-success"" onClick={{addItem}} >Добавить</button>";
                     break;
-                case "DateTime":
+                case ComponentTypeEnum.DateTime:
                     res = $@"
       <div className=""m-3"">   
             {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-label"" htmlFor=""{component.Name}"">{component.Caption}</label>")}
             <input name=""{StringHelper.ToLowerFirstChar(component.Name)}""  id=""{component.Name}"" className=""form-control"" type=""date"" defaultValue={{ new Date({(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}+ 'Z').toISOString().substring(0, 10)}} onChange={{handleInputChange}}  />
       </div>";
                     break;
-                case "LookUp":
+                case ComponentTypeEnum.LookUp:
                     res = $@"
       <div className=""m-3"">   
         <label className=""form-label"" htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
@@ -219,7 +219,7 @@ namespace CodeGenerator
       </div> 
 ";
                     break;
-                case "EnumLookUp":
+                case ComponentTypeEnum.EnumLookUp:
                     string options = "";
                     if(proj != null)
                     {
@@ -250,17 +250,17 @@ namespace CodeGenerator
         public static object GetTsStateProp(ComponentMetadata component)
         {
             string res = "";
-            switch (component.TypeString)
+            switch (component.Type)
             {
-                case "Input":
+                case ComponentTypeEnum.Input:
                     res = $@"
       const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<string>("""");";
                     break;                     
-                case "CheckBox":
+                case ComponentTypeEnum.CheckBox:
                     res = $@"
       const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<bool>(false);";
-                    break;        
-                case "DateTime":
+                    break;
+                case ComponentTypeEnum.DateTime:
                     res = $@"
       const [{StringHelper.ToLowerFirstChar(component.Name)}, set{component.Name}] = useState<Date>(new Date());";
                     break;

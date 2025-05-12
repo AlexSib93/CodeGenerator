@@ -294,7 +294,7 @@ public static class ProjectMetadataHelper
                     Model = complectationModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Complectations", Caption = "Комплектации", TypeString = "Table", Props = complectationModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Complectations", Caption = "Комплектации", Type = ComponentTypeEnum.Table, Props = complectationModelMetadata.Props  }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -302,9 +302,9 @@ public static class ProjectMetadataHelper
                         Caption = "Комплектация",
                         Model = complectationModelMetadata,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", TypeString = "Input"  },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = ComponentTypeEnum.Input  },
                             //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
-                            new ComponentMetadata() { TypeString = "SubmitButton"  }
+                            new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton  }
                         }
                     }
 
@@ -316,8 +316,8 @@ public static class ProjectMetadataHelper
                     Model = delivDocModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Date", Caption = "", TypeString = "DateTime", ModelProp = false },
-                        new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", TypeString = "Table", Props = delivDocModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Date", Caption = "", Type = ComponentTypeEnum.DateTime, ModelProp = false },
+                        new ComponentMetadata() { Name = "DelivDocs", Caption = "Рейсы", Type = ComponentTypeEnum.Table, Props = delivDocModelMetadata.Props  }
                     }
                 },
                 new FormMetadata()
@@ -327,7 +327,7 @@ public static class ProjectMetadataHelper
                     Model = orderModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "Orders", Caption = "Заказы", TypeString = "Table", Props = orderModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "Orders", Caption = "Заказы", Type = ComponentTypeEnum.Table, Props = orderModelMetadata.Props  }
                     }
                 }
             };
@@ -412,7 +412,7 @@ public static class ProjectMetadataHelper
                     Model = orderModelMetadata,
                     AddToNavBar = true,
                     Components = new ComponentMetadata[] {
-                        new ComponentMetadata() { Name = "RemakeOrders", Caption = "Переделки", TypeString = "Table", Props = orderModelMetadata.Props  }
+                        new ComponentMetadata() { Name = "RemakeOrders", Caption = "Переделки", Type = ComponentTypeEnum.Table, Props = orderModelMetadata.Props  }
                     },
                     EditForm = new FormMetadata()
                     {
@@ -420,10 +420,10 @@ public static class ProjectMetadataHelper
                         Caption = "Переделкa",
                         Model = orderModelMetadata,
                         Components = new ComponentMetadata[] {
-                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", TypeString = "Input"  },
-                            new ComponentMetadata() { Name = "Comment", Caption = "Комментарий", TypeString = "Input" },
+                            new ComponentMetadata() { Name = "Name", Caption = "Наименование", Type = ComponentTypeEnum.Input  },
+                            new ComponentMetadata() { Name = "Comment", Caption = "Комментарий", Type = ComponentTypeEnum.Input },
                             //new ComponentMetadata() { Name = "Positions", Caption = "Свойства", Type = "Table", Props = complectationModelMetadata.Props },
-                            new ComponentMetadata() { TypeString = "SubmitButton"  }
+                            new ComponentMetadata() { Type = ComponentTypeEnum.SubmitButton  }
                         }
                     }
 

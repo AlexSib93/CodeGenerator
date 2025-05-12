@@ -27,7 +27,7 @@ import {{Grid}} from '../components/Grid';
         private string ImportMasterDetailTypes()
         {
             List<string> detailTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => (c.TypeString == ComponentTypeEnum.DetailTable.ToString() || c.TypeString == ComponentTypeEnum.Grid.ToString()) && c.ModelPropMetadata.Type != Form.Model.Name ))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => (c.Type == ComponentTypeEnum.DetailTable || c.Type == ComponentTypeEnum.Grid) && c.ModelPropMetadata.Type != Form.Model.Name ))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
                 ModelMetadata detailMetadata = ProjectMetadata.GetType(detailType);
@@ -43,7 +43,7 @@ import {{Grid}} from '../components/Grid';
 import {t}EditForm from './{t}EditForm';"));
 
             List<string> masterTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.LookUp.ToString() && c.ModelPropMetadata.Type != Form.Model.Name))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp && c.ModelPropMetadata.Type != Form.Model.Name))
             {
                 ModelMetadata detailMetadata = ProjectMetadata.GetType(componentDetailTable.ModelPropMetadata.Type);
                 if (!masterTypes.Contains(detailMetadata.Name))
@@ -54,7 +54,7 @@ import {t}EditForm from './{t}EditForm';"));
 
 
             List<string> enumTypes = new List<string>();
-            foreach (ComponentMetadata enumLookUp in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.EnumLookUp.ToString()))
+            foreach (ComponentMetadata enumLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.EnumLookUp))
             {
                 EnumMetadata enumMetadata = ProjectMetadata.GetEnumType(enumLookUp.ModelPropMetadata.Type);
                 if (!enumTypes.Contains(enumMetadata.Name))
@@ -62,7 +62,7 @@ import {t}EditForm from './{t}EditForm';"));
                     enumTypes.Add(enumMetadata.Name);
                 };
             }
-            foreach (ComponentMetadata enumLookUp in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.Grid.ToString()))
+            foreach (ComponentMetadata enumLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.Grid))
             {
                 foreach (PropMetadata prop in enumLookUp.Props.Where(p => p.PropType == PropTypeEnum.Enum))
                 {
@@ -161,7 +161,7 @@ const toUpperFirstChar = str => {{
         private object MasterValuesInit()
         {
             string res = "";
-            foreach (ComponentMetadata componentLookUp in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.LookUp.ToString()))
+            foreach (ComponentMetadata componentLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp))
             {
                 res += $@"  
   const [lookUpItems{componentLookUp.ModelPropMetadata.Type}, setLookUpItems{componentLookUp.ModelPropMetadata.Type}] = useState<{componentLookUp.ModelPropMetadata.Type}[]>();
@@ -183,7 +183,7 @@ const toUpperFirstChar = str => {{
         private string MasterEditformShownCondition()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.DetailTable.ToString() || c.TypeString == ComponentTypeEnum.Grid.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable || c.Type == ComponentTypeEnum.Grid))
             {
                 res += $@"!edited{componentDetailTable.Name} && ";
             }
@@ -194,7 +194,7 @@ const toUpperFirstChar = str => {{
         private object DetailsEditForms()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.DetailTable.ToString() || c.TypeString == ComponentTypeEnum.Grid.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable || c.Type == ComponentTypeEnum.Grid))
             {
                 res += $@"
         {{ edited{componentDetailTable.Name} && <{componentDetailTable.ModelPropMetadata.TypeOfEnumerable}EditForm model={{edited{componentDetailTable.Name}}} onSave={{submitEditForm{componentDetailTable.Name}}} onCancel={{handleCancelEdit{componentDetailTable.Name}}} />}}";
@@ -206,7 +206,7 @@ const toUpperFirstChar = str => {{
         private string DetailsMethods()
         {
             string res = "";
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.TypeString == ComponentTypeEnum.DetailTable.ToString() || c.TypeString == ComponentTypeEnum.Grid.ToString()))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.DetailTable || c.Type == ComponentTypeEnum.Grid))
             {
                 string detailType = componentDetailTable.ModelPropMetadata.TypeOfEnumerable;
                 ModelMetadata detailMetadata = ProjectMetadata.GetType(detailType);
@@ -251,7 +251,7 @@ const toUpperFirstChar = str => {{
             List<string> strings = new List<string>();
             foreach (ComponentMetadata component in Form.Components)
             {
-                if(component.TypeString == ComponentTypeEnum.DetailTable.ToString() || component.TypeString == ComponentTypeEnum.Grid.ToString())
+                if(component.Type == ComponentTypeEnum.DetailTable || component.Type == ComponentTypeEnum.Grid)
                 {
                     strings.Add(TsPropBuilder.GetTsComponent(component, $" onAdd={{add{component.Name}}} onEdit={{setEdited{component.Name}}} onDelete={{handleDelete{component.Name}}} items={{editedItem.{StringHelper.ToLowerFirstChar(component.Name)}}}"));
                 } 
