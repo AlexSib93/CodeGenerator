@@ -617,7 +617,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdConstructionObj", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int?", Visible=false},
             }
         };
 

@@ -18,7 +18,7 @@ namespace CodeGenerator.Metadata
         public static FormMetadata AutoCreateFormMetadata(ProjectMetadata pM, ModelMetadata mM)
         {
             List<ComponentMetadata> components = new List<ComponentMetadata> { };
-            foreach (var propForComponent in mM.Props)
+            foreach (var propForComponent in mM.Props.Where(p=>p.Visible))
             {
                 if (!propForComponent.IsPrimaryKey && !propForComponent.IsVirtual && propForComponent.PropType != PropTypeEnum.Enum)
                 {
