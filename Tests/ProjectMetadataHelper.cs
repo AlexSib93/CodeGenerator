@@ -556,6 +556,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", PropType = PropTypeEnum.DictValue  },
                 new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue", PropType = PropTypeEnum.DictValue },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", PropType = PropTypeEnum.Master, JsonIgnore = true  },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
             }
         };
 
@@ -582,6 +583,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "ConstructionObj", Caption = "Id подрядчика", Type = "ConstructionObj", PropType = PropTypeEnum.DictValue  },
                 new PropMetadata() { Name = "Characteristics", Caption="Характеристики", Type = "ICollection<CharacteristicObj>", PropType = PropTypeEnum.Detail},
                 new PropMetadata() { Name = "Kc", Caption="KC", Type = "ICollection<Kc>", PropType = PropTypeEnum.Detail },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
             }
         };
 
@@ -602,6 +604,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<Gpr>", PropType = PropTypeEnum.Detail },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", PropType = PropTypeEnum.Detail },
                 new PropMetadata() { Name = "Agreement", Caption="Соглашения", Type = "ICollection<Agreement>", PropType = PropTypeEnum.Detail },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
 
             }
         };
@@ -614,6 +617,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdConstructionObj", Caption = "Id номенклатуры объекта", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
             }
         };
 
@@ -626,6 +630,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
                 new PropMetadata() { Name = "Code1c", Caption = "Код контрагента из 1с", Type = "string" },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
             }
         };
 
@@ -637,6 +642,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdPeople", Caption = "Id Пользователя", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int", Visible=false},
             }
         };
 
