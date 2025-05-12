@@ -595,7 +595,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
-                new PropMetadata() { Name = "NumberFolder", Caption="Номер Папки", Type = "int"},
+                new PropMetadata() { Name = "NumberFolder", Caption="Номер Папки", Type = "string?"},
                 new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string" },
                 new PropMetadata() { Name = "NameObj", Caption="Наименование объекта", Type = "string" },
                 new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", PropType = PropTypeEnum.DictValue   },
