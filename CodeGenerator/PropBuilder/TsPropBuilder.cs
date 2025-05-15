@@ -206,7 +206,7 @@ namespace CodeGenerator
                     res = $@"
       <div className=""m-3"">   
             {(string.IsNullOrEmpty(component.Caption) ? "" : $@"<label className=""form-label"" htmlFor=""{component.Name}"">{component.Caption}</label>")}
-            <input name=""{StringHelper.ToLowerFirstChar(component.Name)}""  id=""{component.Name}"" className=""form-control"" type=""date"" defaultValue={{ new Date({(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}+ 'Z').toISOString().substring(0, 10)}} onChange={{handleInputChange}}  />
+            <input name=""{StringHelper.ToLowerFirstChar(component.Name)}""  id=""{component.Name}"" className=""form-control"" type=""date"" defaultValue={{ {(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}?(new Date({(component.ModelProp ? "editedItem." : "")}{StringHelper.ToLowerFirstChar(component.Name)}+ 'Z').toISOString().substring(0, 10)):null}} onChange={{handleInputChange}}  />
       </div>";
                     break;
                 case ComponentTypeEnum.LookUp:
