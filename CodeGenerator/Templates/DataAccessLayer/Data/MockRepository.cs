@@ -69,5 +69,10 @@ namespace DataAccessLayer.Data
         {
             throw new NotImplementedException();
         }
+	
+        public int Create(IEnumerable<T> items)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

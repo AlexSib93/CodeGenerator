@@ -75,7 +75,7 @@ namespace CodeGenerator
                 {
                     if (!existedImport.Contains(prop.Type))
                     {
-                        res += $"import {{ {prop.Type}, init{prop.Type} }} from \"./{prop.Type}\";" + Environment.NewLine;
+                        res += $"import {{ {prop.TypeOfNullable}, init{prop.TypeOfNullable} }} from \"./{prop.TypeOfNullable}\";" + Environment.NewLine;
                         existedImport.Add(prop.Type);
                     }
                 }
@@ -213,8 +213,8 @@ namespace CodeGenerator
                     res = $@"
       <div className=""m-3"">   
         <label className=""form-label"" htmlFor=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"">{component.Caption}</label>
-        <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}""  value={{editedItem.id{component.ModelPropMetadata.Name}}}  onChange={{(e) =>  handleSelectChange(e, (id:number) => lookUpItems{component.ModelPropMetadata.Type}.find(p => p.id{component.ModelPropMetadata.Type} === id))}}>
-            {{selectLookUpItems{component.ModelPropMetadata.Type}}}
+        <select name=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}"" className=""form-control selectpicker"" data-live-search=""true"" id=""{StringHelper.ToLowerFirstChar(component.ModelPropMetadata.Name)}""  value={{editedItem.id{component.ModelPropMetadata.Name}}}  onChange={{(e) =>  handleSelectChange(e, (id:number) => lookUpItems{component.ModelPropMetadata.TypeOfNullable}.find(p => p.id{component.ModelPropMetadata.TypeOfNullable} === id))}}>
+            {{selectLookUpItems{component.ModelPropMetadata.TypeOfNullable}}}
         </select>
       </div> 
 ";

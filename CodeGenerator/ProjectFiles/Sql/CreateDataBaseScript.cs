@@ -53,8 +53,8 @@ namespace CodeGenerator.ProjectFiles.Sql
             {
                 foreach (ModelMetadata model in otherModels)
                 {
-                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && p.PropType != PropTypeEnum.Enum && !p.IsEnumerable && p.Type != model.Name);
-                    if (!virtualFields.Any(p => !res.Any(m => m.Name == p.Type)))
+                    IEnumerable<PropMetadata> virtualFields = model.Props.Where(p => p.IsVirtual && p.PropType != PropTypeEnum.Enum && !p.IsEnumerable && p.TypeOfNullable != model.Name);
+                    if (!virtualFields.Any(p => !res.Any(m => m.Name == p.TypeOfNullable)))
                     {
                         res.Add(model);
                     }
@@ -101,13 +101,13 @@ namespace CodeGenerator.ProjectFiles.Sql
             string res = "";
             if (pM.IsVirtual)
             {
-                ModelMetadata type = Project.GetType( pM.Type);
+                ModelMetadata type = Project.GetType( pM.TypeOfNullable);
                 if (type != null)
                 {
                     PropMetadata pkPropReferenced = type.Props.FirstOrDefault(p => p.IsPrimaryKey);
                     if (pkPropReferenced != null)
                     {
-                        res = $"REFERENCES {pM.Type} ({pkPropReferenced.Name})";
+                        res = $"REFERENCES {pM.TypeOfNullable} ({pkPropReferenced.Name})";
                     }
                 }
             }
@@ -117,7 +117,7 @@ namespace CodeGenerator.ProjectFiles.Sql
 
         private static object GetSqlType(PropMetadata prop)
         {
-            string res = prop.Type;
+            string res = prop.TypeOfNullable;
             if (prop.IsVirtual || prop.PropType == PropTypeEnum.Enum)
             {
                 //TODO: выйти на ключевое свойства

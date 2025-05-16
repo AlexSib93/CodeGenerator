@@ -22,7 +22,7 @@ namespace CodeGenerator
                     {
                         res += $@"
         {((propInfo.JsonIgnore) ? "[JsonIgnore()]" : "")}
-        public virtual {propInfo.Type}? {propInfo.Name} {{ get; set; }}";
+        public virtual {propInfo.TypeOfNullable}? {propInfo.Name} {{ get; set; }}";
                     }
                     else
                     {
@@ -31,7 +31,7 @@ namespace CodeGenerator
 
         {((propInfo.JsonIgnore) ? "[JsonIgnore()]" : "")}
         [ForeignKey(""Id{propInfo.Name}"")]
-        public virtual {propInfo.Type}? {propInfo.Name} {{ get; set; }}";
+        public virtual {propInfo.TypeOfNullable}? {propInfo.Name} {{ get; set; }}";
                     }
                 } 
                 else
