@@ -542,6 +542,10 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdCharacteristic", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Type", Caption = "Тип данных из битрикс", Type = "string" },
+                new PropMetadata() { Name = "BitrixName", Caption = "Наименование из битрикса", Type = "string" },
+                new PropMetadata() { Name = "LoadFromBitrix", Caption = "Подгружать из битрикс?", Type = "bool" },
+                new PropMetadata() { Name = "isMultiple", Caption = "Массив или нет", Type = "bool" },
             }
         };
         ModelMetadata characteristicObjMetadata = new ModelMetadata()
