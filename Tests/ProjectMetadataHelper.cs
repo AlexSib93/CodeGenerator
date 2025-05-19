@@ -555,12 +555,15 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdCharacteristicObj", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true, Visible = false },
-                new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
-                new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
-                new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", PropType = PropTypeEnum.DictValue  },
-                new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue", PropType = PropTypeEnum.DictValue },
+                new PropMetadata() { Name = "Number", Caption = "Число", Type = "int?"},
+                new PropMetadata() { Name = "String", Caption = "Строка", Type = "string?" },
+                new PropMetadata() { Name = "Bool", Caption = "Да или нет", Type = "bool?" },
+                new PropMetadata() { Name = "Date", Caption = "Да или нет", Type = "DateTime?" },
+                new PropMetadata() { Name = "Decimal", Caption = "Да или нет", Type = "decimal?" },
+                new PropMetadata() { Name = "Double", Caption = "Да или нет", Type = "decimal?" },
+                new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", PropType = PropTypeEnum.DictValue},
+                new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue?", PropType = PropTypeEnum.DictValue },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", PropType = PropTypeEnum.Master, JsonIgnore = true  },
-                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int?", Visible=false},
             }
         };
 
