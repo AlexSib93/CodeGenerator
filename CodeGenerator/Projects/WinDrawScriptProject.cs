@@ -1,4 +1,5 @@
-﻿using CodeGenerator.Interfaces;
+﻿using CodeGenerator.Classes;
+using CodeGenerator.Interfaces;
 using CodeGenerator.Metadata;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace CodeGenerator.Projects
     {
         public WinDrawScriptProject(ProjectMetadata projectMetadata): base(projectMetadata)
         {
-            Name = "WdScript";
+            TemplateProjectName = "WdScript";
         }
 
     }

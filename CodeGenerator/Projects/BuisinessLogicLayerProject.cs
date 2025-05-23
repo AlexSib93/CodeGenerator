@@ -14,8 +14,10 @@ namespace CodeGenerator.Projects
     {
         public BuisinessLogicLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "BuisinessLogicLayer";
-            string projectPath = $@"{projectMetadata.Path}\{Name}";
+            TemplateProjectName = "BuisinessLogicLayer";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
+            string projectPath = $@"{projectMetadata.Path}\{TemplateProjectName}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
                 Items.Add(new ProjectItem(this, new ServiceClassCs(model, projectMetadata), $"{model.Name}Service", $"{projectPath}\\Services", "cs"));

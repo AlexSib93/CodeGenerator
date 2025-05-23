@@ -20,7 +20,7 @@ using Atechnology.ecad;
 using System.Data.Common;
 using Newtonsoft.Json.Linq;
 
-namespace CalcAlumOperation
+namespace NameSpaceDefault
 {
     public class aRegion
     {
@@ -39,7 +39,7 @@ namespace CalcAlumOperation
         public ModelPartClass mpc;
     }
 
-    public class AlumOperationService
+    public class DefaultWinDrawService
     {
         #region Variables
 
@@ -69,7 +69,7 @@ namespace CalcAlumOperation
         public int thickOporPlast = 0;
         #endregion
 
-        public AlumOperationService()
+        public DefaultWinDrawService()
         {
 
 
@@ -80,7 +80,7 @@ namespace CalcAlumOperation
             return Storage.Serializer.Serialize(mpc);
         }
 
-        public void RunCalcOperations(dbconn _db, DataRow dr, Construction model)
+        public void RunService(dbconn _db, DataRow dr, Construction model)
         {
             db = _db;
             DataSet ds = dr.Table.DataSet;

@@ -15,8 +15,10 @@ namespace CodeGenerator.Projects
     {
         public DataAccessLayerProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "DataAccessLayer";
-            string projectPath = $@"{projectMetadata.Path}\{Name}";
+            TemplateProjectName = "DataAccessLayer";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
+            string projectPath = $@"{projectMetadata.Path}\{TemplateProjectName}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
                 Items.Add(new ProjectItem(this, new ClassCs(model), model.Name, $"{projectPath}\\Models", "cs"));

@@ -78,7 +78,9 @@ namespace CodeGenerator.Classes
                 content = ReplaceContent(content, "DefaultConnectionString", ProjectMetadata.DbConnectionString);
 
 
-            content = ReplaceContent(content, "TemplateProjectNamespace", ProjectMetadata.Namespace ?? "ProjectNamespace");
+            content = ReplaceContent(content, "NameSpaceDefault", ProjectMetadata.Namespace ?? "ProjectNamespace");
+
+            content = ReplaceContent(content, "DefaultWinDrawService", "CalcConstructionsWorksService");
 
             if (!string.IsNullOrEmpty(ProjectMetadata.Caption))
                 content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Caption);

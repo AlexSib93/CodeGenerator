@@ -13,8 +13,9 @@ namespace CodeGenerator.Projects
     {
         public WebApiProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "WebApi";
-
+            TemplateProjectName = "WebApi";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
             Items.Add(new ProjectItem(this, new WebApiProgrammCs(projectMetadata), "Program", $"{Metadata.Path}\\{Name}", "cs"));
 
             foreach (ModelMetadata classMeta in Metadata.Models)

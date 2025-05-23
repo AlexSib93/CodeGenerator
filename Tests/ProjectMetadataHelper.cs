@@ -518,8 +518,9 @@ public static class ProjectMetadataHelper
     {
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "63_Расчет_работ_конструкции";
+        metadata.Namespace = "Расчет_работ_конструкции";
         metadata.Description = "Solution for testing generator when development";
-        metadata.Path = @"..\..\..\..\Projects\WdScriptSolution";
+        metadata.Path = @"..\..\..\..\Projects\std\Std.WdScripts\Std.WdScripts.CalcScripts\";
 
         return metadata;
     }

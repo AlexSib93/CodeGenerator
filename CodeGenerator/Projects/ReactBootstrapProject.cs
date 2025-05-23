@@ -14,7 +14,9 @@ namespace CodeGenerator.Projects
     {
         public ReactBootstrapProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "ReactRedux";
+            TemplateProjectName = "ReactRedux";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
             foreach (ModelMetadata classMeta in Metadata.Models)
             {
                 Items.Add(new ProjectItem(this, new TsClass(classMeta), classMeta.Name, $"{Metadata.Path}\\{Name}\\src\\models", "ts"));

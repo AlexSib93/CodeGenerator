@@ -1,5 +1,5 @@
 ﻿
-namespace Расчет_координат_операций_для_алюминия
+namespace NameSpaceDefault
 {
     partial class Form1
     {

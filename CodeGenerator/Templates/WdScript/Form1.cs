@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Расчет_координат_операций_для_алюминия
+namespace NameSpaceDefault
 {
     public partial class Form1 : Form
     {

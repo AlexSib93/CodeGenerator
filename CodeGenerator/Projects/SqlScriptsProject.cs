@@ -16,7 +16,9 @@ namespace CodeGenerator.Projects
     {
         public SqlScriptsProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "SqlCommand";
+            TemplateProjectName = "SqlCommand";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             Items.Add(new ProjectItem(this, new CreateDataBaseScript(projectMetadata), "Create Data Base", $"{projectPath}", "sql"));
         }

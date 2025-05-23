@@ -15,7 +15,9 @@ namespace CodeGenerator.Projects
     {
         public TestsProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            Name = "Tests";
+            TemplateProjectName = "Tests";
+            //Костыль пока папки проектов с таким же именем как в шаблоне
+            Name = TemplateProjectName;
             string projectPath = $@"{projectMetadata.Path}\{Name}";
             foreach (ModelMetadata model in projectMetadata.Models)
             {
