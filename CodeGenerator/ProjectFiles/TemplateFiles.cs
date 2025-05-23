@@ -49,7 +49,7 @@ namespace CodeGenerator.Classes
 
             foreach (FileInfo file in dir.GetFiles())
             {
-                string targetFilePath = Path.Combine(destinationDir, ReplaceContent(file.Name, "TemplateProjectName", "ProjectName"));
+                string targetFilePath = Path.Combine(destinationDir, ReplaceContent(file.Name, "TemplateProjectName", ProjectMetadata.Name));
 
                 ReplaceInFile(file.FullName, targetFilePath);
             }
@@ -58,7 +58,7 @@ namespace CodeGenerator.Classes
             {
                 foreach (DirectoryInfo subDir in dirs)
                 {
-                    string newDestinationDir = Path.Combine(destinationDir, ReplaceContent(subDir.Name, "TemplateProjectName", "ProjectName"));
+                    string newDestinationDir = Path.Combine(destinationDir, ReplaceContent(subDir.Name, "TemplateProjectName", ProjectMetadata.Name));
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
             }
@@ -78,7 +78,7 @@ namespace CodeGenerator.Classes
                 content = ReplaceContent(content, "DefaultConnectionString", ProjectMetadata.DbConnectionString);
 
 
-            content = ReplaceContent(content, "TemplateProjectNamespace", "ProjectNamespace");
+            content = ReplaceContent(content, "TemplateProjectNamespace", ProjectMetadata.Namespace ?? "ProjectNamespace");
 
             if (!string.IsNullOrEmpty(ProjectMetadata.Caption))
                 content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Caption);

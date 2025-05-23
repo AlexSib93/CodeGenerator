@@ -9,3 +9,13 @@ CodeGenerator for .ts react, .cs webapi files
 ### Скрипт обновления БД
 
 Для виртуальных полей модели создаются ссылки на таблицу типа - ограничения на вторичный ключ
+
+### Замена текста
+
+При копировнии файлов шаблоных проектов, производится замена текста на основании метеданных проекта:
+- `"TemplateProjectName"` -> `ProjectMetadata.Name`
+- `"DefaultConnectionString"` -> `ProjectMetadata.DbConnectionString`
+- `"TemplateProjectNamespace"` -> `ProjectMetadata.Namespace`
+- `"TemplateProjectCaption"` -> `ProjectMetadata.Caption`
+- `"TemplateProjectWebApiPort"` -> `ProjectMetadata.WebApiHttpsPort`
+- `"TemplateProjectDevServerPort"` -> `ProjectMetadata.DevServerPort`

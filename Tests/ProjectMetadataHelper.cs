@@ -514,6 +514,16 @@ public static class ProjectMetadataHelper
         return metadata;
     }
 
+    public static ProjectMetadata WdScriptProjectMetadata()
+    {
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "63_Расчет_работ_конструкции";
+        metadata.Description = "Solution for testing generator when development";
+        metadata.Path = @"..\..\..\..\Projects\WdScriptSolution";
+
+        return metadata;
+    }
+
     public static ProjectMetadata ProjectMetadataCorp()
     {
         string nameSpace = "Corp";
