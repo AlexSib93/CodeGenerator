@@ -78,7 +78,7 @@ namespace CodeGenerator.Metadata
 
                 if (propForComponent.PropType == PropTypeEnum.DictValue)
                 {
-                    var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.Type);
+                    var modelOfMaster = pM.Models.FirstOrDefault(m => m.Name == propForComponent.TypeOfNullable);
                     List<PropMetadata> props = modelOfMaster.Props.Where(x => !x.IsVirtual).ToList();
                     components.Add(new ComponentMetadata()
                     {

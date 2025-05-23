@@ -541,7 +541,8 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdCharacteristicValue", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true, Visible = false},
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "Characteristic", Caption = "ID Характеристики", Type = "Characteristic", PropType = PropTypeEnum.Master   },
+                new PropMetadata() { Name = "Characteristic", Caption = "ID Характеристики", Type = "Characteristic", PropType = PropTypeEnum.Master },
+                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int?", Visible=false},
             }
         };
         ModelMetadata characteristicMetadata = new ModelMetadata()
@@ -552,6 +553,10 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdCharacteristic", Caption = "ID Характеристики", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "Type", Caption = "Тип данных из битрикс", Type = "string" },
+                new PropMetadata() { Name = "BitrixName", Caption = "Наименование из битрикса", Type = "string" },
+                new PropMetadata() { Name = "LoadFromBitrix", Caption = "Подгружать из битрикс?", Type = "bool" },
+                new PropMetadata() { Name = "isMultiple", Caption = "Массив или нет", Type = "bool" },
             }
         };
         ModelMetadata characteristicObjMetadata = new ModelMetadata()
@@ -561,12 +566,14 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdCharacteristicObj", Caption = "Id характеристики объекта", Type = "int", IsPrimaryKey = true, Visible = false },
-                new PropMetadata() { Name = "Number", Caption = "Число", Type = "int"},
-                new PropMetadata() { Name = "String", Caption = "Строка", Type = "string" },
-                new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", PropType = PropTypeEnum.DictValue  },
-                new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue", PropType = PropTypeEnum.DictValue },
+                new PropMetadata() { Name = "Number", Caption = "Число", Type = "int?"},
+                new PropMetadata() { Name = "String", Caption = "Строка", Type = "string?" },
+                new PropMetadata() { Name = "Bool", Caption = "Да или нет", Type = "bool?" },
+                new PropMetadata() { Name = "Date", Caption = "Дата", Type = "DateTime?" },
+                new PropMetadata() { Name = "Decimal", Caption = "Числовое значение с десятичной", Type = "decimal?" },
+                new PropMetadata() { Name = "Characteristic", Caption = "Id характеристики", Type = "Characteristic", PropType = PropTypeEnum.DictValue},
+                new PropMetadata() { Name = "CharacteristicValue", Caption = "Значение характеристики", Type = "CharacteristicValue?", PropType = PropTypeEnum.DictValue },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", PropType = PropTypeEnum.Master, JsonIgnore = true  },
-                new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int?", Visible=false},
             }
         };
 
@@ -578,17 +585,17 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgreement", Caption = "Id соглашения", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
-                new PropMetadata() { Name = "Type", Caption="Тип", Type = "string"},
-                new PropMetadata() { Name = "Link", Caption="Ссылка", Type = "string"},
-                new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal" },
-                new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal" },
-                new PropMetadata() { Name = "TimePayKc2", Caption="Срок оплаты по КС2, дней после подписания", Type = "DateTime" },
-                new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal" },
-                new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime" },
-                new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime"},
-                new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime" },
-                new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string" }, //Не совсем опнял, что тут будет прям документ или что-то еще
-                new PropMetadata() { Name = "PriceUp", Caption="Наценка", Type = "decimal" },
+                new PropMetadata() { Name = "Type", Caption="Тип", Type = "string?"},
+                new PropMetadata() { Name = "Link", Caption="Ссылка", Type = "string?"},
+                new PropMetadata() { Name = "Summ", Caption="Сумма", Type = "decimal?" },
+                new PropMetadata() { Name = "PrePayment", Caption="Сумма аванса, руб", Type = "decimal?" },
+                new PropMetadata() { Name = "TimePayKc2", Caption="Срок оплаты по КС2, дней после подписания", Type = "decimal?" },
+                new PropMetadata() { Name = "WarrantyRetention", Caption="Гарантийные удержания, %от суммы КС2", Type = "decimal?" },
+                new PropMetadata() { Name = "StartDate", Caption = "Дата начала работ", Type = "DateTime?" },
+                new PropMetadata() { Name = "FinishDate", Caption="Дата окончания работ", Type = "DateTime?"},
+                new PropMetadata() { Name = "ReturtDateWarranty", Caption="Дата возврата гарантийных", Type = "DateTime?" },
+                new PropMetadata() { Name = "FinishObj", Caption="Завершение объекта, документ", Type = "string?" }, //Не совсем опнял, что тут будет прям документ или что-то еще
+                new PropMetadata() { Name = "PriceUp", Caption="Наценка", Type = "decimal?" },
                 new PropMetadata() { Name = "Obj", Caption = "Id объекта", Type = "Obj", PropType = PropTypeEnum.Master, JsonIgnore=true },
                 new PropMetadata() { Name = "ConstructionObj", Caption = "Id подрядчика", Type = "ConstructionObj", PropType = PropTypeEnum.DictValue  },
                 new PropMetadata() { Name = "Characteristics", Caption="Характеристики", Type = "ICollection<CharacteristicObj>", PropType = PropTypeEnum.Detail},
@@ -606,10 +613,10 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "IdObj", Caption = "Id Объекта", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Number", Caption="Номер", Type = "int"},
                 new PropMetadata() { Name = "NumberFolder", Caption="Номер Папки", Type = "string?"},
-                new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string" },
+                new PropMetadata() { Name = "Address", Caption="Адрес", Type = "string?" },
                 new PropMetadata() { Name = "NameObj", Caption="Наименование объекта", Type = "string" },
-                new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent", PropType = PropTypeEnum.DictValue   },
-                new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People", PropType = PropTypeEnum.DictValue  },
+                new PropMetadata() { Name = "Agent", Caption="Контрагент", Type = "Agent?", PropType = PropTypeEnum.DictValue   },
+                new PropMetadata() { Name = "People", Caption="Пользователь", Type = "People?", PropType = PropTypeEnum.DictValue  },
                 new PropMetadata() { Name = "Status", Caption="Статус Сделки", Type = "string" },
                 new PropMetadata() { Name = "Gpr", Caption="ГПР", Type = "ICollection<Gpr>", PropType = PropTypeEnum.Detail },
                 new PropMetadata() { Name = "Indicators", Caption="Показатели", Type = "ICollection<Indicator>", PropType = PropTypeEnum.Detail },
@@ -639,7 +646,7 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdAgent", Caption = "Id контрагента", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "Code1c", Caption = "Код контрагента из 1с", Type = "string" },
+                new PropMetadata() { Name = "Code1c", Caption = "Код контрагента из 1с", Type = "string?" },
                 new PropMetadata() { Name = "BitrixId", Caption = "Bitrix ID", Type = "int?", Visible=false},
             }
         };
@@ -663,9 +670,9 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdIndicator", Caption = "Id показателя объекта", Type = "int", IsPrimaryKey = true, Visible = false },
-                new PropMetadata() { Name = "PlanSumm", Caption = "Плановая стоимость", Type = "decimal" },
-                new PropMetadata() { Name = "FactSumm", Caption = "Фактическая стоимость", Type = "decimal" },
-                new PropMetadata() { Name = "Date", Caption="Дата", Type = "DateTime"},
+                new PropMetadata() { Name = "PlanSumm", Caption = "Плановая стоимость", Type = "decimal?" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Фактическая стоимость", Type = "decimal?" },
+                new PropMetadata() { Name = "Date", Caption="Дата", Type = "DateTime?"},
                 new PropMetadata() { Name = "NameIndicator", Caption = "Показатель", Type = "NameIndicator", PropType = PropTypeEnum.DictValue},
                 new PropMetadata() { Name = "Obj", Caption = "Объект", Type = "Obj", PropType = PropTypeEnum.Master, JsonIgnore = true },
             }
@@ -722,11 +729,11 @@ public static class ProjectMetadataHelper
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdKc", Caption = "Id KC", Type = "int", IsPrimaryKey = true, Visible = false },
                 new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string" },
-                new PropMetadata() { Name = "DateSubmission", Caption = "Дата Подачи", Type = "DateTime" },
-                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
-                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
-                new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string" },
-                new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime" },
+                new PropMetadata() { Name = "DateSubmission", Caption = "Дата Подачи", Type = "DateTime?" },
+                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal?" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal?" },
+                new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string?" },
+                new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime?" },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", PropType = PropTypeEnum.Master, JsonIgnore = true },
                 new PropMetadata() { Name = "Payment", Caption="Платежи", Type = "ICollection<Payment>", PropType = PropTypeEnum.Detail},
             }
@@ -739,10 +746,10 @@ public static class ProjectMetadataHelper
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name = "IdPayment", Caption = "Id Вида работ", Type = "int", IsPrimaryKey = true, Visible = false},
-                new PropMetadata() { Name = "PlanDate", Caption = "Дата план", Type = "DateTime" },
-                new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime" },
-                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal" },
-                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal" },
+                new PropMetadata() { Name = "PlanDate", Caption = "Дата план", Type = "DateTime?" },
+                new PropMetadata() { Name = "FactDate", Caption = "Дата факт", Type = "DateTime?" },
+                new PropMetadata() { Name = "PlanSumm", Caption = "План Суммы", Type = "decimal?" },
+                new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal?" },
                 new PropMetadata() { Name = "Kc", Caption = "KC", Type = "Kc", PropType = PropTypeEnum.Master },
             }
         };

@@ -43,9 +43,9 @@ import {{Grid}} from '../components/Grid';
 import {t}EditForm from './{t}EditForm';"));
 
             List<string> masterTypes = new List<string>();
-            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp && c.ModelPropMetadata.Type != Form.Model.Name))
+            foreach (ComponentMetadata componentDetailTable in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp && c.ModelPropMetadata.TypeOfNullable != Form.Model.Name))
             {
-                ModelMetadata detailMetadata = ProjectMetadata.GetType(componentDetailTable.ModelPropMetadata.Type);
+                ModelMetadata detailMetadata = ProjectMetadata.GetType(componentDetailTable.ModelPropMetadata.TypeOfNullable);
                 if (!masterTypes.Contains(detailMetadata.Name))
                 {
                     masterTypes.Add(detailMetadata.Name);
@@ -164,15 +164,15 @@ const toUpperFirstChar = str => {{
             foreach (ComponentMetadata componentLookUp in Form.Components.Where(c => c.Type == ComponentTypeEnum.LookUp))
             {
                 res += $@"  
-  const [lookUpItems{componentLookUp.ModelPropMetadata.Type}, setLookUpItems{componentLookUp.ModelPropMetadata.Type}] = useState<{componentLookUp.ModelPropMetadata.Type}[]>();
+  const [lookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable}, setLookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable}] = useState<{componentLookUp.ModelPropMetadata.TypeOfNullable}[]>();
   
   useEffect(() => {{
-    {componentLookUp.ModelPropMetadata.Type}Service.getall().then((item) => {{
-        setLookUpItems{componentLookUp.ModelPropMetadata.Type}(item);
+    {componentLookUp.ModelPropMetadata.TypeOfNullable}Service.getall().then((item) => {{
+        setLookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable}(item);
     }});
   }}, [])
 
-  const selectLookUpItems{componentLookUp.ModelPropMetadata.Type} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.Type} ? lookUpItems{componentLookUp.ModelPropMetadata.Type}.map(i => <option  key={{i.id{componentLookUp.ModelPropMetadata.Type}}}  value={{i.id{componentLookUp.ModelPropMetadata.Type}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.Type}]);
+  const selectLookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable} = useMemo(()=>lookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable} ? lookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable}.map(i => <option  key={{i.id{componentLookUp.ModelPropMetadata.TypeOfNullable}}}  value={{i.id{componentLookUp.ModelPropMetadata.TypeOfNullable}}}>{{{componentLookUp.Props.FirstOrDefault()?.Name ?? ""}}}</option>):null, [lookUpItems{componentLookUp.ModelPropMetadata.TypeOfNullable}]);
 
 ";
             }

@@ -20,5 +20,6 @@ namespace DataAccessLayer
         int Delete(T entity);
         int Delete(IEnumerable<T> items);
         IEnumerable<int> GetIds(Expression<Func<T, bool>> where, Expression<Func<T, int>> idExpression);
+	int Create(IEnumerable<T> items);
     }
 }
