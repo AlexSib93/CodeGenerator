@@ -49,7 +49,7 @@ namespace CodeGenerator.Classes
 
             foreach (FileInfo file in dir.GetFiles())
             {
-                string targetFilePath = Path.Combine(destinationDir, ReplaceContent(file.Name, "TemplateProjectName", ProjectMetadata.Name));
+                string targetFilePath = Path.Combine(destinationDir, ReplaceInFileNames(file.Name));
 
                 ReplaceInFile(file.FullName, targetFilePath);
             }
@@ -58,11 +58,22 @@ namespace CodeGenerator.Classes
             {
                 foreach (DirectoryInfo subDir in dirs)
                 {
-                    string newDestinationDir = Path.Combine(destinationDir, ReplaceContent(subDir.Name, "TemplateProjectName", ProjectMetadata.Name));
+                    string newDestinationDir = Path.Combine(subDir.Name, ReplaceInFileNames(subDir.Name));
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
             }
         }
+
+        private string ReplaceInFileNames(string fileName)
+        {
+            return ReplaceContent(
+                ReplaceContent(fileName, 
+                    "TemplateProjectName", 
+                    ProjectMetadata.Name), 
+                "DefaultWinDrawService", 
+                "CalcConstructionsWorksService");
+        }
+
         public void ReplaceInFile(string filePathIn, string filePathOut)
         {
 
