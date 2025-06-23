@@ -521,6 +521,7 @@ public static class ProjectMetadataHelper
         metadata.Namespace = "Расчет_работ_конструкции";
         metadata.Description = "Solution for testing generator when development";
         metadata.Path = @"..\..\..\..\Projects\std\Std.WdScripts\Std.WdScripts.CalcScripts\";
+        metadata.Models = new List<ModelMetadata>() { new ModelMetadata() { Name = "CalcConstructionsWorksService", InitData = WdScripts.CalcConstructionsWorks } };
 
         return metadata;
     }

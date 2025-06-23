@@ -66,12 +66,7 @@ namespace CodeGenerator.Classes
 
         private string ReplaceInFileNames(string fileName)
         {
-            return ReplaceContent(
-                ReplaceContent(fileName, 
-                    "TemplateProjectName", 
-                    ProjectMetadata.Name), 
-                "DefaultWinDrawService", 
-                "CalcConstructionsWorksService");
+            return ReplaceContent(fileName, "TemplateProjectName", ProjectMetadata.Name);
         }
 
         public void ReplaceInFile(string filePathIn, string filePathOut)
