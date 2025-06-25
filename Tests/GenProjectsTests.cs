@@ -31,6 +31,20 @@ namespace Tests
             generator.GenCode(ProjectMetadataHelper.WdScriptProjectMetadata());
         }
 
+        [TestMethod("WdScriptSerializeModelProject")]
+        public void TestCreateWdScriptSerializeModelProject()
+        {
+            Generator generator = new Generator();
+            generator.Settings.GenBllProject = false;
+            generator.Settings.GenDalProject = false;
+            generator.Settings.GenTestsProject = false;
+            generator.Settings.GenWebApiProject = false;
+            generator.Settings.GenReactProject = false;
+            generator.Settings.GenSqlCommandProject = false;
+            generator.Settings.GenSolution = false;
+            generator.GenCode(ProjectMetadataHelper.WdScriptSerilizeModelProjectMetadata());
+        }
+
         [TestMethod("GeneratorGui")]
         public void TestCreateGeneratorGui()
         {

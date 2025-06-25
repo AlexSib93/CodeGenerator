@@ -58,7 +58,7 @@ namespace CodeGenerator.Classes
             {
                 foreach (DirectoryInfo subDir in dirs)
                 {
-                    string newDestinationDir = Path.Combine(subDir.Name, ReplaceInFileNames(subDir.Name));
+                    string newDestinationDir = Path.Combine(destinationDir, ReplaceInFileNames(subDir.Name));
                     CopyDirectory(subDir.FullName, newDestinationDir, true);
                 }
             }
@@ -86,7 +86,14 @@ namespace CodeGenerator.Classes
 
             content = ReplaceContent(content, "NameSpaceDefault", ProjectMetadata.Namespace ?? "ProjectNamespace");
 
-            content = ReplaceContent(content, "DefaultWinDrawService", "CalcConstructionsWorksService");
+            if(ProjectMetadata.IsWdScript)
+            {
+                string firstClassName = ProjectMetadata.Models.FirstOrDefault().Name;
+                if(!string.IsNullOrEmpty(firstClassName))
+                {
+                    content = ReplaceContent(content, "DefaultWinDrawService", firstClassName);
+                }
+            }
 
             if (!string.IsNullOrEmpty(ProjectMetadata.Caption))
                 content = ReplaceContent(content, "TemplateProjectCaption", ProjectMetadata.Caption);

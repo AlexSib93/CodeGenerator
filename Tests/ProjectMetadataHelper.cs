@@ -336,7 +336,6 @@ public static class ProjectMetadataHelper
         return metadata;
     }
 
-
     public static ProjectMetadata RemakeArmProjectMetadata()
     {
         string nameSpace = "RemakeArm";
@@ -434,7 +433,6 @@ public static class ProjectMetadataHelper
         return metadata;
     }
 
-
     public static ProjectMetadata TestProjectMetadata()
     {
         ProjectMetadata metadata = new ProjectMetadata();
@@ -517,11 +515,25 @@ public static class ProjectMetadataHelper
     public static ProjectMetadata WdScriptProjectMetadata()
     {
         ProjectMetadata metadata = new ProjectMetadata();
+        metadata.IsWdScript = true;
         metadata.Name = "63_Расчет_работ_конструкции";
         metadata.Namespace = "Расчет_работ_конструкции";
         metadata.Description = "Solution for testing generator when development";
         metadata.Path = @"..\..\..\..\Projects\std\Std.WdScripts\Std.WdScripts.CalcScripts\";
         metadata.Models = new List<ModelMetadata>() { new ModelMetadata() { Name = "CalcConstructionsWorksService", InitData = WdScripts.CalcConstructionsWorks } };
+
+        return metadata;
+    }
+
+    public static ProjectMetadata WdScriptSerilizeModelProjectMetadata()
+    {
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.IsWdScript = true;
+        metadata.Name = "4_Сериализация_модели";
+        metadata.Namespace = "Сериализация_модели";
+        metadata.Description = "Solution for testing generator when development";
+        metadata.Path = @"..\..\..\..\Projects\std\Std.WdScripts\Std.WdScripts.CalcScripts\";
+        metadata.Models = new List<ModelMetadata>() { new ModelMetadata() { Name = "SerializeModelService", InitData = WdScripts.ModelSerialize } };
 
         return metadata;
     }

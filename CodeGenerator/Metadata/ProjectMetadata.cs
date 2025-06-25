@@ -10,7 +10,7 @@ namespace CodeGenerator.Metadata
         public string? Description { get; set; }
         public string? Path { get; set; }
         public string? DbConnectionString { get; set; }
-        public string? CodeWdScript { get; set; }
+        public bool IsWdScript { get; set; } = false;
         // Todo: переделать на enum
         public UnitOfWorkEnum UnitOfWork { get; set; } = UnitOfWorkEnum.MockUnit;
         public int? WebApiHttpsPort { get; set; } = 7112;

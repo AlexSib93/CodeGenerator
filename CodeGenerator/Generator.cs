@@ -9,7 +9,6 @@ namespace CodeGenerator
         public Settings Settings { get; set; } = Settings.DefaultDevSettings;
         public void GenCode(string projectName)
         {
-            Settings.TemplatesPath = @"..\..\..\CodeGenerator\Templates";
             ProjectMetadata projectMetadata = (!string.IsNullOrEmpty(projectName))
                 ? ReadMetaInfo(projectName)
                 : TestProjectMetadata();
