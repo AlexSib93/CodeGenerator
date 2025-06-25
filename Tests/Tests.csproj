@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeGenerator\CodeGenerator.csproj" />
+    <ProjectReference Include="..\LoadProjectMetadataFromWd\LoadProjectMetadataFromWd.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,8 @@ namespace CodeGenerator.Metadata
         public string? Path { get; set; }
         public string? DbConnectionString { get; set; }
         public bool IsWdScript { get; set; } = false;
+        public string CodeScript { get; set; }
+
         // Todo: переделать на enum
         public UnitOfWorkEnum UnitOfWork { get; set; } = UnitOfWorkEnum.MockUnit;
         public int? WebApiHttpsPort { get; set; } = 7112;

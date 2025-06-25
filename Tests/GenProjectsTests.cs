@@ -4,6 +4,7 @@ using CodeGenerator.Services;
 using CodeGenerator.Projects;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using LoadProjectMetadataFromWd;
 
 namespace Tests
 {
@@ -101,6 +102,27 @@ namespace Tests
         {
             ProjectRunner.RunProject(ProjectMetadataHelper.RemakeArmProjectMetadata());
 
+        }
+
+
+        [TestMethod]
+        public void TestLoadScripts()
+        {
+            List<ProjectMetadata> projects = LoadScriptService.GetScripts( new int[] { 10, 20, 30, 41, 42, 46, 47, 52, 53, 54, 55, 57, 58, 59, 63, 82, 84, 85, 87, 88, 70 });
+
+            Generator generator = new Generator();
+            generator.Settings.GenBllProject = false;
+            generator.Settings.GenDalProject = false;
+            generator.Settings.GenTestsProject = false;
+            generator.Settings.GenWebApiProject = false;
+            generator.Settings.GenReactProject = false;
+            generator.Settings.GenSqlCommandProject = false;
+            generator.Settings.GenSolution = false;
+
+            foreach (ProjectMetadata project in projects)
+            {
+                generator.GenCode(project);
+            }
         }
     }
 }

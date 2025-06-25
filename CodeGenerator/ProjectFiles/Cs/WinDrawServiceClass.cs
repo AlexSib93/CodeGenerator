@@ -53,10 +53,9 @@ namespace CodeGenerator.ProjectFiles.Cs
             {
                 if(Name == "RunCalc")
                 {
-                    CodeClass = CodeClass
-                        .Replace(" Run(", " RunService(")
-                        .Replace("class RunCalc", "class " + ClassInfo.Name)
-                        .Replace(" RunCalc(", " " + ClassInfo.Name + "(");
+                    CodeClass = CodeClass.Replace(" Run(", " RunService(");
+                    CodeClass = CodeClass.Replace("class RunCalc", "class " + ClassInfo.Name);
+                    CodeClass = CodeClass.Replace(" RunCalc(", " " + ClassInfo.Name + "(");
                 }
 
                 res = CodeClass;

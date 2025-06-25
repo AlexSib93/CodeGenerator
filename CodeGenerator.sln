@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeGenerator", "CodeGenerator\CodeGenerator.csproj", "{3FF2CC80-0219-402F-B763-632025D817B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadProjectMetadataFromWd", "LoadProjectMetadataFromWd\LoadProjectMetadataFromWd.csproj", "{5186D25A-01AF-43C7-A1A1-69E5507D2033}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{3FF2CC80-0219-402F-B763-632025D817B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FF2CC80-0219-402F-B763-632025D817B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FF2CC80-0219-402F-B763-632025D817B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5186D25A-01AF-43C7-A1A1-69E5507D2033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5186D25A-01AF-43C7-A1A1-69E5507D2033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5186D25A-01AF-43C7-A1A1-69E5507D2033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5186D25A-01AF-43C7-A1A1-69E5507D2033}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

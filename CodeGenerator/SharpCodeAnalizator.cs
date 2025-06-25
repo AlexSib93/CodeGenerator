@@ -71,7 +71,9 @@ namespace CodeGenerator
                     {
                         res.Add(new SharpClass(className, classText));
 
-                        int start = tempCode.IndexOf(classText.Substring(0, 100));
+                        int charCountForSearch = Math.Min(classText.Length, 100);
+
+                        int start = tempCode.IndexOf(classText.Substring(0, charCountForSearch));
 
                         tempCode = tempCode.Substring(0, start) + tempCode.Substring(start + classText.Length - 1);
                     }
@@ -196,7 +198,7 @@ namespace CodeGenerator
                 string line = lines[i];
 
                 // Ищем начало класса
-                if (!classFound && Regex.IsMatch(line, $@"\b{methodName}\b"))
+                if (!classFound && Regex.IsMatch(line, $@"\b {methodName}\b"))
                 {
                     resLines.Add(line);
                     classStartLine = i;
