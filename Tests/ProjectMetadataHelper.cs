@@ -1,9 +1,6 @@
 ﻿using CodeGenerator;
 using CodeGenerator.Enum;
 using CodeGenerator.Metadata;
-using CodeGenerator.Projects;
-using System.Diagnostics;
-using System.Linq.Expressions;
 
 public static class ProjectMetadataHelper
 {
@@ -544,7 +541,7 @@ public static class ProjectMetadataHelper
         ProjectMetadata metadata = new ProjectMetadata();
         metadata.Name = "Corp";
         metadata.Description = "GUI for Corp";
-        metadata.Path = @"..\..\..\..\Projects\std.gencode\Corp";
+        metadata.Path = @"..\..\..\..\..\std.gencode\Corp";
         metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
         metadata.UnitOfWork = UnitOfWorkEnum.EfUnit;
         ModelMetadata characteristicValueMetadata = new ModelMetadata()
@@ -748,6 +745,8 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "FactSumm", Caption = "Факт Суммы", Type = "decimal?" },
                 new PropMetadata() { Name = "Status", Caption = "Статус", Type = "string?" },
                 new PropMetadata() { Name = "DateGet", Caption = "Дата прихода подписанной КС", Type = "DateTime?" },
+                new PropMetadata() { Name = "DateMonth", Caption = "Период", Type = "DateTime?" },
+                new PropMetadata() { Name = "AgreementNumber", Caption = "Номер договора", Type = "string?" },
                 new PropMetadata() { Name = "Agreement", Caption = "Id соглашения", Type = "Agreement", PropType = PropTypeEnum.Master, JsonIgnore = true },
                 new PropMetadata() { Name = "Payment", Caption="Платежи", Type = "ICollection<Payment>", PropType = PropTypeEnum.Detail},
             }
@@ -830,4 +829,102 @@ public static class ProjectMetadataHelper
         return metadata;
     }
 
+    public static ProjectMetadata ProjectMetadataGlassOrdering()
+    {
+        string nameSpace = "GlassOrdering";
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "GlassOrdering";
+        metadata.Description = "Заказ стёкол поставщику";
+        metadata.Path = @"..\..\..\..\Projects\std.gencode\GlassOrdering";
+        metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=corp;Data Source=sql-wd-01.corp.lan;";
+        metadata.UnitOfWork = UnitOfWorkEnum.EfUnit;
+        ModelMetadata glassOrderingItemMetadata = new ModelMetadata()
+        {
+            Name = "GlassOrderingItem",
+            Caption = "ПЗ",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdOrderItem", Caption = "ID", Type = "int", Visible = false},
+                new PropMetadata() { Name = "IdOrder", Caption = "ID Заказа", Type = "int", Visible = false},
+                new PropMetadata() { Name = "OrderName", Caption = "Заказ", Type = "string" },
+                new PropMetadata() { Name = "ItemName", Caption = "Наименование", Type = "string" },
+                new PropMetadata() { Name = "NumPos", Caption = "Номер позиции", Type = "int" },
+                new PropMetadata() { Name = "QuInOrder", Caption = "Количество в заказе", Type = "int" },
+                new PropMetadata() { Name = "OrderItemNum", Caption = "Номер экземпляра", Type = "int" },
+                new PropMetadata() { Name = "ObjectName", Caption = "Объект", Type = "string" },
+                new PropMetadata() { Name = "DiractionDate", Caption = "Доставка/Установка/Самовывоз", Type = "DateTime?" },
+                new PropMetadata() { Name = "BookingDate", Caption = "Дата бронирования", Type = "DateTime?" },
+                new PropMetadata() { Name = "RequestDate", Caption = "Дата запроса на заказ поставщику", Type = "DateTime?" }
+            }
+        };
+        ModelMetadata glassOrderingDocMetadata = new ModelMetadata()
+        {
+            Name = "GlassOrderingDoc",
+            Caption = "Документ заказа стёкол поставщику",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "IdOptimDoc", Caption = "ID", Type = "int", IsPrimaryKey = true, Visible = false },
+                new PropMetadata() { Name = "Name", Caption = "Наименование", Type = "string"  },
+                new PropMetadata() { Name = "DtDoc", Caption = "Дата", Type = "string"  },
+                new PropMetadata() { Name = "IdPeople", Caption = "ID Создателя", Type = "int", Visible = false  },
+                new PropMetadata() { Name = "PeopleFio", Caption = "Создатель", Type = "string"  },
+                new PropMetadata() { Name = "OrderNames", Caption = "Заказы", Type = "string"  },
+                new PropMetadata() { Name = "State", Caption = "Статус", Type = "string"  },
+                new PropMetadata() { Name = "IdDocState", Caption = "ID Статуса", Type = "int", Visible = false },
+                new PropMetadata() { Name = "Customer", Caption = "Поставщик", Type = "string" },
+                new PropMetadata() { Name = "IdCustomer", Caption = "ID Поставщика", Type = "int?", Visible = false },
+                new PropMetadata() { Name = "OrdersBookingDates", Caption = "Даты бронирования заказов", Type = "string" },
+                new PropMetadata() { Name = "OrdersDiracionDates", Caption = "Даты Доставка/Установка/Самовывоз", Type = "string" },
+                new PropMetadata() { Name = "DeliveryDate", Caption = "Ориентировочная дата поставки", Type = "DateTime?" },
+                new PropMetadata() { Name = "ObjectNames", Caption = "Объекты", Type = "string" },
+                new PropMetadata() { Name = "PartialCompleteReason", Caption = "Причина частичного оприходования", Type = "string" },
+
+            }
+        };
+        
+
+        metadata.Models = new List<ModelMetadata> {
+            glassOrderingDocMetadata,
+            glassOrderingItemMetadata
+        };
+
+        metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
+
+        return metadata;
+    }
+
+    public static ProjectMetadata ProjectMetadataLog()
+    {
+        string nameSpace = "Logger";
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "Logger";
+        metadata.Description = "GUI for Logger";
+        metadata.Path = @"..\..\..\..\Projects\std.gencode\Logger";
+        metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=ecad_copy;Data Source=sql-wd-01.corp.lan;";
+        metadata.UnitOfWork = UnitOfWorkEnum.EfUnit;
+        ModelMetadata logMetadata = new ModelMetadata()
+        {
+            Name = "LogEntry",
+            Caption = "Лог",
+            NameSpace = nameSpace,
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "Id", Caption = "ID", Type = "string", IsPrimaryKey = true, Visible = false},
+                new PropMetadata() { Name = "ParentId", Caption = "ID родителя", Type = "string", Visible = false},
+                new PropMetadata() { Name = "MethodName", Caption = "Метод", Type = "string" },
+                new PropMetadata() { Name = "IdPeople", Caption = "ID пользователя", Type = "int"},
+                new PropMetadata() { Name = "Comment", Caption = "Комментарий", Type = "string"},
+                new PropMetadata() { Name = "Params", Caption = "Параметры", Type = "string"},
+                new PropMetadata() { Name = "IsCompleted", Caption = "Завершен", Type = "bool"},
+                new PropMetadata() { Name = "Children", Caption = "Логи", Type = "ICollection<LogEntry>", PropType = PropTypeEnum.Detail},
+            }
+        };
+
+        metadata.Models = new List<ModelMetadata> {
+            logMetadata
+        };
+
+        metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
+
+        return metadata;
+    }
 }

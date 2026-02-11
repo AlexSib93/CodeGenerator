@@ -9,7 +9,7 @@ using LoadProjectMetadataFromWd;
 namespace Tests
 {
     [TestClass]
-    public class GenProjectsTests
+    public class CodeAnalizatorTests
     {
         [TestMethod]
         public void TestCreateProj()
@@ -60,6 +60,21 @@ namespace Tests
             ProjectRunner.RunProject(ProjectMetadataHelper.GeneratorProjectMetadata());
         }
 
+        [TestMethod("GlassOrderingGui")]
+        public void TestCreateGlassOrdering()
+        {
+            Generator generator = new Generator();
+            generator.Settings.GenWdScriptProject = false;
+            generator.GenCode(ProjectMetadataHelper.ProjectMetadataGlassOrdering());
+        }
+
+        [TestMethod]
+        public void TestGlassOrdering()
+        {
+            ProjectRunner.RunProject(ProjectMetadataHelper.ProjectMetadataGlassOrdering());
+        }
+
+
         [TestMethod("Corp")]
         public void TestCreateProjectCorp()
         {
@@ -96,7 +111,6 @@ namespace Tests
             generator.GenCode(ProjectMetadataHelper.RemakeArmProjectMetadata());
         }
 
-
         [TestMethod]
         public void TestRemakeArm()
         {
@@ -104,25 +118,5 @@ namespace Tests
 
         }
 
-
-        [TestMethod]
-        public void TestLoadScripts()
-        {
-            List<ProjectMetadata> projects = LoadScriptService.GetScripts( new int[] { 10, 20, 30, 41, 42, 46, 47, 52, 53, 54, 55, 57, 58, 59, 63, 82, 84, 85, 87, 88, 70 });
-
-            Generator generator = new Generator();
-            generator.Settings.GenBllProject = false;
-            generator.Settings.GenDalProject = false;
-            generator.Settings.GenTestsProject = false;
-            generator.Settings.GenWebApiProject = false;
-            generator.Settings.GenReactProject = false;
-            generator.Settings.GenSqlCommandProject = false;
-            generator.Settings.GenSolution = false;
-
-            foreach (ProjectMetadata project in projects)
-            {
-                generator.GenCode(project);
-            }
-        }
     }
 }
