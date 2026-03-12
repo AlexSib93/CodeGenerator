@@ -8,7 +8,7 @@ namespace CodeGenerator.Projects
     {
         public SolutionProject(ProjectMetadata projectMetadata) : base(projectMetadata)
         {
-            TemplateProjectName = projectMetadata.Name;
+            TemplateProjectName = "Solution";
         }
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace CodeGenerator.Projects
             string pathForCopyFiles = (!string.IsNullOrEmpty(Metadata.Path))
                 ? Metadata.Path
                 : Directory.GetCurrentDirectory();
-            var templateGenerator = new TemplateFiles(Metadata, $@"{Settings.TemplatesPath}\{Name}", $@"{pathForCopyFiles}");
+            var templateGenerator = new TemplateFiles(Metadata, $@"{Settings.TemplatesPath}\{TemplateProjectName}", $@"{pathForCopyFiles}");
             templateGenerator.Gen();
         }
 

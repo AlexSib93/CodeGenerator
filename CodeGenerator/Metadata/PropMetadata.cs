@@ -26,7 +26,6 @@ namespace CodeGenerator
         public bool IsVirtual => 
             PropType == PropTypeEnum.DictValue 
             ||  PropType == PropTypeEnum.Detail
-            ||  PropType == PropTypeEnum.DictValue
             ||  PropType == PropTypeEnum.Master;
         /// <summary>
         /// Отображать свойство в интерфейсе
