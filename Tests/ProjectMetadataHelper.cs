@@ -841,9 +841,10 @@ public static class ProjectMetadataHelper
         ModelMetadata glassOrderingItemMetadata = new ModelMetadata()
         {
             Name = "GlassOrderingItem",
-            Caption = "ПЗ",
+            Caption = "Позиции для заказа стёкол поставщику",
             NameSpace = nameSpace,
             Props = new List<PropMetadata>() {
+                new PropMetadata() { Name = "ID", Caption = "PrimaryKey", Type = "int", IsPrimaryKey = true, Visible = false},
                 new PropMetadata() { Name = "IdOrderItem", Caption = "ID", Type = "int", Visible = false},
                 new PropMetadata() { Name = "IdOrder", Caption = "ID Заказа", Type = "int", Visible = false},
                 new PropMetadata() { Name = "OrderName", Caption = "Заказ", Type = "string" },

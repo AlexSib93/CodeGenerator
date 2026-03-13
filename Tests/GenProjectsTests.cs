@@ -64,6 +64,12 @@ namespace Tests
         public void TestCreateGlassOrdering()
         {
             Generator generator = new Generator();
+            generator.Settings.GenBllProject = false;
+            generator.Settings.GenDalProject = false;
+            generator.Settings.GenTestsProject = false;
+            generator.Settings.GenWebApiProject = false;
+            generator.Settings.GenSqlCommandProject = false;
+            generator.Settings.GenSolution = false;
             generator.Settings.GenWdScriptProject = false;
             generator.GenCode(ProjectMetadataHelper.ProjectMetadataGlassOrdering());
         }
@@ -71,7 +77,7 @@ namespace Tests
         [TestMethod]
         public void TestGlassOrdering()
         {
-            ProjectRunner.RunProject(ProjectMetadataHelper.ProjectMetadataGlassOrdering());
+            ProjectRunner.RunClient(ProjectMetadataHelper.ProjectMetadataGlassOrdering());
         }
 
 
