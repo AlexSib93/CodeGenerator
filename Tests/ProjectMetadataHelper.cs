@@ -117,10 +117,10 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PropType", Caption="Тип свойства", Type = "PropTypeEnum", PropType = PropTypeEnum.Enum  },
 
                 //вычислимые поля
-                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool", Editable = false, Expression = "PropType != PropTypeEnum.Single" },
+                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool", Editable = false, Expression = "PropType != PropTypeEnum.Single" , PropType=PropTypeEnum.CalcValue},
                 new PropMetadata() { Name = "IsNullable", Caption="Возможны пустые значения", Type = "bool", Editable = false, Expression = "Type.EndsWith(\"?\")" },
-                new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))" },
-                new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"" },
+                new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))", PropType=PropTypeEnum.CalcValue },
+                new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"", PropType=PropTypeEnum.CalcValue },
                 new PropMetadata() { Name = "TypeOfNullable", Caption="Тип Nullable", Type = "string", Editable = false, Expression = "Type.TrimEnd('?')" },
             }
         };
@@ -197,7 +197,7 @@ public static class ProjectMetadataHelper
                 Values = new List<EnumValueMetadata>()
                 {
                     new EnumValueMetadata() { Name = "Single", Caption = "Свойство примитивного типа", IdEnumValueMetadata = 0 },
-                    new EnumValueMetadata() { Name = "Master", Caption = "Свойство ссылка на Матера (объект-родитель)", IdEnumValueMetadata = 1 },
+                    new EnumValueMetadata() { Name = "Master", Caption = "Свойство ссылка на Мастера (объект-родитель)", IdEnumValueMetadata = 1 },
                     new EnumValueMetadata() { Name = "Detail", Caption = "Свойство детейлов", IdEnumValueMetadata = 2 },
                     new EnumValueMetadata() { Name = "DictValue", Caption = "Свойство - значение выбираемое из справочника", IdEnumValueMetadata = 3 },
                     new EnumValueMetadata() { Name = "Enum", Caption = "Свойство перечисления", IdEnumValueMetadata = 4 },
@@ -562,8 +562,8 @@ public static class ProjectMetadataHelper
         };
         ModelMetadata responseItemMetadata = new ModelMetadata()
         {
-            Name = "ResponseItem",
-            Caption = "Едиица ответа",
+            Name = "RequestItem",
+            Caption = "Единица запрома",
             NameSpace = "DocsApprooving",
             Props = new List<PropMetadata>() {
                 new PropMetadata() { Name =  "IdResponseItem", Caption="ID", Type = "int", IsPrimaryKey = true, Visible = false  },
@@ -587,8 +587,7 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name =  "IdPeople", Caption="ID", Type = "int", IsPrimaryKey = true , Visible = false },
                 new PropMetadata() {Name =  "FirstName", Caption="Имя", Type = "string" },
                 new PropMetadata() { Name =  "LastName", Caption="Фамилия", Type = "string" },
-                new PropMetadata() { Name =  "Login", Caption="Логин", Type = "string" },
-                new PropMetadata() { Name =  "PeopleGroups", Caption="Группы доступа", Type = "string" },
+                new PropMetadata() { Name =  "Login", Caption="Логин", Type = "string" }
 
             }
 
@@ -631,7 +630,7 @@ public static class ProjectMetadataHelper
                 new EnumValueMetadata() {
                     IdEnumValueMetadata = 0,
                     Name = "BookingApprooving",
-                    Caption = "Запрос на обход правил бронирования"
+                    Caption = "Согласование правил бронирования"
                 },
                 new EnumValueMetadata() {
                     IdEnumValueMetadata = 1,
@@ -654,7 +653,7 @@ public static class ProjectMetadataHelper
                 new EnumValueMetadata() {
                     IdEnumValueMetadata = 0,
                     Name = "Approoving",
-                    Caption = "Согласование"
+                    Caption = "Согласование признака"
                 },
                 new EnumValueMetadata() {
                     IdEnumValueMetadata = 1,
