@@ -117,10 +117,10 @@ public static class ProjectMetadataHelper
                 new PropMetadata() { Name = "PropType", Caption="Тип свойства", Type = "PropTypeEnum", PropType = PropTypeEnum.Enum  },
 
                 //вычислимые поля
-                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool", Editable = false, Expression = "PropType != PropTypeEnum.Single" },
+                new PropMetadata() { Name = "IsVirtual", Caption="Свойство внешней связи", Type = "bool", Editable = false, Expression = "PropType != PropTypeEnum.Single" , PropType=PropTypeEnum.CalcValue},
                 new PropMetadata() { Name = "IsNullable", Caption="Возможны пустые значения", Type = "bool", Editable = false, Expression = "Type.EndsWith(\"?\")" },
-                new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))" },
-                new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"" },
+                new PropMetadata() { Name = "IsEnumerable", Caption="Коллекция", Type = "bool", Editable = false, Expression = "Type!=null && ( Type.StartsWith(\"List\") || Type.StartsWith(\"ICollection\"))", PropType=PropTypeEnum.CalcValue },
+                new PropMetadata() { Name = "TypeOfEnumerable", Caption="Тип экземпляра коллекции", Type = "string", Editable = false, Expression = "IsEnumerable ? Type.Substring(Type.IndexOf(\"<\") + 1, Type.IndexOf(\">\") - Type.IndexOf(\"<\") - 1) : \"\"", PropType=PropTypeEnum.CalcValue },
                 new PropMetadata() { Name = "TypeOfNullable", Caption="Тип Nullable", Type = "string", Editable = false, Expression = "Type.TrimEnd('?')" },
             }
         };
@@ -197,7 +197,7 @@ public static class ProjectMetadataHelper
                 Values = new List<EnumValueMetadata>()
                 {
                     new EnumValueMetadata() { Name = "Single", Caption = "Свойство примитивного типа", IdEnumValueMetadata = 0 },
-                    new EnumValueMetadata() { Name = "Master", Caption = "Свойство ссылка на Матера (объект-родитель)", IdEnumValueMetadata = 1 },
+                    new EnumValueMetadata() { Name = "Master", Caption = "Свойство ссылка на Мастера (объект-родитель)", IdEnumValueMetadata = 1 },
                     new EnumValueMetadata() { Name = "Detail", Caption = "Свойство детейлов", IdEnumValueMetadata = 2 },
                     new EnumValueMetadata() { Name = "DictValue", Caption = "Свойство - значение выбираемое из справочника", IdEnumValueMetadata = 3 },
                     new EnumValueMetadata() { Name = "Enum", Caption = "Свойство перечисления", IdEnumValueMetadata = 4 },
@@ -531,6 +531,163 @@ public static class ProjectMetadataHelper
         metadata.Description = "Solution for testing generator when development";
         metadata.Path = @"..\..\..\..\Projects\std\Std.WdScripts\Std.WdScripts.CalcScripts\";
         metadata.Models = new List<ModelMetadata>() { new ModelMetadata() { Name = "SerializeModelService", InitData = WdScripts.ModelSerialize } };
+
+        return metadata;
+    }
+
+    public static ProjectMetadata DocRequestProjectMetadata()
+    {
+        ProjectMetadata metadata = new ProjectMetadata();
+        metadata.Name = "DocRequests";
+        metadata.Description = "Solution for requests about any documents";
+        metadata.Path = "./TestSolution";
+        metadata.DbConnectionString = @"Password=ggdhHGHGKdgett3563@#;Persist Security Info=True;User ID=windraw-dbo;Initial Catalog=ecad_copy;Data Source=sql-wd-01.corp.lan;";
+        metadata.UnitOfWork = UnitOfWorkEnum.EfUnit;
+        ModelMetadata DocRequestMetadata = new ModelMetadata()
+        {
+            Name = "DocRequest",
+            Caption = "Запрос по документу",
+            NameSpace = "DocsApprooving",
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name =  "IdDocRequest", Caption="Тип запроса", Type = "int", IsPrimaryKey = true, Visible = false },
+                new PropMetadata() { Name =  "IdDoc", Caption="ID документа", Type = "string" },
+                new PropMetadata() { Name =  "DocAppearance", Caption="Тип документа", Type = "DocAppearanceEnum", PropType = PropTypeEnum.Enum  },
+                new PropMetadata() { Name =  "DtCreate", Caption = "Дата создания", Type = "DateTime" },    
+                new PropMetadata() { Name =  "Initiator", Caption="Инициатор", Type = "People" , PropType = PropTypeEnum.DictValue},
+                new PropMetadata() { Name =  "DtResponse", Caption="Время решения", Type = "DateTime?" },
+                new PropMetadata() { Name =  "State", Caption="Состояние", Type = "ResponseStateEnum", PropType = PropTypeEnum.Enum  },
+                new PropMetadata() { Name =  "Type", Caption="Тип", Type = "RequestTypeEnum", PropType = PropTypeEnum.Enum },
+                new PropMetadata() { Name =  "ResponseItems", Caption="Ответы", Type = "ICollection<ResponseItem>", PropType = PropTypeEnum.Detail }
+            }
+        };
+        ModelMetadata responseItemMetadata = new ModelMetadata()
+        {
+            Name = "RequestItem",
+            Caption = "Единица запрома",
+            NameSpace = "DocsApprooving",
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name =  "IdResponseItem", Caption="ID", Type = "int", IsPrimaryKey = true, Visible = false  },
+                new PropMetadata() {Name =  "Type", Caption="Тип", Type = "ResponseTypeEnum" , PropType = PropTypeEnum.Enum},
+                new PropMetadata() { Name =  "State", Caption="Состояние", Type = "ResponseStateEnum" , PropType = PropTypeEnum.Enum},
+                new PropMetadata() { Name =  "DtResponse", Caption="Время решения", Type = "DateTime?" },
+                new PropMetadata() { Name =  "RequestPayload", Caption="Данные запроса", Type = "string" },
+                new PropMetadata() { Name =  "ResponsePayload", Caption="Данные ответа", Type = "string" },
+                new PropMetadata() { Name =  "DocRequest", Caption="Запрос", Type = "DocRequest", PropType = PropTypeEnum.Master, JsonIgnore = true },
+
+            }
+
+        };
+
+        ModelMetadata peopleMetadata = new ModelMetadata()
+        {
+            Name = "People",
+            Caption = "Пользователь",
+            NameSpace = "DocsApprooving",
+            Props = new List<PropMetadata>() {
+                new PropMetadata() { Name =  "IdPeople", Caption="ID", Type = "int", IsPrimaryKey = true , Visible = false },
+                new PropMetadata() {Name =  "FirstName", Caption="Имя", Type = "string" },
+                new PropMetadata() { Name =  "LastName", Caption="Фамилия", Type = "string" },
+                new PropMetadata() { Name =  "Login", Caption="Логин", Type = "string" }
+
+            }
+
+        };
+        metadata.Models = new List<ModelMetadata> {
+                DocRequestMetadata,
+                responseItemMetadata, 
+                peopleMetadata
+            };
+
+        EnumMetadata responseStateEnum = new EnumMetadata()
+        {
+            Name = "ResponseStateEnum",
+            Caption = "Состояние ответа",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 0,
+                    Name = "None",
+                    Caption = "Нет"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 1,
+                    Name = "Approved",
+                    Caption = "Одобренный"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 2,
+                    Name = "Rejected",
+                    Caption = "Отклоненный"
+                }
+            }
+        };
+        EnumMetadata requestTypeEnum = new EnumMetadata()
+        {
+            Name = "RequestTypeEnum",
+            Caption = "Тип запроса",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 0,
+                    Name = "BookingApprooving",
+                    Caption = "Согласование правил бронирования"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 1,
+                    Name = "GoodCreatingRunner",
+                    Caption = "Бегунок создания материала"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 2,
+                    Name = "OrderChanges",
+                    Caption = "Изменение параметров доставки"
+                }
+            }
+        };
+        EnumMetadata responseTypeEnum = new EnumMetadata()
+        {
+            Name = "ResponseTypeEnum",
+            Caption = "Тип ответа",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 0,
+                    Name = "Approoving",
+                    Caption = "Согласование признака"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 1,
+                    Name = "AproovingNumber",
+                    Caption = "Согласование числа"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 2,
+                    Name = "AproovingDate",
+                    Caption = "Согласование даты"
+                }
+            }
+        };
+        EnumMetadata docApearanceEnum = new EnumMetadata()
+        {
+            Name = "DocAppearanceEnum",
+            Caption = "Вид документа",
+            Values = new List<EnumValueMetadata>()
+            {
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 1,
+                    Name = "Order",
+                    Caption = "Заказ"
+                },
+                new EnumValueMetadata() {
+                    IdEnumValueMetadata = 2,
+                    Name = "ManufactDoc",
+                    Caption = "ПЗ"
+                }
+            }
+        };
+        metadata.EnumTypes = new List<EnumMetadata>() { responseTypeEnum, responseStateEnum, requestTypeEnum, docApearanceEnum };
+
+        metadata.Forms = MetadataHelper.AutoCreateFormMetadata(metadata);
 
         return metadata;
     }

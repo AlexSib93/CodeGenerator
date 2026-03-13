@@ -81,6 +81,20 @@ namespace Tests
         }
 
 
+        [TestMethod("DocRequest")]
+        public void TestCreateProjectDocRequest()
+        {
+            Generator generator = new Generator();
+            generator.Settings.GenWdScriptProject = false;
+            generator.GenCode(ProjectMetadataHelper.DocRequestProjectMetadata());
+        }
+        
+        [TestMethod]
+        public void TestDocRequest()
+        {
+            ProjectRunner.RunProject(ProjectMetadataHelper.DocRequestProjectMetadata());
+        }
+
         [TestMethod("Corp")]
         public void TestCreateProjectCorp()
         {
