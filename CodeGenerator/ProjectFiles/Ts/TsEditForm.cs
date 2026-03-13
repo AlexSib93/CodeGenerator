@@ -94,13 +94,13 @@ import {t}EditForm from './{t}EditForm';"));
 
   
   useEffect(() => {{
-    if(editedItem.id{Form.Model.Name} > 0) {{
+    if(editedItem.{StringHelper.ToLowerFirstChar(Form.Model.PrimaryKeyProp.Name)} > 0) {{
       console.log('useEffect editedItem',editedItem);      
-      {Form.Model.Name}Service.get(editedItem.id{Form.Model.Name} ).then((item) => {{
+      {Form.Model.Name}Service.get(editedItem.{StringHelper.ToLowerFirstChar( Form.Model.PrimaryKeyProp.Name)} ).then((item) => {{
         setEditedItem(item);
       }});
     }}
-  }}, [editedItem.id{Form.Model.Name}])
+  }}, [editedItem.{StringHelper.ToLowerFirstChar(Form.Model.PrimaryKeyProp.Name)}])
 
 {MasterValuesInit()}
 

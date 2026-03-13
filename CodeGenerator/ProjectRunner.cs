@@ -5,6 +5,24 @@ namespace CodeGenerator
 {
     public static class ProjectRunner
     {
+        public static void RunClient(ProjectMetadata proj)
+        {
+            Process hostClientProcess = BuildAndRunClient(proj, true);
+
+            hostClientProcess.WaitForExit();
+
+            hostClientProcess.Kill();
+        }
+
+        public static void RunApi(ProjectMetadata proj)
+        {
+            Process hostApiProcess = BuildAndRunWebApi(proj);
+
+            hostApiProcess.WaitForExit();
+
+            hostApiProcess.Kill();
+        }
+
         public static void RunProject(ProjectMetadata proj)
         {
             Process hostApiProcess = BuildAndRunWebApi(proj);
